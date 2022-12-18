@@ -1,0 +1,36 @@
+\documentclass[frenchb]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+%Pour utilisation sous unix
+%\usepackage[utf8]{inputenc}
+%\usepackage[utf8x]{inputenc}
+\usepackage{a4wide}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{babel}
+
+\begin{document}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=5cm]{inp_n7.png}
+\end{figure}
+
+\title{\vspace{4cm} \textbf{Rapport - itération 1}}
+\author{Issam Alouane\\Remi Drabowski\\Adam Bouam\\Jean-Baptiste Prevost}
+\date{\vspace{7cm} Département Sciences du Numérique - Première année \\
+2021-2022 }
+
+\maketitle
+
+\newpage
+\tableofcontents
+\listoffigures
+
+\newpage
+\section{Introduction}
+L'objectif de ce projet était de ...
+
+
+\end{document} 

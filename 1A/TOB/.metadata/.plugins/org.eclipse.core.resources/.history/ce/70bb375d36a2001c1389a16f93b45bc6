@@ -1,0 +1,16 @@
+package allumettes;
+
+public class OperationInterditeException extends RuntimeException  {
+	
+	public String nomTricheur;
+
+	public OperationInterditeException(String nomTricheur) {
+		super();
+		this.nomTricheur = nomTricheur;
+	}
+	
+	public String getNomTricheur () {
+		return this.nomTricheur;
+	}
+
+}

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>Projet</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>.classpath</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Desktop/GH-3/src/.classpath</locationURI>
+		</link>
+		<link>
+			<name>.gitignore</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Desktop/GH-3/src/.gitignore</locationURI>
+		</link>
+		<link>
+			<name>.project</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Desktop/GH-3/src/.project</locationURI>
+		</link>
+		<link>
+			<name>src</name>
+			<type>2</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Desktop/GH-3/src/src</locationURI>
+		</link>
+	</linkedResources>
+</projectDescription>

@@ -1,0 +1,26 @@
+
+Je suis le processus principal de pid 19861
+
+     Processus fils numero 1, de pid 19862, de pere 19861
+
+Je suis le processus principal de pid 19861
+
+Processus de pid 19861 a cree un fils numero 1, de pid 19862 
+
+Processus de pid 19861 a cree un fils numero 2, de pid 19863 
+
+     Processus fils numero 3, de pid 19864, de pere 19861
+
+Je suis le processus principal de pid 19861
+
+Processus de pid 19861 a cree un fils numero 1, de pid 19862 
+
+     Processus fils numero 2, de pid 19863, de pere 19861
+
+Je suis le processus principal de pid 19861
+
+Processus de pid 19861 a cree un fils numero 1, de pid 19862 
+
+Processus de pid 19861 a cree un fils numero 2, de pid 19863 
+
+Processus de pid 19861 a cree un fils numero 3, de pid 19864 

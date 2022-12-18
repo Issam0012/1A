@@ -1,0 +1,47 @@
+package allumettes;
+
+public class jeuAllumettes implements Jeu {
+	
+	private int nb_allumettes;
+	private boolean modeArbitre;
+	
+	/** Construire un jeu à partir de l'arbitre (et donc des 2 joueurs) et de nombres d'allumettes
+	 * @param nb_allumettes le nombre d'allumettes dans le jeu
+	 */
+	public jeuAllumettes (int Nb_Allumettes, boolean modeArbitre) {
+		this.nb_allumettes = Nb_Allumettes;
+		this.modeArbitre = modeArbitre;
+	}
+	
+	/** Obtenir le nombre d'allumettes encore en jeu.
+	 * @return nombre d'allumettes encore en jeu
+	 */
+	public int getNombreAllumettes() {
+		return this.nb_allumettes;
+	}
+	
+	/** Obtenir le mode de l'arbitre (confiant ou pas)
+	 * @return mode de l'arbitre
+	 */
+	public boolean getModeArbitre() {
+		return this.modeArbitre;
+	}
+	
+	/** Retirer des allumettes.  Le nombre d'allumettes doit être compris
+	 * entre 1 et PRISE_MAX, dans la limite du nombre d'allumettes encore
+	 * en jeu.
+	 * @param nbPrises nombre d'allumettes prises.
+	 * @throws CoupInvalideException tentative de prendre un nombre invalide d'allumettes
+	 */
+	public void retirer(int nbPrises) throws CoupInvalideException{
+		if (1 <= nbPrises && nbPrises <= PRISE_MAX && nbPrises <= this.nb_allumettes) {
+			this.nb_allumettes = this.nb_allumettes - nbPrises;
+		} else if (nbPrises > this.nb_allumettes) {
+			throw new CoupInvalideException(nbPrises, " (> "  + this.nb_allumettes + ")");
+		} else if (nbPrises > PRISE_MAX) {
+			throw new CoupInvalideException(nbPrises, " (> "  + PRISE_MAX + ")");
+		} else if (nbPrises < 1) { 
+			throw new CoupInvalideException(nbPrises, " (< 1)");
+		}
+	}
+}

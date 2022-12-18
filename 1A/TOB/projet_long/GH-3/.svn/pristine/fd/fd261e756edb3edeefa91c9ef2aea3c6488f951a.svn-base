@@ -1,0 +1,132 @@
+package vue;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
+public class FenetreAjoutPersonnage {
+
+	
+	private JFrame fenetreAjoutPerso;
+	
+	private final JButton boutonAjouter = new JButton("Nouveau");
+	
+	private final JButton boutonRetour = new JButton("Retour");
+	
+	public FenetreAjoutPersonnage() {
+		
+		this.fenetreAjoutPerso = new JFrame("Personnages");
+		
+		Container contenu = this.fenetreAjoutPerso.getContentPane();
+		
+		JPanel panelBouton = new JPanel();
+		
+		panelBouton.setLayout(new BoxLayout(panelBouton, BoxLayout.Y_AXIS));
+		//bordure jolie
+		panelBouton.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		
+		boutonAjouter.setPreferredSize(new Dimension(150,50));
+		boutonAjouter.addActionListener(new ActionNouveauPerso());
+		boutonAjouter.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		boutonRetour.setPreferredSize(new Dimension(150,50));
+		boutonRetour.addActionListener(new ActionRetour());
+		boutonRetour.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		panelBouton.add(boutonAjouter);
+		panelBouton.add(Box.createVerticalGlue());
+		panelBouton.add(boutonRetour);
+		
+		contenu.add(panelBouton, BorderLayout.WEST);
+		
+		
+		// grille persos
+		
+		JPanel panelPersos = new JPanel();
+		panelPersos.setLayout(new FlowLayout());
+		//panelPersos.setSize(700, 500);
+		
+		contenu.add(panelPersos, BorderLayout.CENTER);
+		
+		
+		panelPersos.add(creerPanelPerso("Elon Musk", "Humain", "Archer"));
+		panelPersos.add(creerPanelPerso("Tony Stark ", "Elfe", "Voleur"));
+		panelPersos.add(creerPanelPerso("Jeff Bezos", "Nordique", "Guerrier"));
+		panelPersos.add(creerPanelPerso("Elon Musk", "Humain", "Archer"));
+		panelPersos.add(creerPanelPerso("Tony Stark ", "Elfe", "Voleur"));
+		panelPersos.add(creerPanelPerso("Jeff Bezos", "Nordique", "Guerrier"));
+		
+		
+		
+		this.fenetreAjoutPerso.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			
+		this.fenetreAjoutPerso.pack();
+		this.fenetreAjoutPerso.setSize(1024, 640);
+		this.fenetreAjoutPerso.setLocationRelativeTo(null);
+		this.fenetreAjoutPerso.setVisible(true);
+		
+	}
+	
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				new FenetreAjoutPersonnage();
+			}
+		});
+	}
+	
+	
+	private class ActionRetour implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("Retour");
+			fenetreAjoutPerso.dispose();
+			new MenuPrincipal();
+		}		
+	}
+	
+	private class ActionNouveauPerso implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			new FenetreNouveauPersonnage();
+		}		
+	}
+	
+	JPanel creerPanelPerso(String Nom, String Race, String Classe) {
+		// Carte Perso
+				JPanel panelPerso = new JPanel();
+				panelPerso.setLayout(new BoxLayout(panelPerso, BoxLayout.Y_AXIS));
+				//bordure jolie
+				panelPerso.setBorder(BorderFactory.createEmptyBorder(55, 55, 55, 55));
+				
+				JLabel JNom = new JLabel(Nom, JLabel.CENTER);
+				JLabel JRace = new JLabel(Race,JLabel.CENTER);
+				JLabel JClasse = new JLabel(Classe,JLabel.CENTER);
+				
+				JNom.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+				JRace.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+				JClasse.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+				
+				panelPerso.add(Box.createRigidArea(new Dimension(10, 10)));
+				panelPerso.add(JNom);
+				panelPerso.add(Box.createRigidArea(new Dimension(20, 20)));
+				panelPerso.add(JRace);
+				panelPerso.add(JClasse);
+				panelPerso.setBorder(BorderFactory.createLineBorder(Color.black));
+				panelPerso.setPreferredSize(new Dimension(80, 120));
+				
+				return panelPerso;
+				
+				//a faire : event listener on click
+				
+	}
+
+}

@@ -1,0 +1,67 @@
+Allumettes restantes : 13
+[Je triche...]
+Abandon de la partie car J1 triche !
+allumettes.CoupInvalideException: Coup invalide car  (> 3) : 13
+	at allumettes.jeuAllumettes.retirer(jeuAllumettes.java:52)
+	at allumettes.Arbitre.arbitrer(Arbitre.java:48)
+	at allumettes.Jouer.main(Jouer.java:42)
+Allumettes restantes : 13
+J2 prend 1 allumette.
+
+Allumettes restantes : 12
+[Je triche...]
+Abandon de la partie car J1 triche !
+allumettes.CoupInvalideException: Coup invalide car  (> 3) : 12
+	at allumettes.jeuAllumettes.retirer(jeuAllumettes.java:52)
+	at allumettes.Arbitre.arbitrer(Arbitre.java:48)
+	at allumettes.Jouer.main(Jouer.java:42)
+Allumettes restantes : 12
+J2 prend 3 allumettes.
+
+Allumettes restantes : 9
+[Je triche...]
+Abandon de la partie car J1 triche !
+allumettes.CoupInvalideException: Coup invalide car  (> 3) : 9
+	at allumettes.jeuAllumettes.retirer(jeuAllumettes.java:52)
+	at allumettes.Arbitre.arbitrer(Arbitre.java:48)
+	at allumettes.Jouer.main(Jouer.java:42)
+Allumettes restantes : 9
+J2 prend 1 allumette.
+
+Allumettes restantes : 8
+[Je triche...]
+Abandon de la partie car J1 triche !
+allumettes.CoupInvalideException: Coup invalide car  (> 3) : 8
+	at allumettes.jeuAllumettes.retirer(jeuAllumettes.java:52)
+	at allumettes.Arbitre.arbitrer(Arbitre.java:48)
+	at allumettes.Jouer.main(Jouer.java:42)
+Allumettes restantes : 8
+J2 prend 3 allumettes.
+
+Allumettes restantes : 5
+[Je triche...]
+Abandon de la partie car J1 triche !
+allumettes.CoupInvalideException: Coup invalide car  (> 3) : 5
+	at allumettes.jeuAllumettes.retirer(jeuAllumettes.java:52)
+	at allumettes.Arbitre.arbitrer(Arbitre.java:48)
+	at allumettes.Jouer.main(Jouer.java:42)
+Allumettes restantes : 5
+J2 prend 1 allumette.
+
+Allumettes restantes : 4
+[Je triche...]
+Abandon de la partie car J1 triche !
+allumettes.CoupInvalideException: Coup invalide car  (> 3) : 4
+	at allumettes.jeuAllumettes.retirer(jeuAllumettes.java:52)
+	at allumettes.Arbitre.arbitrer(Arbitre.java:48)
+	at allumettes.Jouer.main(Jouer.java:42)
+Allumettes restantes : 4
+J2 prend 3 allumettes.
+
+Allumettes restantes : 1
+[Je triche...]
+[Allumettes restantes : 2]
+J1 prend 1 allumette.
+
+J1 perd !
+J2 gagne !

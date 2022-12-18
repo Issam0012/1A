@@ -1,0 +1,33 @@
+package modele;
+
+public class RaceHumain implements Race {
+	
+	private Statistiques statsHumain;
+	private int tailleInventaire;
+	private int vitalite;
+	private String race = "Humain";
+		
+	public RaceHumain() {
+		this.statsHumain = new Statistiques(3,4,3,2,1);
+		this.tailleInventaire = 10;
+		this.vitalite = 10;
+	}
+
+	public int getInventaireDispo() {
+		return this.tailleInventaire;
+	}
+	
+	public int getVitalite() {
+		return this.vitalite;
+	}
+	
+	public Statistiques getStatistiques() {
+		return this.statsHumain;
+	}
+
+	@Override
+	public String getRace() {
+		return this.race;
+	}
+
+}

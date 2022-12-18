@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"http://why3.lri.fr/why3session.dtd">
+<why3session shape_version="5">
+<prover id="0" name="Alt-Ergo" version="2.0.0" timelimit="5" steplimit="0" memlimit="1000"/>
+<prover id="1" name="Z3" version="4.8.7" timelimit="5" steplimit="0" memlimit="1000"/>
+<prover id="2" name="Coq" version="8.11.0" timelimit="0" steplimit="0" memlimit="0"/>
+<file format="whyml" proved="true">
+<path name=".."/>
+<path name="induction-etu.mlw"/>
+<theory name="Induction" proved="true">
+ <goal name="append_Nil_left" proved="true">
+ <proof prover="0"><result status="valid" time="0.00" steps="2"/></proof>
+ <proof prover="1" obsolete="true"><result status="valid" time="0.04" steps="8824"/></proof>
+ </goal>
+ <goal name="append_Cons_left" proved="true">
+ <proof prover="0"><result status="valid" time="0.00" steps="2"/></proof>
+ </goal>
+ <goal name="append_Nil_right" proved="true">
+ <proof prover="2" edited="inductionmnetu_Induction_append_Nil_right_2.v"><result status="valid" time="0.35"/></proof>
+ <transf name="induction_ty_lex" proved="true" >
+  <goal name="append_Nil_right.0" proved="true">
+  <proof prover="0"><result status="valid" time="0.00" steps="5"/></proof>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="append_associative" proved="true">
+ <proof prover="2" edited="inductionmnetu_Induction_append_associative_1.v"><result status="valid" time="0.34"/></proof>
+ <transf name="induction_ty_lex" proved="true" >
+  <goal name="append_associative.0" proved="true">
+  <proof prover="0"><result status="valid" time="0.00" steps="11"/></proof>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="rev_append" proved="true">
+ <proof prover="2" edited="inductionmnetu_Induction_rev_append_1.v"><result status="valid" time="0.37"/></proof>
+ </goal>
+ <goal name="rev_rev" proved="true">
+ <proof prover="2" edited="inductionmnetu_Induction_rev_rev_1.v"><result status="valid" time="0.36"/></proof>
+ <transf name="induction_ty_lex" proved="true" >
+  <goal name="rev_rev.0" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="27"/></proof>
+  </goal>
+ </transf>
+ </goal>
+</theory>
+</file>
+</why3session>

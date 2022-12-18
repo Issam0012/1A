@@ -1,0 +1,80 @@
+\documentclass[frenchb]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+%Pour utilisation sous unix
+%\usepackage[utf8]{inputenc}
+%\usepackage[utf8x]{inputenc}
+\usepackage{a4wide}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{babel}
+
+\begin{document}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=5cm]{inp_n7.png}
+\end{figure}
+
+\title{\vspace{4cm} \textbf{Propositions de sujets}}
+\author{ALOUANE Issam\\ BOUAM Adam\\ DABROWSKI Remi\\ PREVOST Jean-baptiste\\\\ Équipe GH-4}
+\date{\vspace{7cm} Département Sciences du Numérique - Première année \\
+2021-2022 }
+
+\maketitle
+
+\newpage
+\tableofcontents
+
+\newpage
+\section{Liste des propositions}
+
+\subsection{Simulateur de jeu de plateau}
+
+	L'idée de ce sujet est l'élaboration d'un outil permettant de créer des jeux de plateaux stratégiques (type jeu de société mémoire 44 voir figure \ref{fig : mem_44}), ainsi que de pouvoir les tester. Ce simulateur pourra permettre de jouer humain contre humain, ou humain contre ordinateur, (l'ordinateur pourra permettre de tester plus rapidement les spécificités du jeu plus rapidement). Le plateau sera composé de tuiles pouvant être modifiées une à une afin de permettre la création d'un plateau unique et adaptable. Chaque tuile, de forme hexagonale, pourra se voir associée des caractéristiques spécifiques afin de permettre la création d'un jeu plus complet. Il en sera de même pour les pièces de jeu qui seront modifiables à souhait. En plus de cela, il sera possible de placer des obstacles sur le plateau afin de créer différents scénarios. Les règles des jeux créées pourront être éditées directement dans un onglet spécifique. Le jeu pourra se jouer avec des cartes ainsi qu'avec des dés tout deux modifiable. Pour ceux qui est des cartes il sera possible de les modifier. De plus, avant de débuter une partie il sera possible de sélectionner les cartes utilisables durant la partie. Pour rendre les possibilités de jeu plus grandes il pourra être possible de créer des événements qui se produiront de manière aléatoire durant une partie.  
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=10cm]{mem_44_ex.jpg}
+\caption{Exemple de plateau de jeu \label{fig : mem_44}}
+\end{figure}
+
+\newpage
+
+\subsection{Jeu de parchisis}
+
+	L'idée de ce sujet est de recréer un jeu appelé parchisi. En bref, Le parchisi se joue sur un plateau à la forme d'une croix, autour de laquelle sont disposées 68 cases numérotées, 16 desquelles constituent les cases sûres. On emploie quatre groupes de quatre pièces d'une couleur différente pour chacun d'eux. Chacun des quatre joueurs utilise le groupe de pièces d'une des couleurs. Ils existent en plus quatre espaces hors du parcours de la course, et chacun de la couleur respective de chaque groupe de pièces, ou maisons, où chaque joueur garde les pièces qui ne sont pas encore incorporées au jeu. Les pièces se déplacent autour du parcours de 68 cases selon ce qui indique le dé à six faces qui doit lancer chacun des joueurs à tour de rôle. Le vainqueur sera celui qui parvient à introduire, avant les autres, chacune de ses pièces dans la case finale respective, selon les règles du jeu.\\
+	
+\begin{figure}[ht]
+\centering
+\includegraphics[width=7cm]{parchisi.png}
+\caption{Représentation physique du jeu \label{parchisi}}
+\end{figure}
+
+\newpage
+
+\subsection{Jeu d'échec}
+
+    Le jeu d'échecs est un jeu de société opposant deux joueurs de part et d'autre d'un tablier appelé échiquier composé de soixante-quatre cases, 32 claires et 32 sombres nommées les cases blanches et les cases noires. Les joueurs jouent à tour de rôle en déplaçant l'une de leurs seize pièces (ou deux pièces en cas de roque), claires pour le camp des blancs, sombres pour le camp des noirs. Chaque joueur possède au départ un roi, une dame, deux tours, deux fous, deux cavaliers et huit pions. Le but du jeu est d'infliger à son adversaire un échec et mat, une situation dans laquelle le roi d'un joueur est en prise sans qu'il soit possible d'y remédier. Le but du sujet est de recréer une version virtuelle de ce jeu assez classique. \\
+L'utilisateur peut jouer au jeu de deux manières différentes, soit contre un autre utilisateur adversaire, soit contre l'ordinateur.
+S'il choisit de jouer contre l'ordinateur il aura le choix entre deux modes de jeu :
+\begin{itemize}
+\item Facile : l'ordinateur fait des mouvements au hasard.
+\item Difficile : les mouvements de l'ordinateur sont, cette fois-ci, calculés.
+\end{itemize}
+L'utilisateur aura, à chaque partie jouée, droit à 3 propositions de mouvement pour l'aider à choisir son prochain mouvement.\\
+Au début de chaque partie l'utilisateur choisira un temps limite à ne pas dépasser dans le jeu(10min, 30min, ...), si le jeu est entre deux utilisateurs, deux chronomètres seront déclenchés de chaque côté, si le temps d'un joueur s'écoule avant qu'il puisse finir la partie, il perd le jeu.
+
+
+
+\subsection{Les tours de Hanoï}
+
+Les tours de Hanoï sont composées de 3 piliers et d'un certain nombre de disques empilés par ordre de taille décroissante sur un pilier. Le but du jeu est de déplacer tous les disques sur un autre pilier en suivant les règles suivantes: on ne peut déplacer qu'un seul disque à la fois et on ne peut placer un disque sur un autre que si sa taille est inférieure à celle du disque déjà posé. \\
+Notre application permettra à l'utilisateur de jouer aux tours de Hanoï grâce à une interface graphique. Mais disposera aussi d'un mode résolution dans lequel on pourra observer la résolution la plus rapide possible.\\
+
+\subsection{Logiciel de création d'environnement de jeu de rôle}
+	
+	Ce logiciel permettrait la création de jeu de rôle. C'est-à-dire la création des personnages (histoire, caractéristique, ...), en passant par la création des règles et la création des décors interactifs permettant d'avoir une représentation du jeu de rôle. De plus, le logiciel permettra de jouer avec ses propres créations. Tout cela sera jouable à distance si le maître du jeu partage son écran avec le logiciel, car c'est le seul pour qui il est nécessaire d'interagir avec les environnements au fil des parties.	
+	
+\end{document} 

@@ -1,0 +1,27 @@
+package allumettes;
+
+import java.util.Random;
+
+public class StrategieExpert extends Joueur {
+	
+	
+	public StrategieExpert(String Nom) {
+		super(Nom, "expert");
+	}
+
+
+	public int getPrise(Jeu jeu) {
+		int prise;
+		
+		if ((jeu.getNombreAllumettes()-1)%(Jeu.PRISE_MAX+1) != 0) {
+			prise = (jeu.getNombreAllumettes()-1)%(Jeu.PRISE_MAX+1);
+		} else {
+			Random random = new Random();
+			prise = random.nextInt(Min(Jeu.PRISE_MAX, jeu.getNombreAllumettes()) + 1);
+		}
+		
+		return prise;
+		
+	}
+	
+}

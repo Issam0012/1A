@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<Locations >
+  <Project>
+    <vfs_file>/home/ialouane/src/huffman.gpr</vfs_file>
+    <file_marker column=" 10" line=" 23" >
+      <vfs_project>/home/ialouane/src/huffman.gpr</vfs_project>
+      <vfs_file>/home/ialouane/src/arbre_binaire.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 9" line=" 64" >
+      <vfs_project>/home/ialouane/src/huffman.gpr</vfs_project>
+      <vfs_file>/home/ialouane/src/arbre_binaire.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 66" line=" 43" >
+      <vfs_project>/home/ialouane/src/huffman.gpr</vfs_project>
+      <vfs_file>/home/ialouane/src/arbre_binaire_test.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 29" line=" 211" >
+      <vfs_project>/home/ialouane/src/huffman.gpr</vfs_project>
+      <vfs_file>/home/ialouane/src/tableau.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 30" line=" 138" >
+      <vfs_project>/home/ialouane/src/huffman.gpr</vfs_project>
+      <vfs_file>/home/ialouane/src/tableau.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 5" line=" 9" >
+      <vfs_project>/home/ialouane/src/huffman.gpr</vfs_project>
+      <vfs_file>/home/ialouane/src/tableau_test.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 15" >
+      <vfs_project>/home/ialouane/src/huffman.gpr</vfs_project>
+      <vfs_file>/home/ialouane/src/lca.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 13" line=" 225" >
+      <vfs_project>/home/ialouane/src/huffman.gpr</vfs_project>
+      <vfs_file>/home/ialouane/src/test_file.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 13" line=" 25" >
+      <vfs_project>/home/ialouane/src/huffman.gpr</vfs_project>
+      <vfs_file>/home/ialouane/src/compression.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 40" line=" 319" >
+      <vfs_project>/home/ialouane/src/huffman.gpr</vfs_project>
+      <vfs_file>/home/ialouane/src/compression.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 53" line=" 148" >
+      <vfs_project>/home/ialouane/src/huffman.gpr</vfs_project>
+      <vfs_file>/home/ialouane/src/compression.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 14" line=" 318" >
+      <vfs_project>/home/ialouane/src/huffman.gpr</vfs_project>
+      <vfs_file>/home/ialouane/src/compression.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 2" >
+      <vfs_project>/home/ialouane/src/huffman.gpr</vfs_project>
+      <vfs_file>/home/ialouane/src/compression.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 5" line=" 145" >
+      <vfs_project>/home/ialouane/src/huffman.gpr</vfs_project>
+      <vfs_file>/home/ialouane/src/compression.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 40" line=" 294" >
+      <vfs_project>/home/ialouane/src/huffman.gpr</vfs_project>
+      <vfs_file>/home/ialouane/src/decompression.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 10" line=" 293" >
+      <vfs_project>/home/ialouane/src/huffman.gpr</vfs_project>
+      <vfs_file>/home/ialouane/src/decompression.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 2" >
+      <vfs_project>/home/ialouane/src/huffman.gpr</vfs_project>
+      <vfs_file>/home/ialouane/src/decompression.adb</vfs_file>
+    </file_marker>
+    <file_marker current="true" column=" 15" line=" 46" >
+      <vfs_project>/home/ialouane/src/huffman.gpr</vfs_project>
+      <vfs_file>/home/ialouane/src/decompression.adb</vfs_file>
+    </file_marker>
+  </Project>
+</Locations>

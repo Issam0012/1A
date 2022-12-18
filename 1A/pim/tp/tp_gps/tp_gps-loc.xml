@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<Locations >
+  <Project>
+    <vfs_file>/home/ialouane/Annee_1/pim/tp/tp_gps/tp_gps.gpr</vfs_file>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/ialouane/Annee_1/pim/tp/tp_gps/tp_gps.gpr</vfs_project>
+      <vfs_file>/home/ialouane/Annee_1/pim/tp/tp_gps/premier_programme.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 28" line=" 5" >
+      <vfs_project>/home/ialouane/Annee_1/pim/tp/tp_gps/tp_gps.gpr</vfs_project>
+      <vfs_file>/home/ialouane/Annee_1/pim/tp/tp_gps/premier_programme.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 22" line=" 8" >
+      <vfs_project>/home/ialouane/Annee_1/pim/tp/tp_gps/tp_gps.gpr</vfs_project>
+      <vfs_file>/home/ialouane/Annee_1/pim/tp/tp_gps/premier_programme.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 63" line=" 7" >
+      <vfs_project>/home/ialouane/Annee_1/pim/tp/tp_gps/tp_gps.gpr</vfs_project>
+      <vfs_file>/home/ialouane/Annee_1/pim/tp/tp_gps/premier_programme.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/ialouane/Annee_1/pim/tp/tp_gps/tp_gps.gpr</vfs_project>
+      <vfs_file>/home/ialouane/Annee_1/pim/tp/tp_gps/specifier_et_tester.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 25" line=" 89" >
+      <vfs_project>/home/ialouane/Annee_1/pim/tp/tp_gps/tp_gps.gpr</vfs_project>
+      <vfs_file>/home/ialouane/Annee_1/pim/tp/tp_gps/specifier_et_tester.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/ialouane/Annee_1/pim/tp/tp_gps/tp_gps.gpr</vfs_project>
+      <vfs_file>/home/ialouane/Annee_1/pim/tp/tp_gps/specifier_et_tester.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 119" >
+      <vfs_project>/home/ialouane/Annee_1/pim/tp/tp_gps/tp_gps.gpr</vfs_project>
+      <vfs_file>/home/ialouane/Annee_1/pim/tp/tp_gps/specifier_et_tester.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 58" >
+      <vfs_project>/home/ialouane/Annee_1/pim/tp/tp_gps/tp_gps.gpr</vfs_project>
+      <vfs_file>/home/ialouane/Annee_1/pim/tp/tp_gps/specifier_et_tester.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 25" >
+      <vfs_project>/home/ialouane/Annee_1/pim/tp/tp_gps/tp_gps.gpr</vfs_project>
+      <vfs_file>/home/ialouane/Annee_1/pim/tp/tp_gps/specifier_et_tester.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 43" >
+      <vfs_project />
+      <vfs_file>/mnt/n7fs/ens/tp_cregut/GNAT/2021/lib/gcc/x86_64-pc-linux-gnu/10.3.1/rts-native/adainclude/s-assert.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 25" >
+      <vfs_project>/home/ialouane/Annee_1/pim/tp/tp_gps/tp_gps.gpr</vfs_project>
+      <vfs_file>/home/ialouane/Annee_1/pim/tp/tp_gps/specifier_et_tester.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 45" >
+      <vfs_project />
+      <vfs_file>/mnt/n7fs/ens/tp_cregut/GNAT/2021/lib/gcc/x86_64-pc-linux-gnu/10.3.1/rts-native/adainclude/s-assert.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 13" line=" 16" >
+      <vfs_project>/home/ialouane/Annee_1/pim/tp/tp_gps/tp_gps.gpr</vfs_project>
+      <vfs_file>/home/ialouane/Annee_1/pim/tp/tp_gps/specifier_et_tester.adb</vfs_file>
+    </file_marker>
+    <file_marker current="true" column=" 1" line=" 119" >
+      <vfs_project>/home/ialouane/Annee_1/pim/tp/tp_gps/tp_gps.gpr</vfs_project>
+      <vfs_file>/home/ialouane/Annee_1/pim/tp/tp_gps/specifier_et_tester.adb</vfs_file>
+    </file_marker>
+  </Project>
+</Locations>

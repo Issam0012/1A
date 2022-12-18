@@ -1,0 +1,100 @@
+% Validation de http://hpxc/cregut.svn.enseeiht.fr/2021/1sn/pim/tps/ialouane/tp10
+% Run on 2021-11-20 14:20:09.273715
+
+
+################################################################################
+# Modification des fichiers fournis
+################################################################################
+
+
+================================================================================
+## Fichiers qui NE devaient PAS être modifiés
+================================================================================
+
+* Fichier alea.adb non modifié... ok
+* Fichier alea.ads non modifié... ok
+* Fichier exemple_alea.adb non modifié... ok
+* Fichier exemple_unbounded_string.adb non modifié... ok
+* Fichier sda_exceptions.ads non modifié... ok
+* Fichier test_lca.adb non modifié... ERREUR
+
+  | 342c342
+  | < 			--Nouvelle_Exception: Exception;
+  | ---
+  | > 			Nouvelle_Exception: Exception;
+  | 351,352c351
+  | <                 null; --ça va pas marcher avec raise Nouvelle_Exception; car pas tous les éléments ont des clés de longueur 4 
+  | <                        --et ça va toujours générer une exception et arrêter le programme.
+  | ---
+  | > 				raise Nouvelle_Exception;
+
+
+================================================================================
+## Fichiers qui DEVAIENT être modifiés
+================================================================================
+
+* Fichier lca_sujet.adb modifié... ok
+* Fichier lca.ads modifié... ok
+* Fichier lca.adb modifié... ok
+
+
+################################################################################
+# Nettoyer
+################################################################################
+
+* Running gnatclean... ok
+
+
+################################################################################
+# Exercice 1
+################################################################################
+
+
+================================================================================
+## Modifications de lca.ads
+================================================================================
+
+* Comparaison de lca.ads et fournis/lca.ads... différents
+
+   |                                                                                                    <
+   | -- AVEC_AFFICHER_DEBUG STOP DELETE                                                                 <
+   |     type T_cellule;                                                                                |          -- TODO : à compléter
+   |                                                                                                    <
+   |     type T_LCA is access T_cellule;                                                                <
+   |                                                                                                    <
+   |     type T_cellule is                                                                              <
+   |         record                                                                                     <
+   |             cle: T_cle;                                                                            <
+   |             donnee: T_Donnee;                                                                      <
+   |             suivant: T_LCA;                                                                        <
+   |         end record;                                                                                <
+
+
+================================================================================
+## Exécution de lca_sujet.adb
+================================================================================
+
+* Compilation de lca_sujet.adb... ok
+* ./lca_sujet... ok
+* valgrind ./lca_sujet... ok
+
+================================================================================
+## Exécution de test_lca.adb
+================================================================================
+
+* Compilation de test_lca.adb... ok
+
+  | test_lca.adb:257:17: warning: variable "Inutile" is assigned but never read
+  | test_lca.adb:280:35: warning: formal parameter "Cle" is not referenced
+
+* ./test_lca... ok
+* valgrind ./test_lca... ok
+
+
+################################################################################
+# Nettoyer
+################################################################################
+
+* Running gnatclean... ok
+
+<!-- vi: set ts=8: -->

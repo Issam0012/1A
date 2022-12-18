@@ -1,0 +1,21 @@
+package allumettes;
+
+public class StrategieExpert extends Joueur {
+	
+	
+	public StrategieExpert(String Nom) {
+		super(Nom, "expert");
+	}
+
+
+	public int getPrise(Jeu jeu) {
+		int prise;
+		if (jeu.getNombreAllumettes() <= Jeu.PRISE_MAX + 1) {
+			prise = jeu.getNombreAllumettes() - 1;
+		} else {
+			prise = Jeu.PRISE_MAX;
+		}
+		return prise;
+	}
+	
+}

@@ -1,0 +1,176 @@
+package vue;
+
+import controleur.*;
+import modele.*;
+
+import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
+import javax.swing.*;
+
+public class FenetrePersonnageEdit extends JFrame implements VisuelPersonnageEdit{
+
+	private Personnage perso_test;
+
+	private JFrame fenetreEditionPerso; //fenetre principale
+
+	private final JButton boutonForcePlus = new JButton("+");	
+	private final JButton boutonForceMoins = new JButton("-");
+
+	private final JButton boutonIntelPlus = new JButton("+");	
+	private final JButton boutonIntelMoins = new JButton("-");
+
+	private final JButton boutonVitessePlus = new JButton("+");	
+	private final JButton boutonVitesseMoins = new JButton("-");
+
+	private final JButton boutonLuckPlus = new JButton("+");	
+	private final JButton boutonLuckMoins = new JButton("-");
+	
+	private final JButton boutonResPlus = new JButton("+");	
+	private final JButton boutonResMoins = new JButton("-");
+
+	public FenetrePersonnageEdit() {
+		instancierPersonnage();
+		afficherInterface(); 
+	}	
+
+	@Override
+	public void instancierPersonnage() {
+		this.perso_test = new Personnage("Boris", new RaceHumain(), "trop nul");
+		System.out.println(this.perso_test.getNom());
+	}
+
+	@Override
+	public void afficherInterface() {
+		
+		this.fenetreEditionPerso = new JFrame("Edition Personnage");		
+		this.fenetreEditionPerso.setSize(1024,640);
+		this.fenetreEditionPerso.setLocationRelativeTo(null);
+		this.fenetreEditionPerso.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		Container contenu = this.fenetreEditionPerso.getContentPane();		
+		JPanel panelStats = new JPanel();
+		JPanel panelDesc = new JPanel();
+		
+		//Construction zone Description
+		
+		panelDesc.setLayout(new FlowLayout());
+		panelDesc.setLayout(new BoxLayout(panelDesc, BoxLayout.Y_AXIS));
+		
+		/**Creation des labels */
+		JLabel imagePerso = new JLabel(new ImageIcon("vue/tux.jpg"));
+		JLabel textRace = new JLabel(this.perso_test.getRace().getRace());
+		JLabel titreNom = new JLabel("Nom du personnage");
+		JLabel textNom = new JLabel(this.perso_test.getNom());
+		JLabel titreDesc = new JLabel("Description du personnage");
+		JLabel textDesc = new JLabel(this.perso_test.getDescription());		
+		
+		imagePerso.setMaximumSize(new Dimension(300,200));
+		
+		textRace.setFont(new Font("Serif", Font.BOLD, 20));
+		textRace.setMaximumSize(new Dimension(300,30));
+		textRace.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		titreNom.setFont(new Font("Serif", Font.BOLD, 20));
+		titreNom.setMaximumSize(new Dimension(300,30));
+		titreNom.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		titreDesc.setFont(new Font("Serif", Font.BOLD, 20));
+		titreDesc.setMaximumSize(new Dimension(300,30));
+		titreDesc.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		textNom.setBackground(Color.red);
+		textNom.setOpaque(true);
+		textNom.setMaximumSize(new Dimension(300,50));
+		
+		textDesc.setBackground(Color.red);
+		textDesc.setOpaque(true);
+		textDesc.setMaximumSize(new Dimension(300,200));		
+		
+		panelDesc.add(imagePerso);
+		panelDesc.add(textRace);
+		panelDesc.add(titreNom);
+		panelDesc.add(textNom);
+		panelDesc.add(titreDesc);
+		panelDesc.add(textDesc);
+		
+		//Construction de la zone des statistiques du personnage
+		
+		panelStats.setLayout(new BoxLayout(panelStats, BoxLayout.Y_AXIS));
+		//panelStats.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+		
+		JLabel titreStat = new JLabel("Statistiques bonus");
+		titreStat.setFont(new Font("Serif", Font.BOLD, 20));
+		
+		JLabel textStatForce = new JLabel(String.valueOf(this.perso_test.getStatistiques().getForce()));
+		JPanel panelForce =  creerPanelStats(boutonForcePlus, boutonForceMoins, textStatForce);	
+
+		JLabel textStatIntel = new JLabel(String.valueOf(this.perso_test.getStatistiques().getIntelligence()));
+		JPanel panelIntel = creerPanelStats(boutonIntelPlus, boutonIntelMoins, textStatIntel);	
+		
+		JLabel textStatVitesse = new JLabel(String.valueOf(this.perso_test.getStatistiques().getVitesse()));
+		JPanel panelVitesse = creerPanelStats(boutonVitessePlus, boutonVitesseMoins, textStatVitesse);	
+		
+		JLabel textStatLuck = new JLabel(String.valueOf(this.perso_test.getStatistiques().getVitesse()));
+		JPanel panelLuck = creerPanelStats(boutonLuckPlus, boutonLuckMoins, textStatLuck);	
+		
+		JLabel textStatRes = new JLabel(String.valueOf(this.perso_test.getStatistiques().getVitesse()));
+		JPanel panelRes = creerPanelStats(boutonResPlus, boutonResMoins, textStatRes);	
+		
+		
+		panelStats.add(Box.createVerticalStrut(100));
+		panelStats.add(titreStat);
+		panelStats.add(panelForce);
+		panelStats.add(panelIntel);
+		panelStats.add(panelVitesse);	
+		panelStats.add(panelLuck);
+		panelStats.add(panelRes);
+		
+		//Construction de la zone bilan des stats en fonction de la race
+		
+		
+		
+		//Ajout des differentes zones a la fenetre
+		contenu.add(panelDesc, BorderLayout.WEST);
+		contenu.add(panelStats, BorderLayout.CENTER);
+		
+		this.fenetreEditionPerso.setVisible(true);		 
+	}
+
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				new FenetrePersonnageEdit();
+			}
+		});
+	}
+
+	private JPanel creerPanelStats(JButton boutonPlus, JButton boutonMoins, JLabel stat) {
+		boutonPlus.setPreferredSize(new Dimension(50,50));
+		boutonPlus.addActionListener(new ActionStatPlus());
+		boutonMoins.setPreferredSize(new Dimension(50,50));
+		boutonMoins.addActionListener(new ActionStatMoins());
+		
+		JPanel panelAssocie = new JPanel();
+		panelAssocie.setLayout(new FlowLayout());		
+		panelAssocie.add(boutonMoins);
+		panelAssocie.add(stat);
+		panelAssocie.add(boutonPlus);
+		return panelAssocie;
+	}
+
+	private class ActionStatPlus implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("Ajout + 1");			
+		}		
+	}
+
+	private class ActionStatMoins implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("Ajout - 1");			
+		}		
+	}
+
+}

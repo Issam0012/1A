@@ -1,0 +1,129 @@
+--with Ada.Text_IO;            use Ada.Text_IO;
+--with Sda_Exceptions;         use Sda_Exceptions;
+with Ada.Unchecked_Deallocation;
+
+package body arbre_binaire is
+
+    procedure Free is
+            new Ada.Unchecked_Deallocation (Object => T_noeud, Name => T_AB);
+
+    procedure Initialiser(Arbre: out T_AB) is
+    begin
+        Arbre := null;
+    end Initialiser;
+
+
+    function Est_Vide (Arbre : T_AB) return Boolean is
+    begin
+        return Arbre = null;
+    end Est_Vide;
+
+
+    function Est_Vide_fils_D (Arbre : T_AB) return Boolean is
+    begin
+        return Est_Vide(Arbre.all.Fils_D);
+    end Est_Vide_fils_D;
+
+
+    function Est_Vide_fils_G (Arbre : T_AB) return Boolean is
+    begin
+        return Est_Vide(Arbre.all.Fils_G);
+    end Est_Vide_fils_G;
+
+
+    function Indice (Arbre : T_AB) return T_Indice is
+    begin
+        return Arbre.all.Indice;
+    end Indice;
+
+
+    function Valeur (Arbre : T_AB) return T_Valeur is
+    begin
+        return Arbre.all.Valeur;
+    end Valeur;
+
+
+    procedure fils_G (Arbre : in T_AB; gauche : out T_AB) is
+    begin
+        gauche:=Arbre.all.Fils_G;
+    end fils_G;
+
+
+    procedure fils_D (Arbre : in T_AB; droite : out T_AB) is
+    begin
+        droite:=Arbre.all.Fils_D;
+    end fils_D;
+
+
+    function Taille (Arbre : in T_AB) return Integer is
+    begin
+        if Est_Vide(Arbre) then
+            return 0;
+        else
+            return 1+Taille(Arbre.all.Fils_G)+ Taille(Arbre.all.Fils_D);
+        end if;
+    end Taille;
+
+
+    procedure Enregistrer (Arbre : in out T_AB ; Indice : in T_Indice ; Valeur : in T_Valeur) is
+    begin
+        if Est_Vide(Arbre) then
+            Arbre := new T_noeud'(Indice, Valeur, null, null);
+        else
+            Arbre.all.Valeur := Valeur;
+        end if;
+    end Enregistrer;
+
+
+    procedure Associer (Arbre_1 : in out T_AB ; Arbre_2: in T_AB ; Valeur : in T_Valeur) is --pour cette fonction valeur sera remis à '0'
+    begin
+        Arbre_1 := new T_noeud'(sum(Arbre_1.all.Indice,Arbre_2.all.Indice), Valeur, Arbre_1, Arbre_2);
+    end Associer;
+
+
+    procedure Permutation(Arbre1 : out T_AB ; Arbre2 : out T_AB) is
+        Arbre_temp : T_AB;
+    begin
+        Arbre_temp := Arbre1;
+        Arbre1 := Arbre2;
+        Arbre2 := Arbre_temp;
+        Vider(Arbre_temp);
+    end Permutation;
+
+
+    procedure Supprimer (Arbre : in out T_AB ; Indice : in T_Indice) is
+        A_Detruire : T_AB;
+    begin
+        if Taille(Arbre) = 0 then
+            null;
+        elsif Arbre.all.Indice = Indice then
+            A_Detruire := Arbre;
+            if Arbre.all.Fils_G = null then
+                Arbre := Arbre.all.Fils_D;
+                free(A_Detruire);
+            elsif Arbre.all.Fils_D = null then
+                Arbre := Arbre.all.Fils_G;
+                free(A_Detruire);
+            else
+                null;
+            end if;
+        else
+            Supprimer(Arbre.all.Fils_D, Indice);
+            Supprimer(Arbre.all.Fils_G, Indice);
+        end if;
+    end Supprimer;
+
+
+    procedure Vider (Arbre : in out T_AB) is
+    begin
+        if Taille(Arbre) = 0 then
+            Null;
+        else
+            Vider(Arbre.all.Fils_D);
+            Vider(Arbre.all.Fils_G);
+            Supprimer(Arbre, Arbre.all.Indice);
+        end if;
+    end Vider;
+
+
+end arbre_binaire;

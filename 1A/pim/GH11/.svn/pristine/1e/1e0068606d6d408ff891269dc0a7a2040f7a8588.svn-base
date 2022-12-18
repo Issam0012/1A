@@ -1,0 +1,151 @@
+-- La taille d'un tableau
+with arbre_binaire;
+--with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+
+generic
+    Taille_table : integer;
+    type T_indice is private;
+    type T_valeur is private;
+    with function sum(indice_1 : in T_indice; indice_2 : in T_indice) return T_indice;
+    with function increm(indice : in T_indice) return T_indice;
+    with function sup(indice_1 : in T_indice; indice_2 : in T_indice) return Boolean;
+    
+package Tableau is
+    
+    package AB is new arbre_binaire(T_indice, T_valeur, sum);
+    use AB;
+
+
+    type Tab_AB is limited private;  
+    type T_Tableau is limited private;
+    
+
+    -- Initialiser une Tab binaire.  La Tab est vide.
+    procedure Initialiser(Tab: out T_Tableau) with
+            Post => Est_Vide (Tab);
+    
+    --La taille d'un T_Tableau
+    function Taille (Tab : T_Tableau) return integer;
+
+      
+    -- Est-ce qu'une Tab est vide ?
+    function Est_Vide (Tab : T_Tableau) return Boolean;
+    
+   
+    -- Enregistrer une Donn\u00e9e associ\u00e9e \u00e0 une Cl\u00e9 dans une Tab.
+    -- Si la cl\u00e9 est d\u00e9j\u00e0 pr\u00e9sente dans la Tab, sa donn\u00e9e est chang\u00e9e.
+    procedure Enregistrer (Tab : in out T_Tableau ; Indice : in T_indice ; Valeur : in T_valeur);
+    
+   
+    -- Echange l'indice et la valeur avec la l'indice et la valeur de notre choix
+    procedure Echanger(Tab: in out T_Tableau; emplacement_d: in integer; emplacement_a: in integer) with
+
+            Post => Taille(Tab) = Taille(Tab)'Old;
+    
+    
+    -- Prendre l'\u00e9l\u00e9ment dans indice et le stocker dans Arbre
+    procedure Extraction_arbre(Tab : in T_Tableau; Arbre : out AB.T_AB; Indice : in integer) with
+            Pre => Indice <= Taille(Tab) and not(Est_Vide(Tab));
+
+
+    -- L'existance d'une valeur dans un tableau
+    function Valeur_existe(Tab : in T_Tableau; Valeur_test : in T_valeur) return Boolean;
+    
+    
+    -- L'indice d'une valeur dans un tableau
+    function indice_valeur(Tab : in T_Tableau; Valeur_test : in T_valeur) return integer with
+            
+            Pre => Valeur_existe(Tab, Valeur_test);
+    
+    
+    -- Incr\u00e9menter l'indice d'une valeur
+    procedure Incrementer(Tab: in out T_Tableau; emplacement: in integer);
+    
+    
+    -- Trier un tableau dans l'ordre croissant
+    Procedure Tri_Tab(Tab : in out T_Tableau);
+    
+    
+    --Associer deux arbres dans un tableau tout en le laissant tri\u00e9
+    Procedure Associer(Tab: in out T_Tableau; i: in integer; j: in integer; valeur : in T_valeur);
+            
+  
+    -- Supprimer la Donn\u00e9e associ\u00e9e \u00e0 une Cl\u00e9 dans une Tab.
+    -- Exception : Indice_Absente_Exception si Cl\u00e9 n'est pas utilis\u00e9e dans la Tab
+    procedure Supprimer (Tab : in out T_Tableau ; emplacement : in integer) with
+            Pre => emplacement <= Taille(Tab) and not(Est_Vide(Tab)),
+            Post =>  Taille(Tab) = Taille(Tab)'Old - 1; -- un \u00e9l\u00e9ment de moins
+
+    -- Supprimer tous les \u00e9l\u00e9ments d'une Tab.
+    procedure Vider (Tab : in out T_Tableau) with
+            Post => Est_Vide (Tab);
+
+
+    -- Initialiser une arbre binaire.  La Arbre est vide.
+    procedure Initialiser(Arbre: out T_AB) with
+            Post => Est_Vide (Arbre);
+
+
+    -- Est-ce qu'une Arbre et son fils droit et son fils gauche sont vide ? 
+    function Est_Vide (Arbre : in T_AB) return Boolean;
+    
+    --Avoir le fils gauche d'un arbre
+    procedure fils_gauche (Arbre : in T_AB; gauche: out T_AB);
+    
+    --Avoir le fils droit d'un arbre
+    procedure fils_droit (Arbre : in T_AB; droit: out T_AB);
+    
+    
+    --Les quatres fonctions suivantes renvoient l'indice et la valeur et le fils droit et le fils gauche
+    function Indice (Arbre : in T_AB) return T_indice;
+    function Valeur (Arbre : in T_AB) return T_valeur;
+
+
+    -- Obtenir le nombre d'\u00e9l\u00e9ments d'une Arbre. 
+    function Taille (Arbre : in T_AB) return integer with
+            Post => Taille'Result >= 0
+            and (Taille'Result = 0) = Est_Vide (Arbre);
+
+
+    -- Enregistrer une Donn\u00e9e associ\u00e9e \u00e0 une Cl\u00e9 dans une Arbre.
+    -- Si la cl\u00e9 est d\u00e9j\u00e0 pr\u00e9sente dans la Arbre, sa donn\u00e9e est chang\u00e9e.
+    procedure Enregistrer (Arbre : in out T_AB ; Indice : in T_indice ; Valeur : in T_valeur);
+    
+    
+    --Associer deux arbres
+    procedure Associer (Arbre_1 : in out T_AB ; Arbre_2: in T_AB; valeur: in T_valeur);
+    
+    
+    --Permuter les valeurs de 2 arbres
+    procedure Permutation (Arbre_1 : in out T_AB ; Arbre_2: in out T_AB);
+
+
+    -- Supprimer la Donn\u00e9e associ\u00e9e \u00e0 une Cl\u00e9 dans une Arbre.
+    -- Exception : Indice_Absente_Exception si Cl\u00e9 n'est pas utilis\u00e9e dans la Arbre
+    procedure Supprimer (Arbre : in out T_AB ; Indice : in T_indice) with
+            Post =>  Taille (Arbre) = Taille (Arbre)'Old - 1; -- un \u00e9l\u00e9ment de moins
+
+    
+    -- Supprimer tous les \u00e9l\u00e9ments d'une Arbre.
+    procedure Vider (Arbre : in out T_AB) with
+            Post => Est_Vide (Arbre);
+    
+    
+    -- L'affichage d'une arbre
+    generic
+        with procedure afficher_int(variable : in T_indice);
+        with procedure afficher_str(variable : in T_valeur);
+    Procedure affichage_arbre(arbre : in T_AB; nombre : in integer);
+   
+
+private
+
+    type Tab_AB is array (1..Taille_table) of T_AB;
+    
+    type T_Tableau is 
+        record
+            Tableau : Tab_AB;
+            Taille : integer;
+        end record;
+       
+end Tableau;

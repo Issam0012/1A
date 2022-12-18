@@ -1,0 +1,2 @@
+exemples_memoire_dynamique.adb:77:19: warning: procedure "Illustrer_Pointeur_In" is not referenced [-gnatwu]
+exemples_memoire_dynamique.adb:123:09: warning: pragma Unreferenced given for "Illustrer_Memoire_Dynamique_Erreur" [enabled by default]

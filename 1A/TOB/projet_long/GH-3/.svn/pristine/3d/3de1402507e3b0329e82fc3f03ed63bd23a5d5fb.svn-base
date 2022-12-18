@@ -1,0 +1,278 @@
+package vue;
+
+import modele.*;
+import controleur.*;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+public class FenetreEquiper extends JFrame {
+	
+	private Personnage personnage;
+	
+	private EquipableTete nouveauTete;
+	private EquipableArme nouveauArme;
+	private EquipableArmure nouveauArmure;
+	private EquipableBottes nouveauBottes;
+	
+	private JFrame fenetreEquiper; //fenetre princiaple
+		
+	final private JButton boutonTete = new JButton("Creer equipement de tete");
+	final private JButton boutonArme = new JButton("Creer arme");
+	final private JButton boutonArmure = new JButton("Creer armure");
+	final private JButton boutonBottes = new JButton("Creer bottes");
+	
+	final private JButton boutonTerminer = new JButton("Terminer");
+	final private JButton boutonAnnuler = new JButton("Annuler");
+	
+	public FenetreEquiper(Personnage personnage) {
+		afficherInterface(personnage);
+	}	
+
+	public void afficherInterface(Personnage personnage) {
+		
+		this.personnage = personnage;
+		
+		this.fenetreEquiper = new JFrame("Equiper personnage");
+		this.fenetreEquiper.setSize(1024,640);
+		this.fenetreEquiper.setLocationRelativeTo(null);
+		this.fenetreEquiper.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		Container contenu = this.fenetreEquiper.getContentPane();
+		JTabbedPane tabOnglets = new JTabbedPane(); //Gestionnaire d'onglet
+		
+		JPanel ongletGeneral = new JPanel(); //onglet equipement de tete
+		JPanel ongletTete = new JPanel(); //onglet equipement de tete
+		JPanel ongletArme = new JPanel(); //onglet equipement arme
+		JPanel ongletArmure = new JPanel(); //onglet equipement d'armure
+		JPanel ongletBottes = new JPanel(); //onglet equipement de bottes		
+		
+		//Ajout onglets
+		tabOnglets.add("General", ongletGeneral);
+		tabOnglets.add("Arme", ongletArme);
+		tabOnglets.add("Tete", ongletTete);
+		tabOnglets.add("Armure", ongletArmure);
+		tabOnglets.add("Bottes", ongletBottes);
+		
+		//Edition onglet general		
+		ongletGeneral.setLayout(new BoxLayout(ongletGeneral, BoxLayout.Y_AXIS));
+		
+		JLabel titreGeneral = new JLabel("Statistiques général equipement");
+		titreGeneral.setFont(new Font("Arial", Font.BOLD, 20));		
+		
+		JPanel panelTitre = new JPanel();
+		panelTitre.setLayout(new FlowLayout());
+		panelTitre.add(titreGeneral);
+		
+		JPanel panelForceGeneral = CreerPanelStat("Force", personnage.getEquipement().getStatsEquipement().getForce());
+		JPanel panelIntelGeneral = CreerPanelStat("Intelligence", personnage.getEquipement().getStatsEquipement().getIntelligence());
+		JPanel panelVitesseGeneral = CreerPanelStat("Vitesse", personnage.getEquipement().getStatsEquipement().getVitesse());
+		JPanel panelLuckGeneral = CreerPanelStat("Chance", personnage.getEquipement().getStatsEquipement().getChance());
+		JPanel panelResGeneral = CreerPanelStat("Resistance", personnage.getEquipement().getStatsEquipement().getResistance());
+		
+		JPanel panelBouton = new JPanel();
+		panelBouton.setLayout(new FlowLayout());
+		boutonTerminer.addActionListener(new ActionTerminer());
+		boutonTerminer.setPreferredSize(new Dimension(100,50));
+		panelBouton.add(boutonTerminer);
+		
+		//Ajout differents panel a l'onglet general
+		ongletGeneral.add(panelTitre);
+		ongletGeneral.add(panelForceGeneral);	
+		ongletGeneral.add(panelIntelGeneral);
+		ongletGeneral.add(panelVitesseGeneral);
+		ongletGeneral.add(panelLuckGeneral);
+		ongletGeneral.add(panelResGeneral);
+		ongletGeneral.add(panelBouton);		
+		
+		//Onglet Arme		
+		ongletArme.setLayout(new BoxLayout(ongletArme, BoxLayout.X_AXIS));
+		
+		JPanel armeActuelle = CreerPanelEquipementActuel(personnage.getEquipement().getArme());
+		JPanel armeNouveau = CreerPanelNouveauEquipement();
+		ongletArme.add(armeActuelle, BorderLayout.WEST);
+		ongletArme.add(armeNouveau, BorderLayout.EAST);
+		
+		//Onglet Tete
+		ongletTete.setLayout(new BoxLayout(ongletTete, BoxLayout.X_AXIS));
+		
+		JPanel teteActuelle = CreerPanelEquipementActuel(personnage.getEquipement().getTete());
+		JPanel teteNouveau = CreerPanelNouveauEquipement();
+		ongletTete.add(teteActuelle, BorderLayout.WEST);
+		ongletTete.add(teteNouveau, BorderLayout.EAST);
+		
+		//Onglet Armure
+		ongletArmure.setLayout(new BoxLayout(ongletArmure, BoxLayout.X_AXIS));
+		
+		JPanel armureActuelle = CreerPanelEquipementActuel(personnage.getEquipement().getArmure());
+		JPanel armureNouveau = CreerPanelNouveauEquipement();
+		ongletArmure.add(armureActuelle, BorderLayout.WEST);
+		ongletArmure.add(armureNouveau, BorderLayout.EAST);
+		
+		//Onglet Bottes
+		ongletBottes.setLayout(new BoxLayout(ongletBottes, BoxLayout.X_AXIS));
+		
+		JPanel bottesActuelle = CreerPanelEquipementActuel(personnage.getEquipement().getBottes());
+		JPanel bottesNouveau = CreerPanelNouveauEquipement();
+		ongletBottes.add(bottesActuelle, BorderLayout.WEST);
+		ongletBottes.add(bottesNouveau, BorderLayout.EAST);
+		
+		
+		//Ajout onglet a la fenetre principale
+		contenu.add(tabOnglets, BorderLayout.CENTER);
+		
+		this.fenetreEquiper.setVisible(true);		 
+
+	}
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				new FenetreEquiper(new Personnage("testnom", new RaceHumain(), "testdescription"));
+			}
+		});
+	}
+	
+	private JPanel CreerPanelStat(String nomStat, int stat) {
+		JPanel panelCreer = new JPanel();
+		panelCreer.setLayout(new FlowLayout());
+		JLabel labelStat = new JLabel(nomStat + " : ");
+		labelStat.setFont(new Font("Arial", Font.BOLD, 15));
+		JLabel labelValStat = new JLabel(String.valueOf(stat));
+		
+		panelCreer.add(labelStat);
+		panelCreer.add(labelValStat);
+		
+		return panelCreer;
+	}
+	
+	private JPanel CreerPanelNouveauStat(String nomStat) {
+		JPanel panelCreer = new JPanel();
+		panelCreer.setLayout(new FlowLayout());
+		JLabel labelStat = new JLabel(nomStat + " : ");
+		labelStat.setFont(new Font("Arial", Font.BOLD, 15));
+		JSlider sliderStat = CreerSlider(0);
+		
+		panelCreer.add(labelStat);
+		panelCreer.add(sliderStat);
+		
+		return panelCreer;
+	}
+	
+	private JPanel CreerPanelEquipementActuel(Equipable equipement) {
+		JPanel panelStat = new JPanel();
+		panelStat.setLayout(new BoxLayout(panelStat, BoxLayout.Y_AXIS));
+		//Titre partie actuelle
+		JPanel panelActuel = new JPanel();
+		panelActuel.setLayout(new FlowLayout());
+		JLabel labelActuel = new JLabel("Equipement actuel");
+		labelActuel.setFont(new Font("Serif", Font.BOLD, 20));
+		panelActuel.add(labelActuel);
+		
+		JPanel panelNom = new JPanel();
+		panelNom.setLayout(new FlowLayout());
+		JLabel labelNom = new JLabel("Nom equipement : " + equipement.getNom());
+		panelNom.add(labelNom);
+		JPanel panelDesc = new JPanel();
+		panelDesc.setLayout(new FlowLayout());
+		JLabel labelDesc = new JLabel("Description equipement : " + equipement.getDesc());
+		panelDesc.add(labelDesc);
+		
+		JPanel panelForceEquip = CreerPanelStat("Force", equipement.getStatistiques().getForce());
+		JPanel panelIntelEquip = CreerPanelStat("Intel", equipement.getStatistiques().getIntelligence());
+		JPanel panelVitesseEquip = CreerPanelStat("Vitesse", equipement.getStatistiques().getVitesse());
+		JPanel panelLuckEquip = CreerPanelStat("Chance", equipement.getStatistiques().getChance());
+		JPanel panelResEquip = CreerPanelStat("Resistance", equipement.getStatistiques().getResistance());
+		
+		panelStat.add(panelActuel);
+		panelStat.add(panelNom);
+		panelStat.add(panelDesc);
+		panelStat.add(panelForceEquip);
+		panelStat.add(panelIntelEquip);
+		panelStat.add(panelVitesseEquip);
+		panelStat.add(panelLuckEquip);
+		panelStat.add(panelResEquip);
+		
+		return panelStat;
+	}
+	
+	private JPanel CreerPanelNouveauEquipement() {
+		JPanel panelStat = new JPanel();
+		panelStat.setLayout(new BoxLayout(panelStat, BoxLayout.Y_AXIS));
+		//Titre partie actuelle
+		JPanel panelNouveau = new JPanel();
+		panelNouveau.setLayout(new FlowLayout());
+		JLabel labelNouveau = new JLabel("Nouveau équipement");
+		panelNouveau.setFont(new Font("Serif", Font.BOLD, 20));
+		panelNouveau.add(labelNouveau);
+		
+		JPanel panelNom = new JPanel();
+		panelNom.setLayout(new FlowLayout());
+		JLabel labelNom = new JLabel("Nom nouveau equipement : ");
+		JTextField nomEquipement = new JTextField(25);
+		panelNom.add(labelNom);
+		panelNom.add(nomEquipement);
+		JPanel panelDesc = new JPanel();
+		JTextField descEquipement = new JTextField(25);
+		panelDesc.setLayout(new FlowLayout());
+		JLabel labelDesc = new JLabel("Description nouveau equipement : ");
+		panelDesc.add(labelDesc);
+		panelDesc.add(descEquipement);
+		
+		JPanel panelForceEquip = CreerPanelNouveauStat("Force");
+		JPanel panelIntelEquip = CreerPanelNouveauStat("Intel");
+		JPanel panelVitesseEquip = CreerPanelNouveauStat("Vitesse");
+		JPanel panelLuckEquip = CreerPanelNouveauStat("Chance");
+		JPanel panelResEquip = CreerPanelNouveauStat("Resistance");
+		
+		JPanel panelBouton = new JPanel();
+		panelBouton.setLayout(new FlowLayout());
+		JButton boutonRemplacer = new JButton("Remplacer");
+		boutonRemplacer.addActionListener(new ActionRemplacerEquipement());
+		panelBouton.add(boutonRemplacer);
+		
+		panelStat.add(panelNouveau);
+		panelStat.add(panelNom);
+		panelStat.add(panelDesc);
+		panelStat.add(panelForceEquip);
+		panelStat.add(panelIntelEquip);
+		panelStat.add(panelVitesseEquip);
+		panelStat.add(panelLuckEquip);
+		panelStat.add(panelResEquip);
+		panelStat.add(panelBouton);
+				
+		return panelStat;
+	}
+	
+	private JSlider CreerSlider(int valStat) {
+		JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 10 , valStat);
+		slider.addChangeListener(new AjusterValSlider());
+		slider.setMinorTickSpacing(1);
+		slider.setPaintTicks(true);
+		return slider;
+	}
+			
+	private class ActionTerminer implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("Terminer");
+		}		
+	}
+	
+	private class AjusterValSlider implements ChangeListener{
+		@Override
+		public void stateChanged(ChangeEvent e) { 
+	        System.out.println("slider");
+	    } 	
+	}
+	
+	private class ActionRemplacerEquipement implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("Equipement remplacé");
+		}		
+	}
+	
+}

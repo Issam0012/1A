@@ -1,0 +1,12 @@
+cp Téléchargements/tps_C.tar Annee_1/Env_Informatique
+cd Annee_1/Env_Informatique
+tar -xvf tps_C.tar
+cd TPS_C
+mkdir Sources Executables
+mv TP[123]/*.c Sources
+mv TP[123]/* Executables
+rm -R TP[123]
+mv TPS_C Progs_C
+tar -cvf progs_C.tar Progs_C
+t
+

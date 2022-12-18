@@ -1,0 +1,6 @@
+
+* Voir le retour général
+* Voir le retour automatique
+
+* Attention à la mémoire (lancer avec valgrind)
+Ne pas modifier les tests

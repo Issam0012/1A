@@ -1,0 +1,30 @@
+---  
+title : Rapport Projet Huffman
+...  
+
+**1.Résumé**  <a name="resume"></a>
+
+L'objectif de ce rapport est d'exposer la méthode employé pour répondre a certain problème liés a ce projet. 
+Notamment la représentation de l'arbre de Huffman ainsi que sa table, mais aussi comment savoir si le codage de tout les caracteres peut se faire en moins d'un octet, la représentation du code des caractères. 
+Pour cela nous allons dans ce voir tout au long de ce rapport la confection et les choix des algorithmes utilisés ainsi que la démarche associée.
+Pour enfin aboutir a un bilan technique et personnel.  
+
+**2.Introduction**  <a name="introduction"></a>
+
+Ce projet est basés sur le codage d'Huffman qui est utilisé pour compresser des fichiers. Le problème est de pouvoir compresser un fichier a l'aide de ce codage mais également d'avoir la possibilité de le décompresser.
+Ce qui sans cette possiblité rendrait la compression inutile.
+
+**Plan**
+
+1. [Résumé](#resume)
+2. [Introduction](#introduction)
+3. [Types de données](#types_données)
+4. [Architecture de l'application](#architecture)
+5. [Tests des programmes](#tests)
+6. [Organisation](#organisation)
+7. [Bilan](#bilan)
+    a. [Technique](#sub_technique)
+    b. [Personnel](#sub_perso)
+
+
+**Types de données**  <a name="types_données"></a>

@@ -1,0 +1,10 @@
++ L3 : Fichier LISEZ-MOI.txt
+    + Question 3 incomplète
+   
+
++ Autres remarques :
+    + On pourrait changer la statégie du joueur au cours du jeu avec une méthode setStrategie par exemple 
+et au prochain getPrise la nouvelle statégie sera ainsi utilisée.
+
++ Correction sur les pénalités automatiques : 0
+

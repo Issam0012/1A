@@ -1,0 +1,79 @@
+with Ada.Text_IO;           use Ada.Text_IO;
+with Ada.Integer_Text_IO;   use Ada.Integer_Text_IO;
+with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+
+with arbre_binaire;
+
+procedure huffman_test is
+
+    function somme(a: in integer; b: in integer) return integer is
+    begin
+        return a+b;
+    end somme;
+
+	package arbre_binaire_integer_string is
+		new arbre_binaire (T_Indice => Integer, T_Valeur => Unbounded_String, sum => somme);
+    use arbre_binaire_integer_string;
+
+    -- Retourner une chaîne avec des guillemets autour de S
+	function Avec_Guillemets (S: Unbounded_String) return String is
+	begin
+		return '"' & To_String (S) & '"';
+	end;
+
+
+    --afficher l'arbre
+    Procedure affichage_arbre(arbre : in T_AB; nombre: in integer) is --nombre sera toujours remis à 0
+    begin
+        If Est_Vide(fils_G(arbre)) and Est_Vide(fils_D(arbre)) then
+            Put("(");
+            Put(Indice(arbre), 0);
+            Put(")");
+            Put(" ");
+            Put(Avec_Guillemets(Valeur(arbre)));
+        Else
+            Put ("(");
+            Put(Indice(arbre), 0);
+            Put(")");
+            New_Line;
+            for i in 1..nombre loop
+                Put("       ");
+            end loop;
+            Put("\--0--");
+            affichage_arbre(fils_D(arbre), nombre+1);
+            for i in 2..Taille(arbre)/2 loop
+                Put("|");
+                New_Line;
+            end loop;
+            for i in 1..nombre loop
+                Put("       ");
+            end loop;
+            Put("\--1--" );
+            affichage_arbre(fils_G(arbre), nombre+1);
+        end if;
+        New_Line;
+    end affichage_arbre;
+
+    arbre_test_1:T_AB;
+    arbre_test_2:T_AB;
+    arbre_test_3:T_AB;
+begin
+    Initialiser(arbre_test_1);
+    Initialiser(arbre_test_2);
+    Initialiser(arbre_test_3);
+    Enregistrer(arbre_test_1, 1, To_Unbounded_String("un"));
+    Enregistrer(arbre_test_2, 2, To_Unbounded_String("deux"));
+    Enregistrer(arbre_test_3, 4, To_Unbounded_String("quatre"));
+    affichage_arbre(arbre_test_1,0);
+    New_Line;
+    affichage_arbre(arbre_test_2,0);
+    New_Line;
+    Associer(arbre_test_1, arbre_test_2, To_Unbounded_String("0"));
+    affichage_arbre(arbre_test_1,0);
+    New_Line;
+    Associer(arbre_test_3, arbre_test_1, To_Unbounded_String("0"));
+    affichage_arbre(arbre_test_3, 0);
+    Vider(arbre_test_1);
+    Vider(arbre_test_2);
+    Vider(arbre_test_3);
+end huffman_test;

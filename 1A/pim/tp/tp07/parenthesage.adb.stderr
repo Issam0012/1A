@@ -1,0 +1,2 @@
+parenthesage.adb:88:04: error: missing "end if;" for "if" at line 85
+parenthesage.adb:88:04: error: missing "end loop;" for "loop" at line 84

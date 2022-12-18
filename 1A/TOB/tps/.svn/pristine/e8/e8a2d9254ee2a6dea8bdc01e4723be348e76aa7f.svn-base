@@ -1,0 +1,20 @@
+Les Q# font référence aux questions posées dans le fichier LISEZ-MOI.txt.
+Les pénalités '+' sont évaluées manuellement (enseignant de TP).
+Les pénalités '+' peuvent donner lieu à des pénalités définitives en V1 (si le travail est jugé insuffisant).
+
++ C3 : Qualité du source de l'application : 0.5 pt
+    + redondance (traitement des cas confiant ou non-confiant) : 0.5 pt
++ C13 : L'arbitre ne doit ni utiliser directement, ni tester la stratégie d'un joueur (instanceof, equals, etc) : 0.5 pt
+
+
+
++ Mauvaise mise en oeuvre du Proxy : 0.5 pt
+    + mauvaise compréhension/implantation : 0.5 pt
+
++ L3 : Fichier LISEZ-MOI.txt : 0.5 pt
+    + Question 2 : 0.5 pt
+
+
++ Total pénalités : 2
++ Correction sur les pénalités automatiques : 0
+

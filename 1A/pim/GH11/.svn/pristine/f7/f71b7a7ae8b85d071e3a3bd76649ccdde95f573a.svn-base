@@ -1,0 +1,90 @@
+with Ada.Text_IO;           use Ada.Text_IO;
+with Ada.Integer_Text_IO;   use Ada.Integer_Text_IO;
+with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+
+with Tableau;
+with arbre_binaire;
+
+procedure Tableau_test is
+
+   Index_debut : constant Integer := 1;
+   Taille_table : Constant Integer := 256;
+
+   function somme(a: in integer; b: in integer) return integer is
+   begin
+      return a+b;
+   end somme;
+
+
+   package M_AB is
+     new arbre_binaire (T_Indice => Integer, T_Valeur => Unbounded_String, sum => somme);
+   use M_AB;
+
+   package Tab_integer_string is
+     new Tableau (Integer,Unbounded_String,somme,Index_debut,Taille_table);
+   use Tab_integer_string;
+
+   -- Retourner une chaîne avec des guillemets autour de S
+   function Avec_Guillemets (S: Unbounded_String) return String is
+   begin
+      return '"' & To_String (S) & '"';
+   end;
+
+
+   --afficher les arbres présent dans le tableau d'arbre
+   Procedure affichage_arbre(arbre : in T_AB; nombre: in integer) is --nombre sera toujours remis Ã  0
+   begin
+      If Est_Vide(fils_G(arbre)) and Est_Vide(fils_D(arbre)) then
+         Put("(");
+         Put(Indice(arbre), 0);
+         Put(")");
+         Put(" ");
+         Put(Avec_Guillemets(Valeur(arbre)));
+      Else
+         Put ("(");
+         Put(Indice(arbre), 0);
+         Put(")");
+         New_Line;
+         for i in 1..nombre loop
+            Put("       ");
+         end loop;
+         Put("\--0--");
+         affichage_arbre(fils_D(arbre), nombre+1);
+         for i in 2..Taille(arbre)/2 loop
+            Put("|");
+            New_Line;
+         end loop;
+         for i in 1..nombre loop
+            Put("       ");
+         end loop;
+         Put("\--1--" );
+         affichage_arbre(fils_G(arbre), nombre+1);
+      end if;
+      New_Line;
+   end affichage_arbre;
+
+   -- Nous avons un problème pour l'instantiation voila pourquoi l'affichage est en commentaire
+   --procedure Afficher_Tab is new Tab_integer_string.Pour_Chaque (affichage_arbre);
+
+
+   Tableau_AB : Tab_AB;
+
+begin
+   Initialiser(Tableau_AB);
+
+   pragma Assert(Est_Vide(Tableau_AB));
+
+   Enregistrer(Tableau_AB,1,To_Unbounded_String("un"),Index_debut);
+   Enregistrer(Tableau_AB,2,To_Unbounded_String("deux"),Index_debut);
+   Enregistrer(Tableau_AB,3,To_Unbounded_String("trois"),Index_debut);
+   Enregistrer(Tableau_AB,4,To_Unbounded_String("quatre"),Index_debut);
+
+   --Afficher_Tab(Tableau_AB,0,Index_debut);
+
+   Echanger(Tableau_AB,2,3);
+   --Afficher_Tab(Tableau_AB,0,Index_debut);
+
+   Vider(Tableau_AB);
+
+   Put("Les tests sont finis");
+end Tableau_test;

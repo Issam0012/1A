@@ -1,0 +1,5 @@
+stocks_materiel.ads:116:26: error: binary operator expected
+stocks_materiel.ads:117:13: error: declaration expected
+stocks_materiel.ads:132:10: error: missing ";"
+stocks_materiel.ads:147:43: error: identifier expected
+stocks_materiel.ads:149:51: error: binary operator expected

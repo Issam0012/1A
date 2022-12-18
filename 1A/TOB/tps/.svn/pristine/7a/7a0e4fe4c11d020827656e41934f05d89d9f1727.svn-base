@@ -1,0 +1,15 @@
+13c13
+< Ordinateur prend 3 allumettes.
+---
+> Xavier, combien d'allumettes ? Xavier prend 3 allumettes.
+16c16
+< Xavier, combien d'allumettes ? Xavier prend 3 allumettes.
+---
+> Ordinateur prend 3 allumettes.
+19c19,22
+< Ordinateur prend 2 allumettes.
+---
+> Xavier, combien d'allumettes ? Xavier prend 1 allumette.
+> 
+> Allumettes restantes : 1
+> Ordinateur prend 1 allumette.

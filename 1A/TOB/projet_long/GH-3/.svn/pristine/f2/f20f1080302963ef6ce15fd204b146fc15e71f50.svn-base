@@ -1,0 +1,180 @@
+package vue.environnement;
+
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+/**
+ * Fenetre de creation d'environnement de jeu
+ * 
+ * @author Bouam Adam
+ * @version 1.0
+ */
+public class CreerEnvironnement extends JFrame {
+	
+	public CreerEnvironnement() {
+		
+		setTitle("Creer Un Nouvel Environnement");
+		setSize(830, 655);
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
+		setVisible(true);
+		
+		Container c = this.getContentPane();
+		
+		//Menu :
+		JButton bFond = new JButton("Fond");
+		bFond.setPreferredSize(new Dimension(100,40));
+		bFond.addActionListener(new ActionChangerFond());
+		bFond.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		JButton bObjets = new JButton("Objets");
+		bObjets.setSize(new Dimension(200,40));
+		bObjets.addActionListener(new ActionChoisirObjet());
+		bObjets.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		JButton bFormes = new JButton("Formes");
+		bFormes.setPreferredSize(new Dimension(200,40));
+		bFormes.addActionListener(new ActionChoisirForme());
+		bFormes.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		JButton bNotes = new JButton("Notes");
+		bNotes.setPreferredSize(new Dimension(200,40));
+		bNotes.addActionListener(new ActionEcrireNotes());
+		bNotes.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		JButton bImporter = new JButton("Importer");
+		bImporter.setPreferredSize(new Dimension(200,40));
+		bImporter.addActionListener(new ActionImporterSon());
+		bImporter.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		JButton bSauv = new JButton("Sauvegarder");
+		bSauv.setPreferredSize(new Dimension(200,40));
+		bSauv.addActionListener(new ActionSauvegarder());
+		bSauv.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		JButton bFermer = new JButton("Fermer");
+		bFermer.setPreferredSize(new Dimension(200,40));
+		bFermer.addActionListener(new ActionFermer());
+		bFermer.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		
+		Box boxGrille = Box.createHorizontalBox();
+		JLabel lGrille = new JLabel("Grille : ");
+		JTextField tGrille_l = new JTextField();
+		JTextField tGrille_c = new JTextField();
+		boxGrille.add(lGrille);
+		boxGrille.add(tGrille_c);
+		boxGrille.add(tGrille_l);
+		
+		Box boxHaut = Box.createVerticalBox();
+		boxHaut.add(Box.createVerticalStrut(5));
+		boxHaut.add(bFond);
+		boxHaut.add(Box.createVerticalStrut(10));
+		boxHaut.add(bObjets);
+		boxHaut.add(Box.createVerticalStrut(10));
+		boxHaut.add(bFormes);
+		boxHaut.add(Box.createVerticalStrut(10));
+		boxHaut.add(bNotes);
+		boxHaut.add(Box.createVerticalStrut(10));
+		boxHaut.add(boxGrille);
+		boxHaut.setBorder(BorderFactory.createTitledBorder("Ajouter"));
+		
+		Box boxSon = Box.createVerticalBox();
+		boxSon.add(Box.createVerticalStrut(5));
+		boxSon.add(bImporter);
+		boxSon.setBorder(BorderFactory.createTitledBorder("Son"));
+		
+		Box box = Box.createVerticalBox();
+		box.add(Box.createVerticalStrut(20));
+		box.add(boxHaut);
+		box.add(Box.createVerticalStrut(50));
+		box.add(boxSon);
+		box.add(Box.createVerticalStrut(200));
+		box.add(bSauv);
+		box.add(Box.createVerticalStrut(10));
+		box.add(bFermer);
+		box.setBorder(BorderFactory.createTitledBorder("Menu Environnement"));
+		
+        c.add(box, BorderLayout.WEST);
+        
+        
+        // Plateau :
+        
+        Plateau plt = new Plateau();
+        c.add(new Plateau());
+        
+        
+	}
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				new CreerEnvironnement();
+			}
+		});
+	}
+	
+	private class ActionChangerFond implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("Changer le fond");
+		}		
+	}
+	
+	private class ActionChoisirObjet implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("Choisir objet à placer dans le plateau");
+		}		
+	}
+	
+	private class ActionChoisirForme implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("Choisir une forme pour le plateau");
+		}
+	}
+	
+	private class ActionImporterSon implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("Importer un son");
+		}		
+	}
+	
+	private class ActionEcrireNotes implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("Ecrire des notes");
+		}		
+	}
+	
+	private class ActionSauvegarder implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("Sauvegarder environnement");
+		}		
+	}
+	
+	private class ActionFermer implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("Fermer");
+			dispose();
+			new MenuEnvironnement();
+		}		
+	}
+}

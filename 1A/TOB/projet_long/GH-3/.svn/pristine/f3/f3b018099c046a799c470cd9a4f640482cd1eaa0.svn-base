@@ -1,0 +1,99 @@
+package vue.environnement;
+
+import vue.MenuPrincipal;
+
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+
+public class MenuEnvironnement {
+	
+	private JFrame fenetreEnv;
+	final private JButton bNouveau = new JButton("Creer Environnement");
+	final private JButton bEditer = new JButton("Editer Environnement");
+	final private JButton bRetour = new JButton("Retour");
+	
+	public MenuEnvironnement() {
+		
+		this.fenetreEnv = new JFrame("Menu Environnement");
+		Container c = this.fenetreEnv.getContentPane();
+		JPanel panelBouton = new JPanel();
+		panelBouton.setLayout(new BoxLayout(panelBouton, BoxLayout.Y_AXIS));
+		panelBouton.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		
+		bNouveau.setPreferredSize(new Dimension(200,75));
+		bNouveau.addActionListener(new ActionNouvelEnv());
+		bNouveau.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		bEditer.setPreferredSize(new Dimension(200,75));
+		bEditer.addActionListener(new ActionEditerEnv());
+		bEditer.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		bRetour.setPreferredSize(new Dimension(200,50));
+		bRetour.addActionListener(new ActionRetour());
+		bRetour.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		panelBouton.add(bNouveau);
+		panelBouton.add(Box.createVerticalStrut(50));
+		panelBouton.add(bEditer);
+		panelBouton.add(Box.createVerticalStrut(400));
+		panelBouton.add(bRetour);
+		
+		c.add(panelBouton, BorderLayout.WEST);
+		
+		
+		
+		this.fenetreEnv.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		this.fenetreEnv.pack();
+		this.fenetreEnv.setSize(1024, 640);
+		this.fenetreEnv.setLocationRelativeTo(null);
+		this.fenetreEnv.setVisible(true);
+	}
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				new MenuEnvironnement();
+			}
+		});
+	}
+	
+	private class ActionNouvelEnv implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			fenetreEnv.dispose();
+			new ChoixTaille();
+		}		
+	}
+	
+	private class ActionEditerEnv implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("Editer un environnement existant");
+			//fenetreEnv.dispose();
+			//new FenetreEditerEnvironnement();
+		}		
+	}
+	
+	private class ActionRetour implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("Retour");
+			fenetreEnv.dispose();
+			new MenuPrincipal();
+		}		
+	}
+}

@@ -1,0 +1,44 @@
+package allumettes;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class StrategieHumain extends Joueur {
+	
+	private Scanner scanner;
+	
+	public StrategieHumain(String Nom) {
+		super(Nom, "humain");
+		this.scanner = new Scanner(System.in);
+	}
+	
+	/** Obtenir le nombre d'allumettes que le joueur veut tirer.
+	 * @param jeu Le jeu en cours
+	 */
+	public int getPrise(Jeu jeu) {
+		
+		System.out.print(this.getNom() + ", combien d'allumettes ? ");
+		
+		int prise = 0;
+		
+		try {
+			prise = this.scanner.nextInt();
+		} } catch (InputMismatchException e) {
+			if (this.scanner.nextLine().equals("triche")) {
+				try {
+					jeu.retirer(1);
+				} catch (CoupInvalideException f) {
+					// jamais excécuté
+					System.out.println("Opération invalide.");
+				}
+				System.out.println("[Une allumette en moins, plus que " + jeu.getNombreAllumettes() +". Chut !]");
+			} else {
+				System.out.println("Vous devez donner un entier.");
+			}
+			
+			return this.getPrise(jeu);
+		
+		return prise;
+	}
+	
+}

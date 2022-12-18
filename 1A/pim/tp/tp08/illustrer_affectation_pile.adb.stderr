@@ -1,0 +1,1 @@
+piles.ads:28:39: error: there is no applicable operator "=" for private type "T_Element" defined at line 4

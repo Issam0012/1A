@@ -1,0 +1,87 @@
+with Ada.Text_IO;            use Ada.Text_IO;
+with SDA_Exceptions;         use SDA_Exceptions;
+
+package body TH is
+
+    use TH_LCA;
+
+    procedure Initialiser(Sda: out T_TH) is
+    begin
+        for indice in 1..Taille_table loop
+            TH_LCA.Initialiser(Sda(indice));
+        end loop;
+    end Initialiser;
+
+
+    function Est_Vide (Sda : T_TH) return Boolean is
+    begin
+        for indice in 1..Taille_table loop
+            if not TH_LCA.Est_Vide(Sda(indice)) then
+                return False;
+            else
+                null;
+            end if;
+        end loop;
+        return True;
+    end;
+
+
+    function Taille (Sda : in T_TH) return Integer is
+        Taille : Integer := 0;
+    begin
+        for indice in 1..Taille_table loop
+            Taille := Taille + TH_LCA.Taille(Sda(indice));
+        end loop;
+        return Taille;
+
+    end Taille;
+
+
+    procedure Enregistrer (Sda : in out T_TH ; Cle : in T_Cle ; Donnee : in T_Donnee) is
+
+    begin
+        TH_LCA.Enregistrer(Sda(hachage(Cle)), Cle, Donnee);
+    end Enregistrer;
+
+
+    function Cle_Presente (Sda : in T_TH ; Cle : in T_Cle) return Boolean is
+
+    begin
+        return TH_LCA.Cle_Presente(Sda(hachage(Cle)), Cle);
+    end;
+
+
+    function La_Donnee (Sda : in T_TH ; Cle : in T_Cle) return T_Donnee is
+
+    begin
+        return TH_LCA.La_Donnee(Sda(hachage(Cle)), Cle);
+    end La_Donnee;
+
+
+    procedure Supprimer (Sda : in out T_TH ; Cle : in T_Cle) is
+    begin
+        TH_LCA.Supprimer(Sda(hachage(Cle)), Cle);
+    end Supprimer;
+
+
+    procedure Vider (Sda : in out T_TH) is
+    begin
+        for i in 1..Taille_table loop
+            TH_LCA.Vider(Sda(i));
+        end loop;
+    end Vider;
+
+
+    procedure Pour_Chaque (Sda : in T_TH) is
+        procedure Pour_Chaque_LCA is new TH_LCA.Pour_Chaque(Traiter);
+    begin
+        for i in 1..Taille_table loop
+            Put('{');
+            Pour_Chaque_LCA(Sda(i));
+            Put('}');
+            New_Line;
+        end loop;
+   end Pour_Chaque;
+
+
+end TH;

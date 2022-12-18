@@ -1,0 +1,41 @@
+\documentclass[frenchb]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+%Pour utilisation sous unix
+%\usepackage[utf8]{inputenc}
+%\usepackage[utf8x]{inputenc}
+\usepackage{a4wide}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{babel}
+
+\begin{document}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=5cm]{inp_n7.png}
+\end{figure}
+
+\title{\vspace{4cm} \textbf{Rapport individuel - itération 1}}
+\author{ALOUANE Issam\\ }
+\date{\vspace{7cm} Département Sciences du Numérique - Première année \\
+2021-2022 }
+
+\maketitle
+
+\newpage
+\tableofcontents
+
+\newpage
+\section{Travail effectué}
+Durant cette itération j'ai fait: \\
+\begin{itemize}
+\item Création de l'interface graphique de création de nouveau personnage à partir de son nom et sa race et sa description \\
+\item Création de l'interface graphique de modification des statistiques du personnage (si jamais le joueur veut modifier les statitiques par défaut du personnage qui sont les statistiques de sa race).\\
+\item La liaison de tout ces interfaces et la mise en jeu de l'abilité d'enregistrer les personnages créés et de supprimer un personnage enregistré \\
+\end{itemize}
+
+La chose que j'ai trouvé embêtante c'est que java ne créent pas un fichier à partir du path, soit qu'il trouve le fichier soit qu'il lèvent une exception, il n'a pas l'abilité (comme python par exemple) de créer un fichier inexistant et de modifier un fichier existant par la même instruction. De ce fait, j'étais obligé à créer tous mes fichier de sauvegarde à la main 
+
+\end{document} 

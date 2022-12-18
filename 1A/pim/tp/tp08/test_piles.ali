@@ -1,0 +1,88 @@
+V "GNAT Lib v2021"
+M P W=b
+A -gnatA
+A -gnatwa
+A -gnata
+A -g
+A -mtune=generic
+A -march=x86-64
+P ZX
+
+RN
+RV NO_ALLOCATORS
+RV NO_IMPLICIT_CONDITIONALS
+RV NO_LOCAL_ALLOCATORS
+RV NO_RECURSION
+RV NO_STANDARD_ALLOCATORS_AFTER_ELABORATION
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_DEFAULT_INITIALIZATION
+RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS
+RV NO_IMPLEMENTATION_PRAGMAS
+
+U test_piles%b		test_piles.adb		a505eaa0 NE OO SU
+W ada%s			ada.ads			ada.ali
+Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
+Z ada.text_io%s		a-textio.adb		a-textio.ali
+Z ada.unchecked_deallocation%s
+W piles%s		piles.adb		piles.ali
+Z system.assertions%s	s-assert.adb		s-assert.ali
+
+D ada.ads		20210520051130 76789da1 ada%s
+D a-assert.ads		20210520051127 a718b65c ada.assertions%s
+D a-except.ads		20210520051127 946f3014 ada.exceptions%s
+D a-ioexce.ads		20210520051127 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20210520051128 119b8fb3 ada.streams%s
+D a-string.ads		20210520051128 90ac6797 ada.strings%s
+D a-sttebu.ads		20210520051128 18209c64 ada.strings.text_buffers%s
+D a-stuten.ads		20210520051128 808c40ad ada.strings.utf_encoding%s
+D a-tags.ads		20210520051129 9eaa38c6 ada.tags%s
+D a-textio.ads		20210520051129 aef4d56d ada.text_io%s
+D a-unccon.ads		20210520051129 0e9b276f ada.unchecked_conversion%s
+D a-uncdea.ads		20210520051129 c3a8ac65 ada.unchecked_deallocation%s
+D interfac.ads		20210520051131 edec285f interfaces%s
+D i-cstrea.ads		20210520051131 e53d8b8e interfaces.c_streams%s
+D piles.ads		20211027140831 a5951ce6 piles%s
+D piles.adb		20211027140831 43a1d5bc piles%b
+D system.ads		20210520051134 a2da961d system%s
+D s-assert.ads		20210520051131 6a49a4e4 system.assertions%s
+D s-crtl.ads		20210520051131 0ebbdb71 system.crtl%s
+D s-exctab.ads		20210520051131 54135002 system.exception_table%s
+D s-ficobl.ads		20210520051131 078245e4 system.file_control_block%s
+D s-parame.ads		20210520051133 4752c4cb system.parameters%s
+D s-putima.ads		20210520051133 4e095881 system.put_images%s
+D s-secsta.ads		20210520051133 9b3ab94b system.secondary_stack%s
+D s-soflin.ads		20210520051133 a7318a92 system.soft_links%s
+D s-stache.ads		20210520051133 a37c21ec system.stack_checking%s
+D s-stalib.ads		20210520051133 472fbca8 system.standard_library%s
+D s-stoele.ads		20210520051133 2dc34a04 system.storage_elements%s
+D s-stoele.adb		20210520051133 ed88f8fb system.storage_elements%b
+D s-traent.ads		20210520051133 26a8d361 system.traceback_entries%s
+D s-unstyp.ads		20210520051133 2b077493 system.unsigned_types%s
+D s-wchcon.ads		20210520051134 1b7d22d2 system.wch_con%s
+D test_piles.adb	20211027140831 0090f646 test_piles%b
+D unchconv.ads		20210520051134 ca2f9e18 unchecked_conversion%s
+G a e
+G c Z b b [test_piles standard 4 11 none]
+G r i none [test_piles standard 4 11 none] [piles standard 6 9 none]
+X 15 piles.ads
+4+14 T_Element 33|7r28
+6k9*Piles 59e10 33|1w6 7r21
+8P14 T_Pile 33|12r51[6] 21r32[6] 35r25[6] 45r25[6]
+12U19 Initialiser 33|14s17[6] 23s17[6]
+17V18 Est_Vide{boolean} 33|24s32[6] 27s36[6] 30s36[6] 51s32[6]
+21V18 Sommet{character} 33|40s38[6] 49s38[6]
+27U19 Empiler 33|15s17[6] 16s17[6] 26s17[6] 39s17[6]
+32U19 Depiler 33|48s17[6] 50s17[6]
+X 33 test_piles.adb
+4U11*Test_Piles 4b11 59l5 59t15
+6K17 Pile_Caractere[15|6] 8r13
+12U19 Initialiser_Avec_OK 12b19 12<40 17l13 17t32 29s17 37s17 47s17
+12p40 Pile{15|8P14[6]} 14m30 15m26 16m26
+20U19 Tester_Est_Vide 20b19 31l13 31t28 56s9
+21p17 Pile1{15|8P14[6]} 23m30 23r30 24r42 26m26 26r26 27r46
+21p24 Pile2{15|8P14[6]} 29m38 29r38 30r46
+34U19 Tester_Empiler 34b19 41l13 41t27 57s9
+35p17 Pile1{15|8P14[6]} 37m38 37r38 39m26 39r26 40r46
+44U19 Tester_Depiler 44b19 52l13 52t27 58s9
+45p17 Pile1{15|8P14[6]} 47m38 47r38 48m26 48r26 49r46 50m26 50r26 51r42
+

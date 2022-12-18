@@ -1,0 +1,63 @@
+package allumettes;
+import java.util.Scanner;
+import java.util.Random;
+
+/** La classe qui représente le joueur d'une partie
+ * @author	Issam Alouane
+ */
+
+public class Joueur {
+
+	private String nom;
+	private String strategie;
+	
+	/** Construire un joueur à partir de son nom et de sa stratégie
+	 * @param Nom le nom du joueur
+	 * @param Strategie La strategie du joueur
+	 */
+	public Joueur(String Nom, String strategie) {
+		this.nom = Nom;
+		this.strategie = strategie;
+	}
+	
+	/** Obtenir le nom du joueur
+	 * @return nom du joueur
+	 */
+	public String getNom() {
+		return this.nom;
+	}
+	
+	/** Obtenir la stratégie du joueur
+	 * @return stratégie du joueur
+	 */
+	public String getStrategie() {
+		return this.strategie;
+	}
+	
+	/** Obtenir le nombre d'allumettes que le joueur veut tirer.
+	 */
+	public int getPrise(jeuAllumettes jeu) {
+		int prise = 1;
+		if (this.strategie == "humain") {
+			Scanner scanner = new Scanner(System.in);
+			prise = scanner.nextInt();
+		} else if (this.strategie == "rapide") {
+			prise = Jeu.PRISE_MAX;
+		} else if (this.strategie == "naïf") {
+			Random random = new Random();
+			int a;
+			do {
+				a = random.nextInt(Jeu.PRISE_MAX);
+			} while (a <= 0);
+			prise = a;	
+		} else if (this.strategie == "expert") {
+			if (jeu.getNombreAllumettes() <= Jeu.PRISE_MAX + 1) {
+				prise = jeu.getNombreAllumettes() - 1;
+			} else {
+				prise = Jeu.PRISE_MAX;
+			}
+		}
+		return prise;
+	}
+	
+}

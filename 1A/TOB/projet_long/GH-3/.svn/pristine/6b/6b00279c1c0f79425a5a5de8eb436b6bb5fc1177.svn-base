@@ -1,0 +1,11 @@
+package vue;
+
+public interface VisuelPersonnageEdit {
+
+	/** Intancier le personnage a editer */
+	void instancierPersonnage();
+
+	/** Afficher l'interface d'edition du personnage */
+	void afficherInterface();
+
+}

@@ -1,0 +1,90 @@
+package vue.environnement;
+
+import controleur.Partie;
+import vue.MenuPrincipal;
+import vue.personnage.ChoixPersonnages;
+
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+
+public class ChoixEnvironnement {
+
+    private final JFrame fenetreEnv;
+    private Partie G = new Partie();
+    public ChoixEnvironnement() {
+        JButton Temporaire = new JButton("suivant");
+        this.fenetreEnv = new JFrame("Choix Environnement");
+        Container c = this.fenetreEnv.getContentPane();
+        JPanel panelBouton = new JPanel();
+        panelBouton.setLayout(new BoxLayout(panelBouton, BoxLayout.Y_AXIS));
+        panelBouton.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        JButton bRetour = new JButton("Retour");
+        bRetour.setPreferredSize(new Dimension(200,50));
+        bRetour.addActionListener(new ActionRetour());
+        bRetour.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        Temporaire.setPreferredSize(new Dimension(200,50));
+        Temporaire.addActionListener(new ActionChoixEnv());
+        Temporaire.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        panelBouton.add(Temporaire);
+        panelBouton.add(Box.createVerticalGlue());
+        //panelBouton.add(Box.createVerticalStrut(400));
+        panelBouton.add(bRetour);
+
+        c.add(panelBouton, BorderLayout.WEST);
+
+
+
+        this.fenetreEnv.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        this.fenetreEnv.pack();
+        this.fenetreEnv.setSize(1024, 640);
+        this.fenetreEnv.setLocationRelativeTo(null);
+        this.fenetreEnv.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ChoixEnvironnement();
+            }
+        });
+    }
+
+    //chaque env aura un bouton qui pointe la dessus
+    // cet event listener définit l'env courant dans la classe Partie et passe
+    // au choix des Personnages
+    private class ActionChoixEnv implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e){
+            System.out.println("environnement choisi");
+            fenetreEnv.dispose();
+            //G.setEnv();
+            new ChoixPersonnages();
+        }
+    }
+
+
+    private class ActionRetour implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("Retour");
+            fenetreEnv.dispose();
+            new MenuPrincipal();
+        }
+    }
+}

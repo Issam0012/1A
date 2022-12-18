@@ -1,0 +1,93 @@
+    -- La taille d'un tableau
+with arbre_binaire; use arbre_binaire;
+with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+
+generic
+    Taille_table : Integer;
+
+package Tableau is
+
+    type Tab_AB is limited private;  
+    type T_Tableau is limited private;
+    
+
+    -- Initialiser une Tab binaire.  La Tab est vide.
+    procedure Initialiser(Tab: out T_Tableau) with
+            Post => Est_Vide (Tab);
+    
+    --La taille d'un T_Tableau
+    function Taille (Tab : T_Tableau) return integer;
+
+      
+    -- Est-ce qu'une Tab est vide ?
+    function Est_Vide (Tab : T_Tableau) return Boolean;
+    
+   
+    -- Enregistrer une Donnée associée à une Clé dans une Tab.
+    -- Si la clé est déjà présente dans la Tab, sa donnée est changée.
+    procedure Enregistrer (Tab : in out T_Tableau ; Indice : in Integer ; Valeur : in Unbounded_string);
+    
+   
+    -- Echange l'indice et la valeur avec la l'indice et la valeur de notre choix
+    procedure Echanger(Tab: in out T_Tableau; emplacement_d: in Integer; emplacement_a: in Integer) with
+
+            Post => Taille(Tab) = Taille(Tab)'Old;
+
+
+    -- L'existance d'une valeur dans un tableau
+    function Valeur_existe(Tab : in T_Tableau; Valeur_test : in Unbounded_String) return Boolean;
+    
+    
+    -- L'indice d'une valeur dans un tableau
+    function indice_valeur(Tab : in T_Tableau; Valeur_test : in Unbounded_String) return integer with
+            
+            Pre => Valeur_existe(Tab, Valeur_test);
+    
+    
+    -- Incrémenter l'indice d'une valeur
+    procedure Incrementer(Tab: in out T_Tableau; emplacement: in integer);
+    
+    
+    -- Comparer les indices de 2 arbres dans 2 cases différentes
+    function superieur(Tab: in T_Tableau; i: in Integer; j: in Integer) return Boolean;
+
+    function superieur_stricte(Tab: in T_Tableau; i: in Integer; j: in Integer) return Boolean;
+    
+    
+    -- le maximum de 2 entiers naturels
+    function maximum(a: in integer; b: in integer) return Integer;
+    
+    
+    -- Trier un tableau dans l'ordre croissant
+    Procedure Tri_Tab(Tab : in out T_Tableau);
+    
+    
+    --Associer deux arbres dans un tableau tout en le laissant trié
+    Procedure Associer(Tab: in out T_Tableau; i: in integer; j: in integer);
+            
+  
+    -- Supprimer la Donnée associée à une Clé dans une Tab.
+    -- Exception : Indice_Absente_Exception si Clé n'est pas utilisée dans la Tab
+    procedure Supprimer (Tab : in out T_Tableau ; emplacement : in Integer) with
+            Pre => emplacement <= Taille(Tab) and not(Est_Vide(Tab)),
+            Post =>  Taille(Tab) = Taille(Tab)'Old - 1; -- un élément de moins
+
+    -- Supprimer tous les éléments d'une Tab.
+    procedure Vider (Tab : in out T_Tableau) with
+            Post => Est_Vide (Tab);
+   
+    
+    -- Afficher une Tab
+    procedure afficher_tab (Tab : in T_Tableau);
+
+private
+
+    type Tab_AB is array (1..Taille_table) of T_AB;
+    
+    type T_Tableau is 
+        record
+            Tableau : Tab_AB;
+            Taille : integer;
+        end record;
+       
+end Tableau;

@@ -1,0 +1,100 @@
+with AB_Exceptions;         use AB_Exceptions;
+-- with Ada.Unchecked_Deallocation;
+
+package body Tableau is
+
+   use M_AB;
+
+   procedure Initialiser(Tab: out Tab_AB) is
+   begin
+      for indice in 1..Taille_table loop
+         M_AB.Initialiser(Tab(indice));
+      end loop;
+   end Initialiser;
+
+
+   function Est_Vide (Tab : Tab_AB) return Boolean is
+   begin
+      for indice in 1..Taille_table loop
+         if not M_AB.Est_Vide(Tab(indice)) then
+            return False;
+         else
+            null;
+         end if;
+      end loop;
+      return True;
+   end;
+
+   --function tableau_enregistrement(Tab : Tab_AB) return Tab_AB is
+   --begin
+   --    return Tab.Tableau;
+   --end tableau_enregistrement;
+
+   procedure Echanger (Tab: out Tab_AB; emplacement_d: in Integer; emplacement_a: in Integer) is
+   begin
+      M_AB.Permutation(Tab(emplacement_d), Tab(emplacement_a));
+   end Echanger;
+
+
+
+   procedure Enregistrer (Tab : in out Tab_AB ; Indice : in T_Indice ; Valeur : in T_Valeur; index : in Integer) is
+   begin
+      if M_AB.Est_Vide(Tab(index)) then
+         M_AB.Enregistrer(Tab(1),Indice,Valeur);
+      elsif M_AB.Valeur(Tab(index)) = Valeur then
+         M_AB.Enregistrer(Tab(index),Indice,Valeur);
+      else
+         Enregistrer (Tab,Indice,Valeur,index+1);
+      end if;
+   end Enregistrer;
+
+
+   function Valeur_existe(Tab : in Tab_AB; Valeur : in T_Valeur) return Boolean is
+   begin
+      for indice in 1..Taille_table loop
+         if M_AB.Valeur(Tab(indice)) = Valeur then
+            return True;
+         else
+            null;
+         end if;
+      end loop;
+      return False;
+   end Valeur_existe;
+
+
+   function Taille_effective(Tab : in Tab_AB) return Integer is
+      Taille : Integer := 1;
+   begin
+      while not(M_AB.Est_Vide(Tab(Taille))) and (Taille < Taille_table) loop
+         Taille := Taille + 1;
+      end loop;
+      return Taille;
+   end Taille_effective;
+
+
+   procedure Supprimer (Tab : in out Tab_AB ; emplacement : in Integer) is
+      index : Integer := emplacement;
+   begin
+      M_AB.Vider(Tab(emplacement));
+      M_AB.Initialiser(Tab(emplacement));
+      if emplacement = Taille_table then
+         null;
+      elsif M_AB.Est_Vide(Tab(emplacement+1)) then
+         null;
+      else
+         while not(M_AB.Est_Vide(Tab(index+1))) and index < Taille_table loop
+            M_AB.Permutation(Tab(index), Tab(index+1));
+            index := index +1;
+         end loop;
+      end if;
+   end Supprimer;
+
+
+   procedure Vider (Tab : in out Tab_AB) is
+   begin
+      for i in 1..Taille_table loop
+         M_AB.Vider(Tab(i));
+      end loop;
+   end Vider;
+
+end Tableau;

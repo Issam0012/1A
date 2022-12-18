@@ -1,0 +1,20 @@
+[GENERATED OBJECT FILE]
+b__illustrer_affectation_pile.o
+[PROJECT FILES]
+/home/ialouane/Annee_1/pim/tp/tp08/tp08.gpr
+20211027140831 da4a02ff95cdc47563d930ba80cff4d1
+[BOUND OBJECT FILES]
+/home/ialouane/Annee_1/pim/tp/tp08/piles.o
+/home/ialouane/Annee_1/pim/tp/tp08/illustrer_affectation_pile.o
+[GENERATED SOURCE FILES]
+b__illustrer_affectation_pile.ads
+b__illustrer_affectation_pile.adb
+b__illustrer_affectation_pile.ali
+[RESULTING OPTIONS]
+-L/home/ialouane/Annee_1/pim/tp/tp08/
+-L/home/ialouane/Annee_1/pim/tp/tp08/
+-L/mnt/n7fs/ens/tp_cregut/GNAT/2021/lib/gcc/x86_64-pc-linux-gnu/10.3.1/adalib/
+-static
+-static-libgcc
+/mnt/n7fs/ens/tp_cregut/GNAT/2021/lib/gcc/x86_64-pc-linux-gnu/10.3.1/adalib/libgnat.a
+-ldl

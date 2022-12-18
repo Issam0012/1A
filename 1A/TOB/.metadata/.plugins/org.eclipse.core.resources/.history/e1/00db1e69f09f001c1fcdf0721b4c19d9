@@ -1,0 +1,19 @@
+package allumettes;
+
+public class StrategieTricheur extends Joueur {
+	
+	public StrategieTricheur(String Nom) {
+		super(Nom, "tricheur");
+	}
+	
+	/** Obtenir le nombre d'allumettes que le joueur veut tirer.
+	 * @param jeu Le jeu en cours
+	 */
+	public int getPrise(jeuAllumettes jeu) {
+		System.out.println("[Je triche...]");
+		System.out.println("[Allumettes restantes : 2]");
+		jeu.setNombreAllumettes(2);
+		return 1;
+	}
+
+}

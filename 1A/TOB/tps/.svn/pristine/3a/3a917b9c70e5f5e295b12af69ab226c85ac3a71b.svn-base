@@ -1,0 +1,300 @@
+File allumettes/JoueurRapide.java: 47 tokens, 27 lines
+File allumettes/Arbitre.java: 600 tokens, 168 lines
+File allumettes/CoupInvalideException.java: 68 tokens, 39 lines
+File allumettes/Joueur.java: 64 tokens, 44 lines
+File allumettes/JoueurExpert.java: 113 tokens, 38 lines
+File allumettes/OperationInterditeException.java: 39 tokens, 27 lines
+File allumettes/ConfigurationException.java: 21 tokens, 16 lines
+File allumettes/Jouer.java: 636 tokens, 127 lines
+File allumettes/Jeu.java: 23 tokens, 21 lines
+File allumettes/JoueurHumain.java: 180 tokens, 67 lines (not NL-terminated)
+File allumettes/JoueurTricheur.java: 86 tokens, 37 lines
+File allumettes/JoueurNaïf.java: 71 tokens, 32 lines
+File allumettes/Procuration.java: 72 tokens, 39 lines
+File allumettes/jeuAllumettes.java: 164 tokens, 50 lines
+Total input: 14 files (14 new, 0 old), 2184 tokens
+
+allumettes/Jouer.java: line 47-57 [74]
+allumettes/Jouer.java: line 67-77
+< 				joueur_1 = new JoueurRapide(joueurSplit1[0]);
+< 			} else if (joueurSplit1[1].equals("naïf")) {
+< 				joueur_1 = new JoueurNaïf(joueurSplit1[0]);
+< 			} else if (joueurSplit1[1].equals("tricheur")) {
+< 				joueur_1 = new JoueurTricheur(joueurSplit1[0]);
+< 			} else {
+< 				throw new ConfigurationException(" Stratégie invalide ");
+< 		}
+< 			
+< 			
+< 			Joueur joueur_2 = null;
+---
+> 				joueur_2 = new JoueurRapide(joueurSplit2[0]);
+> 			} else if (joueurSplit2[1].equals("naïf")) {
+> 				joueur_2 = new JoueurNaïf(joueurSplit2[0]);
+> 			} else if (joueurSplit2[1].equals("tricheur")) {
+> 				joueur_2 = new JoueurTricheur(joueurSplit2[0]);
+> 			} else {
+> 				throw new ConfigurationException(" Stratégie invalide ");
+> 		}
+> 			
+> 			
+> 			Arbitre arbitre = new Arbitre(joueur_1, joueur_2);
+
+allumettes/Jouer.java: line 43-47 [52]
+allumettes/Jouer.java: line 65-69
+< 				joueur_1 = new JoueurHumain(joueurSplit1[0]);
+< 			} else if (joueurSplit1[1].equals("expert")) {
+< 				joueur_1 = new JoueurExpert(joueurSplit1[0]);
+< 			} else if (joueurSplit1[1].equals("rapide")) {
+< 				joueur_1 = new JoueurRapide(joueurSplit1[0]);
+---
+> 				joueur_2 = new JoueurExpert(joueurSplit2[0]);
+> 			} else if (joueurSplit2[1].equals("rapide")) {
+> 				joueur_2 = new JoueurRapide(joueurSplit2[0]);
+> 			} else if (joueurSplit2[1].equals("naïf")) {
+> 				joueur_2 = new JoueurNaïf(joueurSplit2[0]);
+
+allumettes/Arbitre.java: line 37-47 [43]
+allumettes/Arbitre.java: line 59-69
+< 			if (joueurActuel == joueur_1) {
+< 				
+< 				joueurActuel = joueur_2;
+< 				
+< 				int indice = 0;
+< 				
+< 				try {
+< 					indice = jouerAfficher( jeu, joueur_1);
+< 				} catch (OperationInterditeException e) {
+< 					System.out.println("Abandon de la partie car " + e.getNomTricheur() +" triche !");
+< 					try {
+---
+> 			} else {
+> 				
+> 				joueurActuel = joueur_1;
+> 				
+> 				int indice = 0;
+> 				
+> 				try {
+> 					indice = jouerAfficher( jeu, joueur_2);
+> 				} catch (OperationInterditeException e) {
+> 					System.out.println("Abandon de la partie car " + e.getNomTricheur() +" triche !");
+> 					try {
+
+allumettes/JoueurExpert.java: line 1-21 [30]
+allumettes/JoueurTricheur.java: line 1-19
+< package allumettes;
+< 
+< import java.util.Random;
+< 
+< /** La classe qui représente le joueur expert
+<  * @author	Issam Alouane
+<  */
+< 
+< public class JoueurExpert extends Joueur {
+< 	
+< 	/** Construire un joueur expert à partir de son nom
+< 	 * @param Nom le nom du joueur
+< 	 */
+< 	public JoueurExpert(String Nom) {
+< 		super(Nom, "expert");
+< 	}
+< 
+< 	/** Obtenir le nombre d'allumettes que le joueur veut tirer.
+< 	 * @param jeu Le jeu en cours
+< 	 */
+< 	public int getPrise(Jeu jeu) {
+---
+> package allumettes;
+> 
+> /** La classe qui représente le joueur tricheur
+>  * @author	Issam Alouane
+>  */
+> 
+> public class JoueurTricheur extends Joueur {
+> 		
+> 	/** Construire un joueur tricheur à partir de son nom
+> 	 * @param Nom le nom du joueur
+> 	 */
+> 	public JoueurTricheur(String Nom) {
+> 		super(Nom, "tricheur");
+> 	}
+> 	
+> 	/** Obtenir le nombre d'allumettes que le joueur veut tirer.
+> 	 * @param jeu Le jeu en cours
+> 	 */
+> 	public int getPrise(Jeu jeu) {
+
+allumettes/Arbitre.java: line 7-19 [30]
+allumettes/Joueur.java: line 8-23
+< public class Arbitre {
+< 	
+< 	private Joueur joueur_1;
+< 	private Joueur joueur_2;
+< 
+< 	/** Construire un arbitre pour une partie entre 2 joueurs
+< 	 * @param joueur_1 le premier joueur
+< 	 * @param joueur_2 le deuxième joueur
+< 	 */
+< 	public Arbitre(Joueur joueur_1, Joueur joueur_2) {
+< 		this.joueur_1 = joueur_1;
+< 		this.joueur_2 = joueur_2;
+< 	}
+---
+> abstract class Joueur {
+> 	
+> 	/** Le nom du joueur */
+> 	private String nom;
+> 	
+> 	/** la stratégie du joueur */
+> 	private String strategie;
+> 	
+> 	/** Construire un joueur à partir de son nom et de sa stratégie
+> 	 * @param Nom le nom du joueur
+> 	 * @param Strategie La strategie du joueur
+> 	 */
+> 	public Joueur(String Nom, String strategie) {
+> 		this.nom = Nom;
+> 		this.strategie = strategie;
+> 	}
+
+allumettes/JoueurRapide.java: line 1-19 [30]
+allumettes/JoueurExpert.java: line 1-21
+< package allumettes;
+< 
+< /** La classe qui représente le joueur rapide
+<  * @author	Issam Alouane
+<  */
+< 
+< public class JoueurRapide extends Joueur {
+< 
+< 	/** Construire un joueur rapide à partir de son nom
+< 	 * @param Nom le nom du joueur
+< 	 */
+< 	public JoueurRapide(String Nom) {
+< 		super(Nom, "rapide");
+< 	}
+< 	
+< 	/** Obtenir le nombre d'allumettes que le joueur veut tirer.
+< 	 * @param jeu Le jeu en cours
+< 	 */
+< 	public int getPrise(Jeu jeu) {
+---
+> package allumettes;
+> 
+> import java.util.Random;
+> 
+> /** La classe qui représente le joueur expert
+>  * @author	Issam Alouane
+>  */
+> 
+> public class JoueurExpert extends Joueur {
+> 	
+> 	/** Construire un joueur expert à partir de son nom
+> 	 * @param Nom le nom du joueur
+> 	 */
+> 	public JoueurExpert(String Nom) {
+> 		super(Nom, "expert");
+> 	}
+> 
+> 	/** Obtenir le nombre d'allumettes que le joueur veut tirer.
+> 	 * @param jeu Le jeu en cours
+> 	 */
+> 	public int getPrise(Jeu jeu) {
+
+allumettes/Joueur.java: line 8-23 [29]
+allumettes/Procuration.java: line 7-21
+< abstract class Joueur {
+< 	
+< 	/** Le nom du joueur */
+< 	private String nom;
+< 	
+< 	/** la stratégie du joueur */
+< 	private String strategie;
+< 	
+< 	/** Construire un joueur à partir de son nom et de sa stratégie
+< 	 * @param Nom le nom du joueur
+< 	 * @param Strategie La strategie du joueur
+< 	 */
+< 	public Joueur(String Nom, String strategie) {
+< 		this.nom = Nom;
+< 		this.strategie = strategie;
+< 	}
+---
+> public class Procuration implements Jeu {
+> 	
+> 	// Le jeu d'allumettes qui va servir comme objet de procuration
+> 	private Jeu jeu;
+> 	
+> 	// Le joueur en train de jouer
+> 	private Joueur joueur;
+> 	
+> 	/** Construire une procuration à partir d'un jeu
+> 	 * @param jeu
+> 	 */
+> 	public Procuration(Jeu jeu, Joueur joueur) {
+> 		this.jeu = jeu;
+> 		this.joueur = joueur;
+> 	}
+
+allumettes/Arbitre.java: line 49-59 [27]
+allumettes/Arbitre.java: line 75-84
+< 					} catch (CoupInvalideException e1) {
+< 						// instruction jamais exécuté
+< 						e1.printStackTrace();
+< 					}
+< 				}
+< 				
+< 				if (indice == 1) {
+< 				    joueurActuel = joueur_1;
+< 				}
+< 				
+< 			} else {
+---
+> 					} catch (CoupInvalideException e1) {
+> 						// instruction jamais exécuté
+> 						e1.printStackTrace();
+> 					}
+> 				}
+> 			
+> 			    if (indice == 1) {
+> 				    joueurActuel = joueur_2;
+> 				}
+> 		}
+
+allumettes/Jouer.java: line 64-66 [26]
+allumettes/Jouer.java: line 70-72
+< 			} else if (joueurSplit2[1].equals("expert")) {
+< 				joueur_2 = new JoueurExpert(joueurSplit2[0]);
+< 			} else if (joueurSplit2[1].equals("rapide")) {
+---
+> 			} else if (joueurSplit2[1].equals("tricheur")) {
+> 				joueur_2 = new JoueurTricheur(joueurSplit2[0]);
+> 			} else {
+
+allumettes/Jouer.java: line 37-42 [25]
+allumettes/Jouer.java: line 52-58
+< 			if (joueurSplit1.length != 2 || joueurSplit2.length != 2) {
+< 				throw new ConfigurationException(" Format invalide ");
+< 			}
+< 			
+< 			Joueur joueur_1 = null;
+< 			if (joueurSplit1[1].equals("humain")) {
+---
+> 			} else {
+> 				throw new ConfigurationException(" Stratégie invalide ");
+> 		}
+> 			
+> 			
+> 			Joueur joueur_2 = null;
+> 			if (joueurSplit2[1].equals("humain")) {
+
+allumettes/Jouer.java: line 66-68 [25]
+allumettes/Jouer.java: line 70-72
+< 			} else if (joueurSplit2[1].equals("rapide")) {
+< 				joueur_2 = new JoueurRapide(joueurSplit2[0]);
+< 			} else if (joueurSplit2[1].equals("naïf")) {
+---
+> 			} else if (joueurSplit2[1].equals("tricheur")) {
+> 				joueur_2 = new JoueurTricheur(joueurSplit2[0]);
+> 			} else {
+

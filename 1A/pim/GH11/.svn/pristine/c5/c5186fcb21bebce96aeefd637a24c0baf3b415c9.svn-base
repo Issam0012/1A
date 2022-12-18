@@ -1,0 +1,98 @@
+--with Ada.Text_IO;            use Ada.Text_IO;
+with Sda_Exceptions;         use Sda_Exceptions;
+with Ada.Unchecked_Deallocation;
+
+package body LCA is
+
+    procedure Free is
+            new Ada.Unchecked_Deallocation (Object => T_Cellule, Name => T_AB);
+
+    procedure Initialiser(Arbre: out T_AB) is
+    begin
+        Arbre := null;
+    end Initialiser;
+
+
+    function Est_Vide (Arbre : T_AB) return Boolean is
+    begin
+        return Arbre = null;
+    end;
+
+
+    function Taille (Arbre : in T_AB) return Integer is
+    begin
+        if Est_Vide(Arbre) then
+            return 0;
+        else
+            return 1+Taille(Arbre.all.Fils_G)+ Taille(Arbre.all.Fils_D);
+        end if;
+    end Taille;
+
+
+    procedure Enregistrer (Arbre : in out T_AB ; Indice : in T_Indice ; Valeur : in T_Valeur) is
+    begin
+        if Est_Vide(Arbre) then
+            Arbre := new T_noeud(Indice, Valeur, null, null);
+        elsif Arbre.all.Indice < Indice then
+            Enregistrer(Arbre.all.Fils_D, Indice, Valeur);
+        elsif Arbre.all.Indice > Indice then
+            Enregistrer(Arbre.all.Fils_G, Indice, Valeur);
+        else
+            Arbre.all.Valeur := Valeur;
+        end if;
+    end Enregistrer;
+
+
+    function Valeur_associee (Arbre : in T_AB ; Indice : in T_Indice) return T_Valeur is
+    begin
+        if Est_Vide(Arbre) then
+            raise Indice_Absente_Exception;
+        elsif Arbre.all.Indice < Indice then
+            return Valeur_associee(Arbre.all.Fils_D,Indice);
+        elsif Arbre.all.Indice > Indice then
+            return Valeur_associee(Arbre.all.Fils_G,Indice);
+        else
+            return Arbre.all.Valeur
+        end if;
+    end Valeur_associee;
+
+
+    procedure Supprimer (Arbre : in out T_AB ; Indice : in T_Indice) is
+        A_Detruire : T_AB;
+    begin
+        if Taille(Arbre) = 0 then
+            raise Indice_Absente_Exception;
+        elsif Arbre.all.Indice < Indice then
+            Supprimer(Arbre.all.Fils_D, Indice);
+        elsif Arbre.all.Indice > Indice then
+            Supprimer(Arbre.all.Fils_G, Indice);
+        else
+            A_Detruire := Arbre;
+            if Arbre.all.Fils_G = null then
+                Arbre := Arbre.all.Fils_D;
+                free(A_Detruire);
+            elsif Arbre.all.Fils_D = null then
+                Arbre := Arbre.all.Fils_G;
+                free(A_Detruire);
+            else
+                null;
+            end if;
+        end if;
+    end Supprimer;
+
+
+    procedure Vider (Arbre : in out T_AB) is
+    begin
+        if Taille(Arbre) = 0 then
+            Null;
+        else
+            Vider(Arbre.all.Suivant);
+            Supprimer(Arbre, Arbre.all.Indice);
+        end if;
+
+    end Vider;
+
+
+
+
+end LCA;

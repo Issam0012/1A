@@ -1,0 +1,55 @@
+\documentclass[frenchb]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+%Pour utilisation sous unix
+%\usepackage[utf8]{inputenc}
+%\usepackage[utf8x]{inputenc}
+\usepackage{a4wide}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{babel}
+
+\begin{document}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=5cm]{inp_n7.png}
+\end{figure}
+
+\title{\vspace{4cm} \textbf{Manuel utilisateur - itération 2}}
+\author{Issam Alouane\\Remi Dabrowski\\Adam Bouam\\Jean-Baptiste Prevost }
+\date{\vspace{7cm} Département Sciences du Numérique - Première année \\
+2021-2022 }
+
+\maketitle
+
+\newpage
+\tableofcontents
+\listoffigures
+
+\newpage
+\section{Menu principal}
+Une fois que l'application est lancée grâce à la classe MenuPrincipal.java il y a la possibilité soit de quitter, soit d'accéder aux différentes fonctionnalités. Il est possible de ce rendre dans les différentes section présente sur ce menu mis a part la partie événements.
+
+\section{Sous menu personnage}
+Une fois dans le menu personnage vous avez la possibilité de créer un personnage avec le bouton Nouveau. Une interface devrait s'ouvrir en demandant un nom et une description et aussi en demandant de choisir une race parmi les catégories proposées, afin d'initialiser le personnage avant d'avoir la possibilité de modifier ses statistiques.\\
+
+A ce stade, le joueur peut soit annuler la création en cliquant sur "Annuler", soit avancer vers l'étape suivante en cliquant sur "Suivant". Là, il peut modifier les statistiques du personnage (initialisées par défaut à partie de sa race). Ainsi, le joueur peut annuler toute la procédure de création en cliquant sur "Annuler" ou il peut enregistrer son personnage en cliquant sur "Enregistrer" \\
+
+Une fois le personnage créé et enregistré, un cadre avec le personnage créé devrait apparaitre. En cliquant sur celui-ci vous aurez la possibilité de supprimer ou d'équiper ce personnage.
+
+\section{Menu équipement personnage}
+Ce menu n'est pas relié à l'application principale. Il faut donc lancer ce menu grâce à la classe FenetreEquiper.java. Dans ce menu, vous avez cinq onglets, un onglet général qui affiche les statistiques générales. Les quatre autres onglets concernent chaque équipement avec la possibilité de les changer grâce aux sliders et au bouton de validation. 
+
+\section{Création d'environnement}
+Cette section permet à l'utilisateur de créer des plateaux de jeu de taille variable. En effet, lors de la création d'un plateau, le premier élément a renseigner est la taille de celui-ci. Puis, viens la partie création, l'utilisateur se retrouvera face à un plateau vierge et ce sera a lui de créer son plateau en cliquant case par case pour sélectionner le  type de case qu'il souhaite. L'utilisateur peut a tout moment sauvegarder sa création pour jouer dessus ou bien pour pouvoir la modifier plus tard.
+
+\section{Création de dé}
+Dans ce menu il est possible de créer des tailles aux nombres de face voulu pour chaque jeu. Cependant la sauvegarde n'est pas encore disponible.
+
+\section{Jouer}
+
+Le bouton jouer nous permet de commencer une partie. En premier temps, il va nous demander de choisir un plateau de jeu parmi ceux créé au préalable. Ensuite, on clique sur suivant et on choisit au moins deux joueurs parmi la liste des personnages créés. Enfin, On sera devant le plateau avec la possibilité de faire bouger le joueur choisi, notamment grâce a une liste qui se situe sur le côté gauche de l'application.
+
+\end{document} 

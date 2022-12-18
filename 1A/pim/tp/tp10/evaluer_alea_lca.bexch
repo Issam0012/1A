@@ -1,0 +1,22 @@
+[GENERATED OBJECT FILE]
+b__evaluer_alea_lca.o
+[PROJECT FILES]
+/home/ialouane/Annee_1/pim/tp/tp10/tp10.gpr
+20211117152554 196151e500d692eab93c56d6664c734d
+[BOUND OBJECT FILES]
+/home/ialouane/Annee_1/pim/tp/tp10/alea.o
+/home/ialouane/Annee_1/pim/tp/tp10/sda_exceptions.o
+/home/ialouane/Annee_1/pim/tp/tp10/lca.o
+/home/ialouane/Annee_1/pim/tp/tp10/evaluer_alea_lca.o
+[GENERATED SOURCE FILES]
+b__evaluer_alea_lca.ads
+b__evaluer_alea_lca.adb
+b__evaluer_alea_lca.ali
+[RESULTING OPTIONS]
+-L/home/ialouane/Annee_1/pim/tp/tp10/
+-L/home/ialouane/Annee_1/pim/tp/tp10/
+-L/mnt/n7fs/ens/tp_cregut/GNAT/2021/lib/gcc/x86_64-pc-linux-gnu/10.3.1/adalib/
+-static
+-static-libgcc
+/mnt/n7fs/ens/tp_cregut/GNAT/2021/lib/gcc/x86_64-pc-linux-gnu/10.3.1/adalib/libgnat.a
+-ldl

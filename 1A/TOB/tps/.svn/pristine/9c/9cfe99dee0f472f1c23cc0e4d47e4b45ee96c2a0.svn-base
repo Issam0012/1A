@@ -1,0 +1,73 @@
+Date de l'évaluation : sam. 12 mars 2022 23:33:48 CET
+
+Nombre de similitudes (voir evaluations/evaluation1/sim_java.txt) : 10
+Les similitudes indiquent généralement du code à restructurer.
+
+Erreurs checkstyle (différentes/types) : 48/13	(voir evaluations/evaluation1//checkstyle.log)
+
+Classe OperationInterditeException : OperationInterditeException (ok)
+
+Procuration sur le jeu réel : allumettes/Procuration.java (ok)
+
+OperationInterditeException, levée dans : allumettes/Procuration.java (ok)
+OperationInterditeException, récupérée dans : allumettes/Jouer.java (ERREUR)
+	Pas récupérée dans la bonne classe !
+
+
+Throwable, Exception et RuntimeException ne devraient pas être récupérées car trop générales... ok
+
+AssertionError ne doit pas être récupérée... ok
+
+Autres exceptions récupérées :
+  | allumettes/Arbitre.java:125:        } catch (CoupInvalideException e) {
+  | allumettes/Jouer.java:82:       } catch (ConfigurationException e) {
+  | allumettes/JoueurHumain.java:47:        } catch (InputMismatchException e) {
+  | allumettes/JoueurHumain.java:52:                } catch (CoupInvalideException f) {
+  | allumettes/JoueurTricheur.java:26:          } catch (CoupInvalideException e) {
+
+Utilisation de 'Scanner' : ok
+  | allumettes/JoueurHumain.java:13:    private Scanner scanner;
+  | allumettes/JoueurHumain.java:20:        this.scanner = new Scanner(System.in);
+
+Utilisation de 'split' : ok mais un seul split devrait suffir !  Code à restructurer...
+  | allumettes/Jouer.java:34:           String[] joueurSplit1 = donneesJoueur1.split("@");
+  | allumettes/Jouer.java:35:           String[] joueurSplit2 = donneesJoueur2.split("@");
+
+Utilisation de 'Random' : ok
+  | allumettes/JoueurExpert.java:3:import java.util.Random;
+  | allumettes/JoueurExpert.java:28:            Random random = new Random();
+  | allumettes/JoueurNaïf.java:3:import java.util.Random;
+  | allumettes/JoueurNaïf.java:25:     Random random = new Random();
+
+Utilisation de '3' : ok
+
+Affichage de 'Impossible !' : ok
+
+Utilisation de 'System.exit' : ok
+
+Compilation de Jouer.java : OK.
+Compilation de Arbitre.java : OK.
+Compilation de JoueurRapideTest.java : OK.
+Test exemplePresqueSujet : ok
+Test exempleTricheurSujet : ok
+Test exempleConfiantTricheurSujet : ok
+Test exempleRobustesse : ok
+Test exempleHumainTricheurExpert : ok
+Test exempleMaxLou : ok
+Test exempleRapideRapide : ok
+Test exempleTricheurExpert : ok
+
+Test RobustesseTest : OK (25 tests)	(voir evaluations/evaluation1/RobustesseTest.log)
+
+On recommence avec les classes/interfaces fournies : Jeu ConfigurationException CoupInvalideException
+Compilation de Jouer.java : OK.
+Compilation de Arbitre.java : OK.
+
+Vérification du respect du diagramme de classe...
+Test FormeTest : Tests run: 2,  Failures: 1	(voir evaluations/evaluation1/FormeTest.log)
+    1) testerC14_C15(FormeTest)
+        AssertionError: Classe Joueur : La stratégie ne doit pas être du type String. Actual: class String
+
+
+Compilation de JoueurRapideTest.java : OK.
+Test allumettes.JoueurRapideTest : OK (1 test)	(voir evaluations/evaluation1/allumettes.JoueurRapideTest.log)

@@ -1,0 +1,485 @@
+\documentclass[frenchb]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+%Pour utilisation sous unix
+%\usepackage[utf8]{inputenc}
+%\usepackage[utf8x]{inputenc}
+\usepackage{a4wide}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{babel}
+\usepackage{tabto}
+\usepackage{float}
+
+\begin{document}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=5cm]{inp_n7.png}
+\end{figure}
+
+\title{\vspace{4cm} \textbf{Codage de Huffman}}
+\author{Issam Alouane\\Jean-Baptiste Prevost\\\\Équipe GH11 }	
+\date{\vspace{7cm} Département Sciences du Numérique - Première année \\
+2021-2022 }
+
+\maketitle
+
+\newpage
+\tableofcontents
+\listoffigures
+
+\newpage
+\section{Résumé}
+
+L'objectif de ce rapport est d'exposer la méthode employée pour répondre a certains problèmes liés a ce projet. 
+Notamment la représentation de l'arbre de Huffman ainsi que sa table, mais aussi comment savoir si le codage de tous les caractères peut se faire en moins d'un octet, la représentation du code des caractères. 
+Pour cela nous allons dans ce voir tout au long de ce rapport la confection et les choix des algorithmes utilisés ainsi que la démarche associée.
+Pour enfin aboutir à un bilan technique et personnel.
+
+\section{Introduction}
+Ce projet est basé sur le codage d'Huffman qui est utilisé pour compresser des fichiers. Le problème est de pouvoir compresser un fichier a l'aide de ce codage, mais également d'avoir la possibilité de le décompresser.
+Ce qui sans cette possibilité rendrait la compression inutile.
+
+\section{L'architecture de l'application en modules}
+
+    \subsection{Architecture programme compresser}    
+    La figure \ref{fig : compression} présente l'architecture en module du programme principal de compression de fichier.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=14cm]{compresser.png}
+    \caption{Architecture en module de la compression \label{fig : compression}}
+ \end{figure}
+
+
+    
+     \subsection{Architecture programme décompresser}    
+    La figure \ref{fig : decompresser} présente l'architecture en module du programme principal de ddécompression de fichier.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm]{decompresser.png}
+    \caption{Architecture en module de la décompression \label{fig : decompresser}}
+ \end{figure}
+   
+
+
+\section{Présentation des principaux choix réalisés}
+
+\begin{itemize}
+\item Un module pour gérer les arbres binaires pour pouvoir recréer l'arbre d'Huffman et ainsi pouvoir obtenir les codes des caractères.
+\item Un module de tableau d'arbre binaire qui va permettre de trier ces arbres et ainsi nous permettre de reconstruire l'arbre d'Huffman. Ce module se servira du module d'arbre binaire. De plus, il pourra nous servir pour stocker la fréquence d'apparition des caractères.
+\item Un module générique de liste chaînée associative pour nous permettre de stocker les caractères et leurs codes associés. Comme le nombre de caractère possible est assez limité (256 caractères possibles). Le problème de rapidité de lecture d'une LCA n'est pas trop contraignant.
+\item Pour la décompression, il faut stocker les caractères utilisés dans le codage, nous avons donc utilisé un tableau. Ce qui nous permet de garantir l'obtention de l'ordre d'apparition des caractères lors du parcours infixe de l'arbre.
+\item Lors de la décompression, nous utiliserons un Unbounded\_String pour stocker le parcours infixe qui est stocké dans le fichier compresser, ce qui nous servira pour décoder les symboles du texte d'origine. Un Unbounded\_String a l'avantage d'être facilement manipulable, étant donné que la lecture du document se fait octet par octet, il est nécessaire de pouvoir stocker ces octets en allant.
+\end{itemize}
+
+\section{Principaux algorithmes et types de données}
+
+\subsection{Types de données}
+
+\textbf{Arbre:} \\\\
+type T\_noeud;\\ 
+type T\_AB is access T\_noeud;\\       
+type T\_noeud is \\      
+\tabto{10mm} record\\      
+\tabto{20mm}Indice : T\_indice;\\           
+\tabto{20mm}Valeur : T\_valeur;\\            	
+\tabto{20mm}Fils\_D : T\_AB;\\            
+\tabto{20mm}Fils\_G : T\_AB;\\            
+\tabto{10mm}end record;\\
+        
+\textbf{Tableau:} \\\\
+\tabto{0mm}type Tab\_AB is array (1..Taille\_table) of T\_AB;\\    
+type T\_Tableau is \\
+\tabto{10mm}record\\
+\tabto{20mm}Tableau : Tab\_AB;\\
+\tabto{20mm}Taille : integer;\\
+\tabto{10mm}end record;\\
+
+\textbf{Liste chainée associative:} \\\\
+type T\_Cellule;\\
+type T\_LCA is access T\_Cellule;\\
+type T\_Cellule is \\
+\tabto{10mm}record\\
+\tabto{20mm}Cle : T\_Cle;\\
+\tabto{20mm}Donnee : T\_Donnee;\\
+\tabto{20mm}Suivant : T\_LCA;\\
+\tabto{10mm}end record;
+
+\subsection{Algorithmes}
+\begin{itemize}
+\item Construction de l'arbre
+\item Affichage de l'arbre 
+\item Construction de la signature de l'arbre 
+\item Construction des codes des symboles 
+\item Encodage du fichier à compressé
+\item Récupération de la signature de l'arbre
+\item Reconstruction des codes 
+\item Décodage du fichier compressé
+\end{itemize}
+
+% Algo 1/8
+\begin{center}
+\rule{1\linewidth}{0.75pt}
+\end{center}
+\textbf{Construction de l'arbre:} \\\\
+
+\noindent ptr\_frequence:in out, arbre\_Huffman: out\\\\
+
+\noindent Tant que taille(ptr\_frequence)/=1 faire\\
+\indent \indent Associer les deux éléments ayant les plus petites fréquences --à savoir le premier élément et le deuxième élément.\\
+\indent \indent Trier la nouvelle arbre entre les arbres --à savoir le premier élement\\
+Fin Tant Que\\
+arbre\_Huffman=ptr\_frequence(1)\\
+
+\begin{center}
+\rule{1\linewidth}{0.75pt}
+\end{center}
+
+% Algo 2/8
+\begin{center}
+\rule{1\linewidth}{0.75pt}
+\end{center}
+\textbf{Affichage de l'arbre:} \\\\
+
+\noindent arbre: in, nombre: in  --nombre sera toujours égal à 0\\\\
+\noindent Procedure affichage\_arbre(arbre, nombre) est\\
+\indent	Si arbre.gauche=null et arbre.droite=null faire\\
+\indent \indent		Ecrire ("(")\\
+\indent \indent		Écrire(arbre\^.indice)\\
+\indent \indent		Ecrire(")")\\
+\indent \indent		Écrire(" ")\\
+\indent \indent		Écrire(arbre\^.valeur)\\
+\indent Sinon\\
+\indent \indent		Ecrire ("(")\\
+\indent \indent		Écrire(arbre\^.indice)\\
+\indent \indent		Ecrire(")")\\
+\indent \indent		Nouvelle ligne\\
+\indent \indent		Écrire("\ - - 0 - - ")\\
+\indent \indent		affichage\_arbre(arbre\^.gauche, nombre + 1)\\
+\indent \indent		Pour i de 1..nombre Faire\\
+\indent \indent \indent			Écrire("       ")\\
+\indent \indent \indent			Nouvelle ligne\\
+\indent \indent		Fin Pour\\
+\indent \indent		Écrire("\ - - 1 - - ")\\
+\indent \indent		affichage\_arbre(arbre\^.droite, nombre + 1)\\
+\indent Fin Si\\
+Fin affichage\_arbre\\
+
+\begin{center}
+\rule{1\linewidth}{0.75pt}
+\end{center}
+
+% Algo 3/8
+\begin{center}
+\rule{1\linewidth}{0.75pt}
+\end{center}
+\textbf{Construction de la signature de l'arbre:} \\\\
+
+\noindent Arbre : in T\_AB \indent -- Arbre d'Huffman \\
+LCA : in out LCA\_codage.T\_LCA \indent -- Stockage caractère/code\\
+Parcours\_Huffman: in out Unbounded\_String \indent -- signature de l'arbre\\
+Parcours\_caractere: in out Unbounded\_String \indent -- code des caractères\\
+                              
+\noindent Procedure Parcours\_infixe(arbre, LCA, Parcours\_Huffman, Parcours\_caractere) est\\
+Fils\_droit(Arbre, fils\_D)\\
+Fils\_gauche(Arbre, fils\_G);
+Si arbre\^.Gauche /= null alors\\
+\indent           Parcours\_Huffman <- Parcours\_Huffman \& "0"\\
+\indent           Parcours\_caractere <- Parcours\_caractere \& "0"\\
+\indent 		  Parcours\_infixe(fils\_G,LCA, Parcours\_Huffman, Parcours\_caractere)\\
+Sinon\\
+\indent            Enregistrer(lca\_code,arbre\^.Valeur,Parcours\_caractere)\\           
+Fin Si\\
+Si arbre\^.Droite /= null alors\\
+\indent            Parcours\_huffman <- parcours\_hufman \& "1"\\
+\indent            Parcours\_caractere <- Parcours\_caractere \& "1"\\
+\indent 		   Parcours\_infixe(fils\_D,LCA, Parcours\_Huffman, Parcours\_caractere)\\
+Sinon\\
+\indent	Enregistrer(lca\_code,arbre\^.Valeur,Parcours\_caractere)\\
+
+Fin Si\\
+	Fin Procedure Parcours\_infixe
+Parcours\_caractere := To\_Unbounded\_String( To\_String ( Parcours\_caractere)(1 .. Length(Parcours\_caractere)-1))\\
+
+\begin{center}
+\rule{1\linewidth}{0.75pt}
+\end{center}
+
+% Algo 4/8
+\begin{center}
+\rule{1\linewidth}{0.75pt}
+\end{center}
+\textbf{Construction des codes des symboles:} \\\\
+
+\noindent La construction de ces codes ce fait dans la construction de la signature\\
+\begin{center}
+\rule{1\linewidth}{0.75pt}
+\end{center}
+
+% Algo 5/8
+\begin{center}
+\rule{1\linewidth}{0.75pt}
+\end{center}
+\textbf{Encodage du fichier à compresser:} \\\\
+
+\noindent texte\_code : Chaine de caractère\\
+j , k : entier \\\\
+\noindent k <- 1\\
+Pour i dans 1..taille(texte) faire\\
+\indent             j <- 1\\
+\indent            Tant que j < Taille(Donnee(lca\_code, texte(i))) faire\\
+\indent \indent                   texte\_code <- texte\_code \& Donnee(lca\_code, texte(i))(j)\\
+\indent \indent                   k <- k+1\\
+\indent \indent                    Si k \% 8 = 0 faire\\
+\indent \indent \indent                                texte\_code <- texte\_code \& "."\\
+\indent \indent                     Sinon\\
+\indent \indent \indent                                Rien\\
+\indent \indent                    FinSi\\
+\indent \indent                     j <- j + 1 \\
+\indent            Fin Tant Que\\
+\indent	Pour i dans 1..(8-k \% 8) faire\\
+\indent	\indent	texte\_code <- texte\_code \& "0"\\
+\indent	Fin Pour\\
+Fin Pour\\
+
+\begin{center}
+\rule{1\linewidth}{0.75pt}
+\end{center}
+
+% Algo 6/8
+\begin{center}
+\rule{1\linewidth}{0.75pt}
+\end{center}
+\textbf{Récupération de la signature de l'arbre:} \\\\
+
+\noindent Octet\_Val : Entier In out\\
+Nbr\_un, Nbr\_zero : Entier In out\\\\
+
+\noindent Octet\_val <- Character'Pos(un\_char)\\
+            Pour i allant de 1..8 pas de -1 Faire -- Conversion de la valeur du caractere en bits\\
+\indent                Si Octet\_val >= (2\^(i-1)) Et Nbr\_un /= (Nbr\_zero + 1) Alors\\
+\indent\indent                    Octet\_val <- Octet\_val - \^*(i-1)\\
+\indent\indent                    Parcours\_Huffman <- Parcours\_Huffman \& "1"\\
+\indent\indent                    Nbr\_un <- Nbr\_un + 1\\
+\indent                Sinon Si Octet\_val < (2\^(i-1)) Et Nbr\_un /= (Nbr\_zero + 1) Alors\\
+\indent\indent                    Parcours\_Huffman <- Parcours\_Huffman \& "0"\\
+\indent\indent                    Nbr\_zero <- Nbr\_zero + 1\\                  
+\indent                Sinon\\
+\indent\indent                    Rien  \\             
+\indent                Fin Si\\  
+            Fin Pour\\
+
+\begin{center}
+\rule{1\linewidth}{0.75pt}
+\end{center}
+
+% Algo 7/8
+\begin{center}
+\rule{1\linewidth}{0.75pt}
+\end{center}
+\textbf{Reconstruction des codes:} \\\\
+
+\noindent parcours\_huffman : in, indice\_fin : in --la position de symbole de fin \\
+Tab\_caractere: in --le tableau des caractères\\
+\noindent Code\_caractere: Chaine de caractère\\
+Initialiser(lca\_code)   -- Procedure du module lca\\\\
+\noindent j : Entier <- 1 --paramètre de parcours du tableau qui contient les caractères \\
+Pour i de 1..length(parcours\_huffman) faire\\
+\indent	Code\_caractere <- Code\_caractere \& Parcours\_Huffman(i)\\
+\indent	Si Parcours\_Huffman(i+1) = '1' faire\\
+\indent\indent		Si j=indice\_fin faire\\
+\indent\indent\indent			Enregistrer(lca\_code, Code\_caractere, "\$")\\
+\indent\indent Sinon\\
+\indent\indent\indent			Enregistrer(lca\_code, Code\_caractere, Tab\_caractere(j))\\
+\indent\indent		Fin Si\\
+\indent\indent		Code\_caractere <-  Code\_caractere(1,Length(Code\_caractere) - j)\\
+\indent\indent		j <- j + 1\\
+\indent\indent Tant que Parcours\_caractere (length(Parcours\_caractere)) /= '0' faire \\
+\indent\indent\indent Parcours\_caractere <- Parcours\_caractere(1..length(Parcours\_caractere)-1);\\
+\indent\indent Fin Tant Que;\\
+\indent\indent Parcours\_caractere <- Parcours\_caractere (1..length(Parcours\_caractere)-1);\\
+\indent	Sinon \\
+\indent\indent		Rien\\
+\indent	Fin Si\\
+Fin Pour\\
+
+\begin{center}
+\rule{1\linewidth}{0.75pt}
+\end{center}
+
+% Algo 8/8
+\begin{center}
+\rule{1\linewidth}{0.75pt}
+\end{center}
+\textbf{Décodage du fichier compressé:} \\\\
+
+\noindent Texte\_original : in out  Chaine de caractere\\
+Code\_bin : in out Chaine de caractère\\\\
+
+\noindent indice <- 1\\
+Tant Que Texte\_original(-1) /= "\$" faire\\   
+\indent Code\_bin <- Code\_bin \& Texte\_encode(indice)  \\   
+\indent	Si Cle\_presente(lca\_code, Code\_bin) faire\\
+\indent\indent\indent		Texte\_original <- Texte\_original \& La\_Donnee(lca\_code,Code\_bin)\\
+\indent\indent\indent		Code\_bin <- ""\\
+\indent\indent	Sinon\\
+\indent\indent\indent		Rien\\
+\indent\indent	Fin Si\\
+\indent\indent	indice <- indice + 1\\
+	Fin Tant Que\\
+Générer le fichier décompressé\\
+
+\begin{center}
+\rule{1\linewidth}{0.75pt}
+\end{center}
+
+\section{Démarche adoptée pour tester le programme}
+Dans un premier temps, nous avons testé chaque module avec des programmes dédié. Cela nous a permis de détecter certaines erreurs avant que celles-ci ne gênent pas les programmes principaux.
+Après que les modules aient été testés séparément nous avons fait des tests pour chaque fonction principale qui venait d'être achevée en utilisant le même fichier que celui du sujet. Lorsque les programmes principaux ont été terminés, nous avons testé sur des cas limite. Par exemple avec des arbres profond.\\
+
+\section{Difficultés rencontrées et solutions adoptées}
+Dans un premier temps, les difficultés étaient dues à la généricité des modules que nous souhaitions implanter. Pour pallier ce problème, nous avons décidé de n'avoir qu'un seul module générique sur les trois existants pour faire les programmes principaux. Une fois ces programmes principaux fini nous avons rendu générique les deux modules qui ne l'étaient pas.\\
+La récupération du parcours infixe nous a posés quelques problèmes, car nous n'obtenions pas le bon parcours infixe. Ce problème a été résolu en créant une fonction de complétion d'octet dans le programme de compression. En effet, le problème survenait lorsque le dernier octet du parcours n'était pas complet, la procédure complète donc les bits manquants.\\
+De plus, la récupération des caractères était une des difficultés rencontrés, pour pallier ce problème nous avons mis en place un slicing de la trame de bits de la signature de l'arbre.\\
+Un autre problème était celui des fuites de mémoire, qui était du a notre procédure de suppression du tableau d'arbre binaire. Ce problème de fuite de mémoire venait du module Tableau dans la procédure d'enregistrement et d'incrémentation en modifiant ces structures et en ne vidant pas l'arbre binaire seul, le problème a disparu.
+
+\section{Organisation de l'équipe}
+\tabto{0mm}\textbf{Issam Alouane:}
+\begin{itemize}
+\item Tri du tableau d'arbre binaire
+\item Création de l'arbre de Huffman
+\item Affichage de l'arbre de Huffman
+\item Encodage du texte et création du fichier compressé
+\item Reconstruction des codes associés aux caractères a partir de la signature de l'arbre
+\item Décodage du texte et création du fichier décompressé\\
+%\item Reconstruction des codes 
+\end{itemize}
+
+  
+\tabto{0mm}\textbf{Jean-Baptiste Prevost:}
+\begin{itemize}
+\item Calcul des fréquences d'apparition des caractères
+\item Création du parcours infixe
+\item Création des codes associés aux caractères
+\item Affichage de la table de Huffman
+\item Traitement des exceptions
+\item Récupération du parcours infixe
+\item Récupération de la signature de l'arbre
+\item Récupération de la trame a décoder 
+\end{itemize}
+
+\section{Bilan technique donnant un état d'avancement du projet}
+\textbf{Compression complète :}\\
+
+Compression du fichier fic\_huffman\_profond16.txt 
+\\\\
+(65535)\\
+  \--0--(32767)\\
+  |         \--0--(16383)\\
+  |         |         \--0--(8191)\\
+  |         |         |         \--0--(4095)\\
+  |         |         |         |         \--0--(2047)\\
+  |         |         |         |         |         \--0--(1023)\\
+  |         |         |         |         |         |         \--0--(511)\\
+  |         |         |         |         |         |         |         \--0--(255)\\
+  |         |         |         |         |         |         |         |         \--0--(127)\\
+  |         |         |         |         |         |         |         |         |         \--0--(63)\\
+  |         |         |         |         |         |         |         |         |         |         \--0--(31)\\
+  |         |         |         |         |         |         |         |         |         |         |         \--0--(15)\\
+  |         |         |         |         |         |         |         |         |         |         |         |         \--0--(7)\\
+  |         |         |         |         |         |         |         |         |         |         |         |         |         \--0--(3)\\
+  |         |         |         |         |         |         |         |         |         |         |         |         |         |         \--0--(1)\\
+  |         |         |         |         |         |         |         |         |         |         |         |         |         |         |         \--0--(0) "\$"\\
+  |         |         |         |         |         |         |         |         |         |         |         |         |         |         |         \--1--(1) "A"\\
+  |         |         |         |         |         |         |         |         |         |         |         |         |         |         \--1--(2) "B"\\
+  |         |         |         |         |         |         |         |         |         |         |         |         |         \--1--(4) "C"\\
+  |         |         |         |         |         |         |         |         |         |         |         |         \--1--(8) "D"\\
+  |         |         |         |         |         |         |         |         |         |         |         \--1--(16) "E"\\
+  |         |         |         |         |         |         |         |         |         |         \--1--(32) "F"\\
+  |         |         |         |         |         |         |         |         |         \--1--(64) "G"\\
+  |         |         |         |         |         |         |         |         \--1--(128) "H"\\
+  |         |         |         |         |         |         |         \--1--(256) "I"\\
+  |         |         |         |         |         |         \--1--(512) "J"\\
+  |         |         |         |         |         \--1--(1024) "K"\\
+  |         |         |         |         \--1--(2048) "L"\\
+  |         |         |         \--1--(4096) "M"\\
+  |         |         \--1--(8192) "N"\\
+  |         \--1--(16384) "O"\\
+  \--1--(32768) "P"\\
+\\\\
+'\$' --> 0000000000000000\\
+'A' --> 0000000000000001\\
+'B' --> 000000000000001\\
+'C' --> 00000000000001\\
+'D' --> 0000000000001\\
+'E' --> 000000000001\\
+'F' --> 00000000001\\
+'G' --> 0000000001\\
+'H' --> 000000001\\
+'I' --> 00000001\\
+'J' --> 0000001\\
+'K' --> 000001\\
+'L' --> 00001\\
+'M' --> 0001\\
+'N' --> 001\\
+'O' --> 01\\
+'P' --> 1\\
+
+Comme on peut le remarquer les caractères ne sont pas forcément écrits sur un seul octet, mais cela ne doit pas poser de problème lors de la décompression. De plus, il sera toujours possible de donner la position du caractère de fin car il ne peut pas se trouver à la fin du parcours infixe, et ce même s'il existe 256 caractères différents.
+
+\tabto{0mm}jprevost@n7-ens-lnx017:~/Bureau/1A/pim/projet/GH11/src\$ valgrind ./compression fic\_huffman\_profond16.txt\\
+==30215== Memcheck, a memory error detector\\
+==30215== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.\\
+==30215== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info\\
+==30215== Command: ./compression fic\_huffman\_profond16.txt\\
+==30215== \\
+==30215== \\
+==30215== HEAP SUMMARY:\\
+==30215==     in use at exit: 0 bytes in 0 blocks\\
+==30215==   total heap usage: 262,399 allocs, 262,399 frees, 9,474,680 bytes allocated\\
+==30215== \\
+==30215== All heap blocks were freed -- no leaks are possible\\
+==30215== \\
+==30215== For lists of detected and suppressed errors, rerun with: -s\\
+==30215== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)\\
+
+\textbf{Décompression complète :}\\
+
+\tabto{0mm}jprevost@n7-ens-lnx017:~/Bureau/1A/pim/projet/GH11/src\$ valgrind --leak-check=full ./decompression fic\_huffman\_profond16.txt.hff\\
+==32916== Memcheck, a memory error detector\\
+==32916== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.\\
+==32916== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info\\
+==32916== Command: ./decompression fic\_huffman\_profond16.txt.hff\\
+==32916== \\
+==32916== \\
+==32916== HEAP SUMMARY:\\
+==32916==     in use at exit: 0 bytes in 0 blocks\\
+==32916==   total heap usage: 147,618 allocs, 147,618 frees, 8,597,290,640 bytes allocated\\
+==32916== \\
+==32916== All heap blocks were freed -- no leaks are possible\\
+==32916== \\
+==32916== For lists of detected and suppressed errors, rerun with: -s\\
+==32916== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)\\
+
+\section{Perspectives d'amélioration}
+\begin{itemize}
+\item L'affichage n'est pas exactement ce qui est demandé en énoncé.
+\item Améliorer le programme de décompression afin d'optimiser le temps d'exécution.
+\end{itemize}
+
+\section{Bilan personnel et individuel}
+\tabto{0mm}\textbf{Issam Alouane:\\\\}
+\indent Personnellement, j'ai trouvé ce projet intéressant puisqu'il m'a poussé à faire de mon mieux devant quelques situations que je n'imaginai pas. Ce projet, paraît difficile, mais lorsqu'on commence tout s'enchaîne bien. L'une des situations difficiles que je n'ai pas oubliées est celle de la récupération des codes caractères, je me suis dit : "comment pourrai-je faire ça ?". Après analyse de ma solution informelle et de l'implantation, j'ai conclu que ma solution n'était pas la bonne. J'ai donc continué à modifier jusqu'à ce que j'aboutisse au résultat voulu. J'ai aussi appris pendant ce projet l'importance d'être flexible, une idée qui ne marche pas doit être remplacé le plus rapidement possible pour ne pas perdre trop de temps.
+  
+\tabto{0mm}\textbf{Jean-Baptiste Prevost:\\\\}
+\indent Pour ma part, ce fut un projet intéressant, car traitant d'un sujet qui, je pense est important dans un monde où les données sont de plus en plus volumineuses. Pour pouvoir aboutir à un résultat satisfaisant, j'ai passé entre 65 et 90h dessus. La partie la plus chronophage doit être l'implantation, car c'est à ce moment-la que je me suis rendu compte que certaines choses seront moins évidentes que d'autre à mettre en place avec les modules créée. La mise au point est une parti qui m'a pris un peu de temps, mais moins que l'implantation. Quant au rapport, celui m'a pris environ 6h à mettre au point.\\
+De ce projet, je retiens que la nécessité de bien géré les modules dès le départ surtout s'ils utilisent des pointeurs, car si l'on continue avec des modules non-fiables, on peut se retrouver dans des situations inextricables.
+
+\section{Modifications faites par rapport aux premiers livrables}
+Une grande partie du raffinage a été modifiée, dans un but de simplification et d'optimisation, mais aussi parce que l'algorithme ne faisait pas son rôle correctement. Parmi ces algorithmes: la construction de l'arbre a été simplifiée au maximum, le parcours infixe, l'encodage (au début on travaillait en modulo 9 alors qu'il fallait travailler en modulo 8). De plus, la partie de reconstruction des codes à partir du parcours infixe a été modifié car elle ne faisait pas son rôle.
+
+\end{document} 

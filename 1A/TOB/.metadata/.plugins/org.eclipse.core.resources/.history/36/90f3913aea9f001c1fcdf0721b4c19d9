@@ -1,0 +1,15 @@
+package allumettes;
+
+public class StrategieRapide extends Joueur {
+
+	
+	public StrategieRapide(String Nom) {
+		super(Nom, "rapide");
+	}
+	
+	
+	public int getPrise(jeuAllumettes jeu) {
+		return Jeu.PRISE_MAX;
+	}
+
+}

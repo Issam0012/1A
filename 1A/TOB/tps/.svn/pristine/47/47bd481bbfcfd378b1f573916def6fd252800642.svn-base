@@ -1,0 +1,68 @@
+6,8d5
+< Ordinateur prend 2 allumette.
+< 
+< Allumettes restantes : 11
+12,15c9
+< Allumettes restantes : 11
+< Ordinateur prend 2 allumette.
+< 
+< Allumettes restantes : 9
+---
+> Allumettes restantes : 13
+19,22c13
+< Allumettes restantes : 9
+< Ordinateur prend 1 allumette.
+< 
+< Allumettes restantes : 8
+---
+> Allumettes restantes : 13
+26,27c17,18
+< Allumettes restantes : 8
+< Ordinateur prend 3 allumette.
+---
+> Allumettes restantes : 13
+> Xavier, combien d'allumette ? Xavier prend 3 allumette.
+29c20,23
+< Allumettes restantes : 5
+---
+> Allumettes restantes : 10
+> Ordinateur prend 1 allumette.
+> 
+> Allumettes restantes : 9
+32c26
+< Allumettes restantes : 2
+---
+> Allumettes restantes : 6
+34a29,38
+> Allumettes restantes : 5
+> Xavier, combien d'allumette ? Xavier prend 1 allumette.
+> 
+> Allumettes restantes : 4
+> Ordinateur prend 3 allumette.
+> 
+> Allumettes restantes : 1
+> Xavier, combien d'allumette ? Xavier prend 4 allumette.
+> Impossible ! Nombre invalide : 4 (> 1)
+> 
+40c44,56
+< Ordinateur prend 1 allumette.
+---
+> Xavier, combien d'allumette ? Xavier prend 2 allumette.
+> Impossible ! Nombre invalide : 2 (> 1)
+> 
+> Allumettes restantes : 1
+> Xavier, combien d'allumette ? Xavier prend 0 allumette.
+> Impossible ! Nombre invalide : 0 (< 1)
+> 
+> Allumettes restantes : 1
+> Xavier, combien d'allumette ? Xavier prend -1 allumette.
+> Impossible ! Nombre invalide : -1 (< 1)
+> 
+> Allumettes restantes : 1
+> Xavier, combien d'allumette ? Xavier prend 1 allumette.
+42,43c58,59
+< Ordinateur perd !
+< Xavier gagne !
+---
+> Xavier perd !
+> Ordinateur gagne !

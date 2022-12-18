@@ -1,0 +1,54 @@
+package vue.environnement;
+
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.Rectangle2D;
+
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+
+
+/*
+ * Classe qui defini un plateau (pour le moment sera une grille à dessin avec un 
+ * nombre aleatoire de cases colorees) qui servira d'exemple
+ */
+public class Plateau extends JPanel {
+	
+	protected void paintComponent(Graphics g) {
+		Graphics2D g2 = (Graphics2D) g;
+		
+		//Les cases :
+		int case_dim = 37;
+		boolean suivant = true;
+		for(int i = 0; i<14; i++) {
+			for(int j = 0; j<14; j++) {
+				if (suivant) {
+					g2.setPaint(Color.GRAY);
+				} else {
+					g2.setPaint(Color.BLACK);
+				}
+				g2.fill(new Rectangle2D.Double((j+1)*case_dim, (i+1)*case_dim, case_dim, case_dim));
+				suivant = !suivant;
+			}
+			suivant = !suivant;
+		}
+		
+		g2.setPaint(Color.BLACK);
+		g2.setStroke(new BasicStroke(2));
+		g2.draw(new Rectangle2D.Double(case_dim, case_dim, 14*case_dim,14*case_dim));
+		
+		// Legendes :
+		int c;
+		for (int i = 0; i<14; i++) {
+			//c = i + 1 + '0';
+			g2.drawString(Integer.toString(i+1), 1.5f / 3*case_dim, (i+1.5f)* case_dim +6);
+		}
+		for (int i = 0; i<14; i++) {
+			c = 'A'+ i;
+			g2.drawString("" + (char)c, (i+1.5f)* case_dim - 5, 2.0f / 3*case_dim + 6);
+		}
+	}
+
+}

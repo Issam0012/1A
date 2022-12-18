@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Locations >
+  <Project>
+    <vfs_file>/home/ialouane/Annee_1/pim/tp/tp08/tp08.gpr</vfs_file>
+    <file_marker column=" 5" line=" 59" >
+      <vfs_project>/home/ialouane/Annee_1/pim/tp/tp08/tp08.gpr</vfs_project>
+      <vfs_file>/home/ialouane/Annee_1/pim/tp/tp08/piles.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 52" >
+      <vfs_project>/home/ialouane/Annee_1/pim/tp/tp08/tp08.gpr</vfs_project>
+      <vfs_file>/home/ialouane/Annee_1/pim/tp/tp08/piles.ads</vfs_file>
+    </file_marker>
+    <file_marker current="true" column=" 6" line=" 14" >
+      <vfs_project>/home/ialouane/Annee_1/pim/tp/tp08/tp08.gpr</vfs_project>
+      <vfs_file>/home/ialouane/Annee_1/pim/tp/tp08/illustrer_affectation_pile.adb</vfs_file>
+    </file_marker>
+  </Project>
+</Locations>

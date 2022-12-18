@@ -1,0 +1,31 @@
+package allumettes;
+import org.junit.*;
+import static org.junit.Assert.*;
+
+public class JoueurRapideTest {
+	
+	// Le jeu et le joueur rapide
+	private jeuAllumettes jeu;
+	private Joueur joueur;
+		
+
+	@Test public void testerscenario() throws CoupInvalideException {
+		
+		jeu = new jeuAllumettes(13, false);
+		
+		joueur = new JoueurRapide("Max");
+		
+		int allumettesRestantes = 13;
+		
+		while ( jeu.getNombreAllumettes() > Jeu.PRISE_MAX) {
+			jeu.retirer(joueur.getPrise(jeu));
+			allumettesRestantes = allumettesRestantes - 3;
+			assertEquals("Erreur à l'étape nombreAllumettes = " + jeu.getNombreAllumettes() ,jeu.getNombreAllumettes(), allumettesRestantes);
+		}
+		
+		jeu.retirer(joueur.getPrise(jeu));
+		allumettesRestantes = allumettesRestantes - jeu.getNombreAllumettes();
+		assertEquals("Erreur à l'étape nombreAllumettes = " + jeu.getNombreAllumettes() ,jeu.getNombreAllumettes(), allumettesRestantes); // les deux valeurs doivent être 0 après une prise de 1
+		
+	}
+}

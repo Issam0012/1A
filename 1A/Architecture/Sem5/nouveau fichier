@@ -1,0 +1,98 @@
+module tri_tab(rst, clk, cal, ad1[7..0], ad2[7..0] : etats[5..0], calMin, adCour[7..0], etats_min[3..0], Min[31..0], adMin[7..0], adRam[7..0], inRam[31..0], wRam, outRam[31..0], adCour_tri[7..0], elem_Cour[31..0])
+
+tri_tab_int(rst, clk, cal, ad1[7..0], ad2[7..0], minOK : etats[5..0], calMin, adCour[7..0])
+
+cal_min(rst_min, clk, cal, adCour[7..0], ad2[7..0], outRam[31..0] : adCour_tri[7..0], Min[31..0], adMin[7..0], INITAD, INITMAX, MAJMAX, minOK)
+rst_min = rst + etats[0]
+
+etats_min[3..0] = INITAD & INITMAX & MAJMAX & minOK
+
+$ram_aread_swrite(clk, wRam, adRam[7..0], inRam[31..0] : outRam[31..0])
+
+elem_Cour[31..0] := outRam[31..0] * etats[4] * INITMAX + elem_Cour[31..0] on clk reset when (rst+etats[0])
+
+adRam[7..0] = /cal * ad1[7..0] + cal * (adCour[7..0] * (etats[3] + etats[1]) + adMin[7..0] * etats[2] + etats[4] * adCour_tri[7..0])
+
+inRam[31..0] = etats[1] * Min[31..0] + elem_Cour[31..0] * etats[2]
+
+wRam = etats[1] + etats[2]
+
+end module
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+module tri_tab_int(rst, clk, cal, ad1[7..0], ad2[7..0], minOK : etats[5..0], calMin, adCour[7..0])
+
+etats_tri_tab(rst, clk, cal, minOK, finTab : INIT, calMin, elemCour, EchMin, Echcour, FINI)
+
+count8_init(rst, clk, debut, count, ad1[7..0] : adCour[7..0])
+
+debut = /INIT * /calMin * /elemCour * /EchMin * /Echcour * /FINI
+
+etats[5..0] = INIT & calMin & elemCour & EchMin & Echcour & FINI
+
+count = cal * /sup * /finTab * Echcour * minOK
+
+ucmp8(adCour[7..0], ad2[7..0] : sup, finTab)
+
+end module
+
+
+
+
+
+
+
+
+
+module etats_tri_tab(rst, clk, cal, minOK, finTab : INIT, calMin, elemCour, EchMin, Echcour, FINI)
+
+//Algorithme:
+
+//Ad_courante <- Ad1
+//elemCour <- Tab(Ad_courante)
+//Tant Que Ad_Couante < Ad2 Faire
+	//on exécute min_tab sur Tab(Ad_courante, Ad2) pour avoir le Min et ad_Min
+   //min_tab(rst, clk, cal, ad_courante[7..0], ad2[7..0], elemCour[31..0] : Min[31..0])
+	//Si Tab(Ad_courante) /= Min Alors
+		//Tab(ad_Min) <- Tab(Ad_Courante)
+		//Tab(Ad_Courante) <- Min
+   //Fin Si
+	//Ad_courante <- Ad_courante + 1
+//Fin TantQue
+
+//Graphe d’états:
+
+//Transition                      Condition                    opérations
+//* -> INITAD                     /cal                         aucune
+//INITAD -> INITMAX               cal                          adCour <- ad1
+//INITMAX -> MAJMAX               cal                          elemCour <- Tab(adCour)
+//MAJMAX -> MAJMAX                cal*/adCour_sup_ad2          Si min /= Tab(adCour)
+                                                                   //Tab(adMin) <- Tab(adCour)
+                                                                   //Tab(adCour) <- min
+                                                             //adCour <- adCour + 1
+//MAJMAX -> FINI                  cal*adCour_sup_ad2           aucune
+//FINI -> FINI                    cal                          aucune
+
+
+//Le module etats_tri_tab
+INIT := (/cal + FINI * cal) * /finTab on clk reset when rst
+calMin := (INIT+calMin*/minOK)*cal on clk reset when rst
+elemCour := calMin*minOK*cal on clk reset when rst
+EchMin := elemCour*minOK*cal on clk reset when rst
+Echcour := EchMin*minOK*cal on clk reset when rst
+FINI := Echcour * cal + FINI * finTab on clk reset when rst
+
+end module

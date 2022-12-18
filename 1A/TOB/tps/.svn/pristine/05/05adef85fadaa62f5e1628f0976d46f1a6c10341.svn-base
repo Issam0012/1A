@@ -1,0 +1,75 @@
+Nom       : Alouane
+Prénom    : Issam
+Groupe TP : 1SN-H
+
+Les « ... » indiquent les endroits à compléter.
+
+=====[ Temps passé ]============================================================
+
+Ces informations de temps sont demandées à titre indicatif et ne sont pas
+prises en compte dans la notation du projet.
+
+
+* Temps passé sur la V1 : 10 heures ... minutes
+* Temps passé sur la V2 : ... heures ... minutes
+
+Pour la V2 on ne tiendra pas compte du temps passé sur la V1.
+
+
+=====[ Questions ]==============================================================
+
+--------------------------------------------------------------------------------
+Pourquoi l'exception OperationInterditeException ne peut pas être définie
+comme vérifiée par le compilateur ?
+--------------------------------------------------------------------------------
+
+Car dans l'interface Jeu la méthode getPrise ne lève que CoupInvalideException 
+et donc si OperationInterditeException est vérifiée par le compilateur on aura
+à modifier l'interface pour une réalisation ce qui n'est pas trop "naturel"
+
+
+--------------------------------------------------------------------------------
+Expliquer ce qu'il faut faire pour ajouter un nouveau niveau de jeu, par
+exemple la stratégie lente (C13).  Pour plus de précision, on numérotera
+les étapes à faire.
+--------------------------------------------------------------------------------
+
+1- Créer la classe JoueurLent
+2- Créer le constructeur de cette classe
+3- définir la méthode getPrise pour un joueur avec cette stratégie
+4- ajouter dan jouer un cas de stratégie égal "lent" et dans ce cas on utilise
+le constructeur de la classe JoueurLent
+
+
+--------------------------------------------------------------------------------
+Expliquer ce qui permet, dans votre conception, de changer dynamiquement
+(en cours d'exécution du programme) la stratégie d'un joueur (C14).
+--------------------------------------------------------------------------------
+
+Le seul changement possible dans ma conception et d'un joueur humain vers une 
+autre joueur, ce qui est possible en faisant un condition comme ce qu'on avait 
+fait avec "triche", là à l'entrée si on aura le nom d'une stratégie la stratégie
+du joueur actuel se transforme vers cette stratégie en construisant un nouveau
+joueur. Là on se trouve devant 2 solutions: 
+1- écrire une méthode setJoueur qui change l'un des 2 joueur en cours de jouer
+2- le nombre d'allumettes devient un attribut de classe Jouer et dans Jouer on
+va utiliser une boucle while le nombre d'allumettes est > 0, et à chaque fois
+qu'on aura une nouvelle stratégie on démarre une nouvelle partie avec le 
+nombre d'allumettes restant
+
+(Cette question était un petit peu mal expliqué où je l'ai pas bien compris, 
+car si on démarre avec une deux stratégie rapide et expert le programme se 
+terminera dans 0.01 s et on ne peut rien changer. Merci de me corriger dans
+votre retour si j'ai mal compris)
+
+
+=====[ Explications ]===========================================================
+
+--------------------------------------------------------------------------------
+Donner ici les explications supplémentaires utiles à la compréhension du
+travail rendu.
+--------------------------------------------------------------------------------
+
+...
+
+--------------------------------------------------------------------------------

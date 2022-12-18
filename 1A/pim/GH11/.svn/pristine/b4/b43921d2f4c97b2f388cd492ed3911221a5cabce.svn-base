@@ -1,0 +1,85 @@
+\documentclass[frenchb]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+%Pour utilisation sous unix
+%\usepackage[utf8]{inputenc}
+%\usepackage[utf8x]{inputenc}
+\usepackage{a4wide}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{babel}
+\usepackage{tabto}
+
+\begin{document}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=5cm]{inp_n7.png}
+\end{figure}
+
+\title{\vspace{4cm} \textbf{Manuel d'utilisation}}
+\author{Issam Alouane\\Jean-Baptiste Prevost\\\\Équipe GH11 }	
+\date{\vspace{7cm} Département Sciences du Numérique - Première année \\
+2021-2022 }
+
+\maketitle
+
+\newpage
+\tableofcontents
+\listoffigures
+\newpage
+\section{Mise en place}
+
+Avant de pouvoir utiliser la compression et la décompression il est nécessaire de préparer un environnement dans lequel les faire fonctionner.\\
+
+Pour cela veuillez ouvrir une console comme le montre la figure \ref{fig : console} ci-dessous:\\
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=15cm]{console.png}
+    \caption{Ouverture de l'environnement d'exécution \label{fig : console}}
+\end{figure}
+ 
+Maintenant que votre espace de travail est initialisé vous devez vous rendre dans le répertoire des exécutables comme le montre la figure \ref{fig : répertoire}.
+ 
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=15cm]{repertoire.png}
+    \caption{Répertoire des exécutables \label{fig : répertoire}}
+\end{figure}
+
+Vous voila maintenant prêt a utiliser les exécutables de compression et de décompression.
+
+\section{Utilisation Compression}
+
+Il existe plusieurs mode de fonctionnement pour le programme de compression. Dans un premier temps nous allons utiliser le mode muet de celui-ci. Pour cela il faut appeler l'exécutable puis mettre en argument un seul fichier a compresser, comme le montre la figure \ref{fig : compression}.\\
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=15cm]{compression.png}
+    \caption{Compression muette \label{fig : compression}}
+\end{figure}
+
+Pour exécuter le mode bavard de ce programme il suffit de mettre en premier argument $-b$ ou $--bavard$ suivi du fichier à compresser. Vous devriez obtenir un résultat similaire à la figure \ref{fig : compression_b}\\
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=15cm]{compression_b.png}
+    \caption{Compression bavarde \label{fig : compression_b}}
+\end{figure}
+
+On retrouve bien l'arbre d'Huffman ainsi que sa table associée.
+
+\section{Utilisation Décompression}
+
+Maintenant que le fichier est compressé il serait utile de pouvoir le décompresser pour cela il suffit d'appeler le programme de décompression et de mettre en argument le fichier a décompresser. Attention tout de fois, a vérifier que le fichier à décompresser soit d'extension $.hff$\\
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=15cm]{decompression.png}
+    \caption{Décompression \label{fig : decompression}}
+\end{figure}
+
+Vous devez maintenant pouvoir accéder au fichier décompressé.
+
+\end{document} 

@@ -1,0 +1,1 @@
+compresser.adb:149:53: warning: formal parameter "donnee" is not referenced [-gnatwu]

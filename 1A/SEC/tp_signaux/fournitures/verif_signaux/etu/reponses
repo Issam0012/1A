@@ -1,0 +1,6 @@
+1-Combien de SIGUSR1 et de SIGUSR2 seront ils affichés ?
+--> On voit l'affichage de 2 SIGUSR2 et 1 SIGUSR1
+2-Quel sera l'ordre d'affichage ?
+--> Les 2 SIGUSR2 seront affichés en premier car SIGUSR1 est masqué mais il s'affiche après le démasquage
+3-Au bout de combien de temps (à 2 secondes près) s'affichera le message de terminaison ?
+--> Le message de terminaison s'affichera 10 secondes après l'affichage de SIGUSR1 (après son démasquage) càd directement après le démasquage de SIGINT

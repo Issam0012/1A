@@ -1,0 +1,9 @@
+package modele;
+
+public class EquipableArmure extends Equipable{
+	
+	public EquipableArmure(String nom, String description) {
+		super(nom, description);
+	}
+
+}

@@ -1,0 +1,23 @@
+a>=aac0
+a>=abc0
+a>=abc0Aa>=aac0Aa=c0a*aaa-abab
+loop invariant init
+a=ara*aaa-abai
+a<c0ai
+a=ai1a-aic1
+a=ar1a+aaar
+a<ai1aiAa<=c0ai
+loop variant decrease
+a>=abc0Aa>=aac0Aa=ar1a*aaa-abai1
+loop invariant preservation
+Na<c0ai
+a=ara*aaab
+postcondition
+ia=V2a*V0V1a>=V1c0Aa>=V0c0Aa=V5a*V0a-V1V4Aa<V4V3Aa<=c0V3Ia=V5a+V0V2FIa=V4a-V3c1Fa<c0V3Ia>=V1c0Aa>=V0c0Aa=V2a*V0a-V1V3FAa>=V1c0Aa>=V0c0Aa=c0a*V0a-V1V1Ia>=V1c0Aa>=V0c0F
+VC for produit
+
+cd9bad45f87ab6df1d74fa16312862cb 16H15
+c38c3ed40ad18b6f7dd01567280bdc88 3H2H1H0
+cf45715f6660cf597696d812ad8345aa 9H8H7H6H5H1H0H4H1H0
+1538785d0e27d78ddfb63d6f1640bfcf 11H10H7H6H5H1H0H4H1H0
+08fa5fb979dbac91f211ba93e82d03fd 14H13H12H1H0H4H1H0

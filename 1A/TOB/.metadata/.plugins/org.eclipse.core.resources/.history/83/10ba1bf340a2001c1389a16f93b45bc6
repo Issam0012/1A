@@ -1,0 +1,20 @@
+package allumettes;
+import org.junit.*;
+import static org.junit.Assert.*;
+
+public class JoueurRapideTest {
+
+		@Before public void setUp() {
+			// Le jeu et les deux joueurs rapides (on va laisser le mode arbitre méfiant mais il n'a pas de grande importance)
+			jeuAllumettes jeu = new jeuAllumettes(13, false);
+			Joueur joueur_1 = new JoueurRapide("Max");
+			Joueur joueur_2 = new JoueurRapide("Lou");
+		}
+		
+
+		@Test public void testerscenario() {
+			while ( jeu.getNombreAllumettes() > 0) {
+				
+			}
+		}
+}

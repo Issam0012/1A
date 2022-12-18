@@ -1,0 +1,10 @@
+\babel@toc {french}{}
+\contentsline {section}{\numberline {1}Introduction}{3}%
+\contentsline {section}{\numberline {2}Reconnaissance sans masque}{3}%
+\contentsline {subsection}{\numberline {2.1}Réalisation}{3}%
+\contentsline {subsection}{\numberline {2.2}Question 3.3}{3}%
+\contentsline {section}{\numberline {3}Reconnaissance avec masque}{4}%
+\contentsline {subsection}{\numberline {3.1}Exemples obtenus}{4}%
+\contentsline {section}{\numberline {4}Reconstruction des visages}{4}%
+\contentsline {subsection}{\numberline {4.1}Réalisation}{4}%
+\contentsline {section}{\numberline {5}Evaluation des classifieurs}{5}%

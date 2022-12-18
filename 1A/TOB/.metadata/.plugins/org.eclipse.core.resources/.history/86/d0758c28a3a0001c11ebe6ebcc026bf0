@@ -1,0 +1,45 @@
+package allumettes;
+
+public class StrategieTricheur extends Joueur {
+	
+	private Procuration procuration;
+	private boolean confiance;
+	
+	public StrategieTricheur(String Nom, boolean confiance) {
+		super(Nom, "tricheur");
+		this.confiance = confiance;
+	}
+	
+	/** Obtenir le nombre d'allumettes que le joueur veut tirer.
+	 * @param jeu Le jeu en cours
+	 */
+	public int getPrise(jeuAllumettes jeu) {
+		
+		System.out.println("[Je triche...]");
+		
+		if (this.confiance) {
+		while (jeu.getNombreAllumettes()>2) {
+			try {
+				jeu.retirer(1);
+			} catch (CoupInvalideException e) {
+				System.out.println(e);
+			}
+		}
+		} else {
+			while (jeu.getNombreAllumettes()>2) {
+				try {
+					procuration.retirer(1);
+				} catch (OperationInterditeException e) {
+					System.out.println(e);
+				}
+			}
+		}
+		
+		
+		
+		System.out.println("[Allumettes restantes : 2]");
+		
+		return 1;
+	}
+
+}

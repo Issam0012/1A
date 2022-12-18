@@ -1,0 +1,584 @@
+% Validation de http://hpxc/cregut.svn.enseeiht.fr/2021/1sn/pim/tps/ialouane/tp10
+% Run on 2021-12-06 08:11:59.238792
+
+
+################################################################################
+# Modification des fichiers fournis
+################################################################################
+
+
+================================================================================
+## Fichiers qui NE devaient PAS être modifiés
+================================================================================
+
+* Fichier alea.adb non modifié... ok
+* Fichier alea.ads non modifié... ok
+* Fichier exemple_alea.adb non modifié... ok
+* Fichier exemple_unbounded_string.adb non modifié... ok
+* Fichier sda_exceptions.ads non modifié... ok
+* Fichier test_lca.adb non modifié... ERREUR
+
+  | 342c342
+  | < 			--Nouvelle_Exception: Exception;
+  | ---
+  | > 			Nouvelle_Exception: Exception;
+  | 351,352c351
+  | <                 null; --ça va pas marcher avec raise Nouvelle_Exception; car pas tous les éléments ont des clés de longueur 4 
+  | <                        --et ça va toujours générer une exception et arrêter le programme.
+  | ---
+  | > 				raise Nouvelle_Exception;
+
+
+================================================================================
+## Fichiers qui DEVAIENT être modifiés
+================================================================================
+
+* Fichier lca_sujet.adb modifié... ok
+* Fichier lca.ads modifié... ok
+* Fichier lca.adb modifié... ok
+* Fichier evaluer_alea_lca.adb modifié... ok
+* Fichier th_sujet.adb modifié... ok
+* Fichier test_th.adb modifié... ok
+* Fichier th.ads modifié... ok
+* Fichier th.adb modifié... ok
+* Fichier evaluer_alea_th.adb modifié... ok
+
+
+################################################################################
+# Nettoyer
+################################################################################
+
+* Running gnatclean... ok
+
+
+################################################################################
+# Exercice 1
+################################################################################
+
+
+================================================================================
+## Modifications de lca.ads
+================================================================================
+
+* Comparaison de lca.ads et fournis/lca.ads... différents
+
+   |                                                                                                    <
+   | -- AVEC_AFFICHER_DEBUG STOP DELETE                                                                 <
+   |     type T_cellule;                                                                                |          -- TODO : à compléter
+   |                                                                                                    <
+   |     type T_LCA is access T_cellule;                                                                <
+   |                                                                                                    <
+   |     type T_cellule is                                                                              <
+   |         record                                                                                     <
+   |             cle: T_cle;                                                                            <
+   |             donnee: T_Donnee;                                                                      <
+   |             suivant: T_LCA;                                                                        <
+   |         end record;                                                                                <
+
+
+================================================================================
+## Exécution de lca_sujet.adb
+================================================================================
+
+* Compilation de lca_sujet.adb... ok
+* ./lca_sujet... ok
+* valgrind ./lca_sujet... ok
+
+================================================================================
+## Exécution de test_lca.adb
+================================================================================
+
+* Compilation de test_lca.adb... ok
+
+  | test_lca.adb:257:17: warning: variable "Inutile" is assigned but never read
+  | test_lca.adb:280:35: warning: formal parameter "Cle" is not referenced
+
+* ./test_lca... ok
+* valgrind ./test_lca... ok
+
+
+################################################################################
+# Exercice 2
+################################################################################
+
+
+================================================================================
+## Différences entre lca.ads et th.ads
+================================================================================
+
+* Comparaison de lca.ads et th.ads... différents
+
+   |                                                                                                    >  with LCA;
+   | -- Définition de structures de données associatives sous forme d'une liste                         <
+   | -- chaînée associative (LCA).                                                                      <
+   |                                                                                                    >      CAPACITE: integer;
+   |                                                                                                    >      with function hachage(Cle: T_Cle) return Integer;
+   |                                                                                                    >
+   |                                                                                                    >  package TH is
+   |                                                                                                    >
+   |                                                                                                    >      package T_lca_th is new LCA(T_Cle, T_Donnee);
+   |                                                                                                    >      use T_lca_th;
+   | package LCA is                                                                                     <
+   |         -- Initialiser une Sda.  La Sda est vide.                                                  <
+   |         procedure Initialiser(Sda: out T_LCA) with                                                 <
+   |                 Post => Est_Vide (Sda);                                                            <
+   |                                                                                                    >          -- Initialiser un Th.  Le Th est vide.
+   |                                                                                                    >          procedure Initialiser(Th: out T_TH) with  
+   |                                                                                                    >          Post => Est_Vide (Th);
+   |                                                                                                    >
+   |                                                                                                    >
+   |                                                                                                    >      -- La fonction de hachage modulo la capacité
+   |                                                                                                    >          function fonction_de_hachage(Cle : in T_Cle) return integer with
+   |                                                                                                    >          Post => fonction_de_hachage'Result <= CAPACITE;
+   |         -- Est-ce qu'une Sda est vide ?                                                            <
+   |         function Est_Vide (Sda : T_LCA) return Boolean;                                            <
+   |                                                                                                    >          -- Est-ce qu'un Th est vide ?
+   |                                                                                                    >          function Est_Vide (TH : T_TH) return Boolean;  
+   |         -- Obtenir le nombre d'éléments d'une Sda.                                                 |
+   |         function Taille (Sda : in T_LCA) return Integer with                                       |          -- Obtenir la taille d'un Th
+   |                                                                                                    >          function Taille (Th : in T_TH) return Integer with  
+   |                         and (Taille'Result = 0) = Est_Vide (Sda);                                  |                          and (Taille'Result = 0) = Est_Vide (Th);
+   |         -- Enregistrer une Donnée associée à une Clé dans une Sda.                                 |          -- Enregistrer une Donnée associée à une Clé dans un Th.
+   |         -- Si la clé est déjà présente dans la Sda, sa donnée est changée.                         |          -- Si la clé est déjà présente dans le Th, on va considérer notre T_donnee comme LCA.
+   |         procedure Enregistrer (Sda : in out T_LCA ; Cle : in T_Cle ; Donnee : in T_Donnee) with    |          procedure Enregistrer (Th : in out T_TH ; Cle : in T_Cle ; Donnee : in T_Donnee) with  
+   |                 Post => Cle_Presente (Sda, Cle) and (La_Donnee (Sda, Cle) = Donnee)   -- donnée in |                  Post => Cle_Presente (Th, Cle) and (La_Donnee (Th, Cle) = Donnee)   -- donnée insé
+   |                                 and (not (Cle_Presente (Sda, Cle)'Old) or Taille (Sda) = Taille (S |                  and (not (Cle_Presente (Th, Cle)'Old) or Taille (Th) = Taille (Th)'Old)
+   |                                 and (Cle_Presente (Sda, Cle)'Old or Taille (Sda) = Taille (Sda)'Ol |                                  and (Cle_Presente (Th, Cle)'Old or Taille (Th) = Taille (Th)'Old +
+   |         -- Supprimer la Donnée associée à une Clé dans une Sda.                                    |          -- Supprimer la Donnée associée à une Clé dans un Th.
+   |         -- Exception : Cle_Absente_Exception si Clé n'est pas utilisée dans la Sda                 |          -- Exception : Cle_Absente_Exception si Clé n'est pas utilisée dans le Th
+   |         procedure Supprimer (Sda : in out T_LCA ; Cle : in T_Cle) with                             |          procedure Supprimer (Th : in out T_TH ; Cle : in T_Cle) with  
+   |                 Post =>  Taille (Sda) = Taille (Sda)'Old - 1 -- un élément de moins                |                  Post =>  Taille (Th) = Taille (Th)'Old - 1 -- un élément de moins
+   |                         and not Cle_Presente (Sda, Cle);         -- la clé a été supprimée         |                          and not Cle_Presente (Th, Cle);         -- la clé a été supprimée
+   |         -- Savoir si une Clé est présente dans une Sda.                                            |          -- Savoir si une Clé est présente dans un Th.
+   |         function Cle_Presente (Sda : in T_LCA ; Cle : in T_Cle) return Boolean;                    |          function Cle_Presente (Th : in T_TH ; Cle : in T_Cle) return Boolean;  
+   |         -- Obtenir la donnée associée à une Cle dans la Sda.                                       |          -- Obtenir la donnée associée à une Cle dans le Th.
+   |         -- Exception : Cle_Absente_Exception si Clé n'est pas utilisée dans l'Sda                  |          -- Exception : Cle_Absente_Exception si Clé n'est pas utilisée dans l'Th
+   |         function La_Donnee (Sda : in T_LCA ; Cle : in T_Cle) return T_Donnee;                      |          function La_Donnee (Th : in T_TH ; Cle : in T_Cle) return T_Donnee;  
+   |         -- Supprimer tous les éléments d'une Sda.                                                  |          -- Supprimer tous les éléments d'un Th.
+   |         procedure Vider (Sda : in out T_LCA) with                                                  |          procedure Vider (Th : in out T_TH) with  
+   |                 Post => Est_Vide (Sda);                                                            |                  Post => Est_Vide (Th);
+   |         -- Appliquer un traitement (Traiter) pour chaque couple d'une Sda.                         |          -- Appliquer un traitement (Traiter) pour chaque couple d'un Th.
+   |         procedure Pour_Chaque (Sda : in T_LCA);                                                    |          procedure Pour_Chaque_th (Th : in T_TH);  
+   |                                                                                                    <
+   |     type T_cellule;                                                                                |      type T_Tab_TH is array (1.. CAPACITE) of T_LCA;  
+   |                                                                                                    <
+   |     type T_LCA is access T_cellule;                                                                <
+   |     type T_cellule is                                                                              |      type T_TH is  
+   |             cle: T_cle;                                                                            |              taille: integer;
+   |             donnee: T_Donnee;                                                                      |              Tab_TH: T_Tab_TH;    
+   |             suivant: T_LCA;                                                                        <
+   | end LCA;                                                                                           |  end TH;
+
+
+================================================================================
+## Différences entre test_lca.ads et test_th.ads
+================================================================================
+
+* Comparaison de test_lca.adb et test_th.adb... différents
+
+   | with LCA;                                                                                          |  with TH;
+   |         package LCA_String_Integer is                                                              |          package TH_String_Integer is
+   |                 new LCA (T_Cle => Unbounded_String, T_Donnee => Integer);                          |                  new TH (CAPACITE => 11, T_Cle => Unbounded_String, T_Donnee => Integer, hachage =>
+   |         use LCA_String_Integer;                                                                    |          use TH_String_Integer;
+   |                 new Pour_Chaque (Afficher);                                                        |                  new Pour_Chaque_th (Afficher);
+   |                         new Pour_Chaque (Sommer);                                                  |                          new Pour_Chaque_th (Sommer);
+   |                         new Pour_Chaque (Sommer_Cle_Commence_Par_Q);                               |                          new Pour_Chaque_th (Sommer_Cle_Commence_Par_Q);
+   |                         new Pour_Chaque (Sommer_Len4_Erreur);                                      |                          new Pour_Chaque_th (Sommer_Len4_Erreur);
+
+
+================================================================================
+## Exécution de th_sujet.adb
+================================================================================
+
+* Compilation de th_sujet.adb... ok
+* ./th_sujet... ok
+* valgrind ./th_sujet... ok
+
+================================================================================
+## Exécution de test_th.adb
+================================================================================
+
+* Compilation de test_th.adb... ok
+
+  | test_th.adb:257:17: warning: variable "Inutile" is assigned but never read
+  | test_th.adb:280:35: warning: formal parameter "Cle" is not referenced
+
+* ./test_th... ok
+* valgrind ./test_th... ok
+
+
+################################################################################
+# Exercice 3
+################################################################################
+
+
+================================================================================
+## Différences entre evaluer_alea_lca.ads et evaluer_alea_th.ads
+================================================================================
+
+* Comparaison de evaluer_alea_lca.adb et evaluer_alea_th.adb... différents
+
+   | with LCA;                                                                                          |  with TH;
+   | -- Évaluer la qualité du générateur aléatoire et les LCA.                                          |  -- Évaluer la qualité du générateur aléatoire et les TH.
+   |     package LCA_Integer is                                                                         <
+   |                 new LCA (T_Cle => Integer, T_Donnee => Integer);                                   <
+   |         use LCA_Integer;                                                                           <
+   |                                                                                                    <
+   |                                                                                                    >
+   |                                                                                                    >          function identite(N : in integer) return integer is
+   |                                                                                                    >          begin
+   |                                                                                                    >              return N;
+   |                                                                                                    >          end identite;
+   |                                                                                                    >
+   |                                                                                                    >          package TH_Integer is
+   |                                                                                                    >                  new TH (CAPACITE => Borne, T_Cle => Integer, T_Donnee => Integer, hachage => ident
+   |                                                                                                    >          use TH_Integer;
+   |                                                                                                    >
+   |     --Chercher le minimum de fréquence en comparant le minimum actuel à chaque valeur de fréquence <
+   |     --et en affectant cette valeur à la variable Min si cette fréquence est plus petite que le min <
+   |     --actuel                                                                                       <
+   |     --Paramètres: nombre: in integer, frequence: in integer                                        <
+   |                                                                                                    <
+   |         new Pour_Chaque (comparaison);                                                             |          new Pour_Chaque_th (comparaison);
+   |     begin                                                                                          |      begin --c'est la même procédure que lca, j'ai juste ajouté la fonction identite pour pouvoire 
+   |             Enregistrer (liste, i, 0); --on enregistre tout les nombres dans l'intervalle 1..Borne |              Enregistrer (liste, i, 0);
+   |             frequence := La_Donnee (liste, nombre); --on conserve la dernière fréquence            |              frequence := La_Donnee (liste, nombre);
+   |             Supprimer(liste, nombre);               --on supprime le nombre et sa fréquence        |              Supprimer(liste, nombre);
+   |             Enregistrer (liste, nombre, frequence + 1); --on enregistre le nombre de nouveau avec  |              Enregistrer (liste, nombre, frequence + 1);
+   |                 Max:= frequence + 1;     --si la nouvelle fréquence dépasse le maximum, elle est p |                  Max:= frequence + 1;
+
+
+================================================================================
+## Exécutions de evaluer_alea_*
+================================================================================
+
+* Running gnatclean... ok
+* Compilation de evaluer_alea_lca.adb... ok
+
+  | evaluer_alea_lca.adb:4:06: warning: no entities of "SDA_Exceptions" are referenced
+  | evaluer_alea_lca.adb:4:28: warning: use clause for package "SDA_Exceptions" has no effect
+  | evaluer_alea_lca.adb:84:27: warning: formal parameter "nombre" is not referenced
+
+* Compilation de evaluer_alea_th.adb... ok
+
+  | evaluer_alea_th.adb:4:06: warning: no entities of "SDA_Exceptions" are referenced
+  | evaluer_alea_th.adb:4:28: warning: use clause for package "SDA_Exceptions" has no effect
+  | evaluer_alea_th.adb:85:27: warning: formal parameter "nombre" is not referenced
+
+
+================================================================================
+## Tests nominaux
+================================================================================
+
+
+--------------------------------------------------------------------------------
+### Cas : Classique : dé à 6 faces, 100 tirages
+--------------------------------------------------------------------------------
+
+* ./evaluer_alea_lca 6 100... ok
+
+  | Borne  : 6
+  | Taille : 100
+  | Min : 12
+  | Max : 23
+
+* valgrind ./evaluer_alea_lca 6 100... ok
+
+  | Borne  : 6
+  | Taille : 100
+  | Min : 13
+  | Max : 20
+
+* ./evaluer_alea_th 6 100... ok
+
+  | Borne  : 6
+  | Taille : 100
+  | Min : 13
+  | Max : 21
+
+* valgrind ./evaluer_alea_th 6 100... ok
+
+  | Borne  : 6
+  | Taille : 100
+  | Min : 13
+  | Max : 21
+
+
+--------------------------------------------------------------------------------
+### Cas : Beaucoup de doubles
+--------------------------------------------------------------------------------
+
+* ./evaluer_alea_lca 5 100... ok
+
+  | Borne  : 5
+  | Taille : 100
+  | Min : 15
+  | Max : 27
+
+* ./evaluer_alea_th 5 100... ok
+
+  | Borne  : 5
+  | Taille : 100
+  | Min : 18
+  | Max : 24
+
+
+--------------------------------------------------------------------------------
+### Cas : Peu de doubles
+--------------------------------------------------------------------------------
+
+* ./evaluer_alea_lca 100000 10... ERREUR: Ne se termine pas !
+* ./evaluer_alea_th 100000 10... ok
+
+  | Borne  : 100000
+  | Taille : 10
+  | Min : 0
+  | Max : 1
+
+
+--------------------------------------------------------------------------------
+### Cas : Limite pour Borne et Taille
+--------------------------------------------------------------------------------
+
+* ./evaluer_alea_lca 2 2... ok
+
+  | Borne  : 2
+  | Taille : 2
+  | Min : 1
+  | Max : 1
+
+* ./evaluer_alea_th 2 2... ok
+
+  | Borne  : 2
+  | Taille : 2
+  | Min : 1
+  | Max : 1
+
+
+================================================================================
+## Tests de robustesse
+================================================================================
+
+
+--------------------------------------------------------------------------------
+### Cas : Deux entiers attendus
+--------------------------------------------------------------------------------
+
+* ./evaluer_alea_lca XYZ ZYT... ERREUR
+
+  ! raised CONSTRAINT_ERROR : bad input for 'Value: "XYZ"
+
+* ./evaluer_alea_th XYZ ZYT... ERREUR
+
+  ! raised CONSTRAINT_ERROR : bad input for 'Value: "XYZ"
+
+
+--------------------------------------------------------------------------------
+### Cas : Taille doit être un entier
+--------------------------------------------------------------------------------
+
+* ./evaluer_alea_lca 10 ZYT... ERREUR
+
+  ! raised CONSTRAINT_ERROR : bad input for 'Value: "ZYT"
+
+* ./evaluer_alea_th 10 ZYT... ERREUR
+
+  ! raised CONSTRAINT_ERROR : bad input for 'Value: "ZYT"
+
+
+--------------------------------------------------------------------------------
+### Cas : Borne doit être un entier
+--------------------------------------------------------------------------------
+
+* ./evaluer_alea_lca XYZ 30... ERREUR
+
+  ! raised CONSTRAINT_ERROR : bad input for 'Value: "XYZ"
+
+* ./evaluer_alea_th XYZ 30... ERREUR
+
+  ! raised CONSTRAINT_ERROR : bad input for 'Value: "XYZ"
+
+
+--------------------------------------------------------------------------------
+### Cas : Borne et Taille doivent être strictement positifs
+--------------------------------------------------------------------------------
+
+* ./evaluer_alea_lca -4 -10... ok
+
+  | Borne  : -4
+  | Taille : -10
+  | Min : 1
+  | Max : 1
+
+* ./evaluer_alea_th -4 -10... ok
+
+  | Borne  : -4
+  | Taille : -10
+  | Min : 1
+  | Max : 1
+
+
+--------------------------------------------------------------------------------
+### Cas : Taille doit être strictement positif
+--------------------------------------------------------------------------------
+
+* ./evaluer_alea_lca 4 -10... ok
+
+  | Borne  : 4
+  | Taille : -10
+  | Min : 0
+  | Max : 1
+
+* ./evaluer_alea_th 4 -10... ok
+
+  | Borne  : 4
+  | Taille : -10
+  | Min : 0
+  | Max : 1
+
+
+--------------------------------------------------------------------------------
+### Cas : Borne doit être strictement positif
+--------------------------------------------------------------------------------
+
+* ./evaluer_alea_lca -4 10... ERREUR
+
+  | Borne  : -4
+  | Taille : 10
+
+
+  ! raised CONSTRAINT_ERROR : a-nudira.adb:54 range check failed
+
+* ./evaluer_alea_th -4 10... ERREUR
+
+  | Borne  : -4
+  | Taille : 10
+
+
+  ! raised CONSTRAINT_ERROR : a-nudira.adb:54 range check failed
+
+
+--------------------------------------------------------------------------------
+### Cas : Il manque la taille (ou la borne)
+--------------------------------------------------------------------------------
+
+* ./evaluer_alea_lca 5... ok
+
+  | Usage : ./evaluer_alea_lca Borne Taille
+  | 
+  |    Borne  : les nombres sont tirés dans l'intervalle 1..Borne
+  |    Taille : la taille de l'échantillon
+
+* ./evaluer_alea_th 5... ok
+
+  | Usage : ./evaluer_alea_th Borne Taille
+  | 
+  |    Borne  : les nombres sont tirés dans l'intervalle 1..Borne
+  |    Taille : la taille de l'échantillon
+
+
+--------------------------------------------------------------------------------
+### Cas : Borne doit être un entier ou il manque la taille
+--------------------------------------------------------------------------------
+
+* ./evaluer_alea_lca XYZ... ok
+
+  | Usage : ./evaluer_alea_lca Borne Taille
+  | 
+  |    Borne  : les nombres sont tirés dans l'intervalle 1..Borne
+  |    Taille : la taille de l'échantillon
+
+* ./evaluer_alea_th XYZ... ok
+
+  | Usage : ./evaluer_alea_th Borne Taille
+  | 
+  |    Borne  : les nombres sont tirés dans l'intervalle 1..Borne
+  |    Taille : la taille de l'échantillon
+
+
+--------------------------------------------------------------------------------
+### Cas : Taille doit être strictement positif
+--------------------------------------------------------------------------------
+
+* ./evaluer_alea_lca 4 0... ok
+
+  | Borne  : 4
+  | Taille : 0
+  | Min : 0
+  | Max : 1
+
+* ./evaluer_alea_th 4 0... ok
+
+  | Borne  : 4
+  | Taille : 0
+  | Min : 0
+  | Max : 1
+
+
+--------------------------------------------------------------------------------
+### Cas : Borne doit être strictement positif
+--------------------------------------------------------------------------------
+
+* ./evaluer_alea_lca 0 100... ERREUR
+
+  | Borne  : 0
+  | Taille : 100
+
+
+  ! raised CONSTRAINT_ERROR : a-nudira.adb:54 range check failed
+
+* ./evaluer_alea_th 0 100... ERREUR
+
+  | Borne  : 0
+  | Taille : 100
+
+
+  ! raised CONSTRAINT_ERROR : a-nudira.adb:54 range check failed
+
+
+--------------------------------------------------------------------------------
+### Cas : Borne = 1 : Ne respecte pas la précondition de Calculer_Statistiques
+--------------------------------------------------------------------------------
+
+* ./evaluer_alea_lca 1 100... ok
+
+  | Borne  : 1
+  | Taille : 100
+  | Min : 100
+  | Max : 100
+
+* ./evaluer_alea_th 1 100... ok
+
+  | Borne  : 1
+  | Taille : 100
+  | Min : 100
+  | Max : 100
+
+
+--------------------------------------------------------------------------------
+### Cas : Taille = 1 : Ne respecte pas la précondition de Calculer_Statistiques
+--------------------------------------------------------------------------------
+
+* ./evaluer_alea_lca 10 1... ok
+
+  | Borne  : 10
+  | Taille : 1
+  | Min : 0
+  | Max : 1
+
+* ./evaluer_alea_th 10 1... ok
+
+  | Borne  : 10
+  | Taille : 1
+  | Min : 0
+  | Max : 1
+
+
+
+################################################################################
+# Nettoyer
+################################################################################
+
+* Running gnatclean... ok
+
+<!-- vi: set ts=8: -->

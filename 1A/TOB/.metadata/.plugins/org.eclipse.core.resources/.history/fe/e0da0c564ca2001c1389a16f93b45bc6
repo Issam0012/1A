@@ -1,0 +1,127 @@
+package allumettes;
+
+/** La classe qui représente l'arbitre d'une partie
+ * @author	Issam Alouane
+ */
+
+public class Arbitre {
+	
+	private Joueur joueur_1;
+	private Joueur joueur_2;
+
+	/** Construire un arbitre pour une partie entre 2 joueurs
+	 * @param joueur_1 le premier joueur
+	 * @param joueur_2 le deuxième joueur
+	 */
+	public Arbitre(Joueur joueur_1, Joueur joueur_2) {
+		this.joueur_1 = joueur_1;
+		this.joueur_2 = joueur_2;
+	}
+	
+	
+	/** Arbitrer une partie entre 2 joueurs
+	 * @param jeu le jeu entre les deux joueurs
+	 */
+	public void Arbitrer(Jeu jeu) {
+		
+		// Le pramètre dernierJouee indique le joueur qui va jouer
+		Joueur joueurActuel = joueur_1;
+		
+		while (jeu.getNombreAllumettes() > 0) {
+			
+			System.out.println("Allumettes restantes : " + jeu.getNombreAllumettes());
+			
+			if (joueurActuel == joueur_1) {
+				
+				joueurActuel = joueur_2;
+				
+				jouerAfficher( jeu, joueur_1, joueurActuel);
+				
+			} else {
+				
+				joueurActuel = joueur_1;
+				
+				jouerAfficher( jeu, joueur_2, joueurActuel);
+			
+		}
+	}
+
+		// L'affichage du vainqueur et du perdu
+		Joueur vainqueur;
+		Joueur perdu;
+		if (joueurActuel == joueur_2) {
+			vainqueur = joueur_2;
+			perdu = joueur_1;
+		} else {
+			vainqueur = joueur_1;
+			perdu = joueur_2;
+		}
+		
+		System.out.println(perdu.getNom() + " perd !");
+		System.out.println(vainqueur.getNom() + " gagne !");
+		
+	}
+	
+	/** Retrouver le nombre de prises du joueur d'après son stratégie
+	 * @param joueur le joueur qui va faire la prise
+	 * @param jeu le jeu en cours
+	 */
+	private int priseStrategie(Joueur joueur, Jeu jeu) {
+		
+		int prise = 0;
+		
+		if (joueur.getStrategie().equals("humain")) {
+			prise = joueur.getPrise( (jeuAllumettes) jeu);
+			
+		} else if (joueur.getStrategie().equals("tricheur")) {
+			if (((jeuAllumettes) jeu).getModeArbitre()) {
+				prise = joueur.getPrise( (jeuAllumettes) jeu);
+			} else {
+				Procuration procurationJeu = new Procuration( (jeuAllumettes) jeu);
+				try {
+					prise = joueur.getPrise(procurationJeu);
+				} catch (OperationInterditeException e) {
+					throw new OperationInterditeException(joueur.getNom());
+				}
+			}
+			
+		} else {
+			prise = joueur.getPrise( (jeuAllumettes) jeu);
+		}
+		
+		return prise;
+	}
+	
+	/** afficher le message correspondant après un prise
+	 * @param joueur le joueur qui a fait la prise
+	 * @param prise la valeur du prise
+	 */
+	private void afficherPrise(Joueur joueur, int prise) {
+		
+		if (prise==1 || prise==0 || prise==-1) {
+			System.out.println(joueur.getNom() + " prend "+ prise + " allumette.");
+			
+		} else {
+			System.out.println(joueur.getNom() + " prend "+ prise + " allumettes.");
+		}
+	}
+	
+	/** Donner le droit au joueur actuel de joueret afficher les messages correspondants
+	 */
+	public void jouerAfficher(Jeu jeu, Joueur joueur, Joueur joueurActuel) {
+		
+		int prise = priseStrategie(joueur, jeu);
+		
+		afficherPrise(joueur, prise);
+		
+		try {
+			jeu.retirer(prise);
+		} catch (CoupInvalideException e) {
+			joueurActuel = joueur;
+			System.out.println("Impossible ! Nombre invalide : " + prise + e.getProbleme());
+		}
+		
+		System.out.println();
+	}
+	
+}

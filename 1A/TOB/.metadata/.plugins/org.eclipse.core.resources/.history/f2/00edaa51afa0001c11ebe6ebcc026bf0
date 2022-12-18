@@ -1,0 +1,26 @@
+package allumettes;
+
+public class Procuration implements Jeu {
+	
+	private jeuAllumettes jeu;
+	
+	public Procuration(jeuAllumettes jeu) {
+		this.jeu = jeu;
+	}
+	
+	/** Obtenir le nombre d'allumettes encore en jeu.
+	 * @return nombre d'allumettes encore en jeu
+	 */
+	public int getNombreAllumettes() {
+		return this.jeu.getNombreAllumettes();
+	}
+	
+	
+	
+	public void retirer(int nbPrises) throws CoupInvalideException {
+		
+		throw new OperationInterditeException();
+		
+	}
+	
+}

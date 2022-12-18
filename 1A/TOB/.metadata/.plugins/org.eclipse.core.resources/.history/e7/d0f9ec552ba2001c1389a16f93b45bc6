@@ -1,0 +1,18 @@
+package allumettes;
+
+import java.util.Random;
+
+public class StrategieNaïf extends Joueur {
+	
+	public StrategieNaïf(String Nom) {
+		super(Nom, "naïf");
+	}
+
+	
+	public int getPrise(Jeu jeu) {
+		Random random = new Random();
+		int prise = random.nextInt(Jeu.PRISE_MAX) + 1;
+		return prise;
+	}
+
+}

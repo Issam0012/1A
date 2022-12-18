@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<Locations >
+  <Project>
+    <vfs_file />
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/jprevost/Bureau/1A/pim/projet/GH11/src/huffman.gpr</vfs_project>
+      <vfs_file>/home/jprevost/Bureau/1A/pim/projet/GH11/src/arbre_binaire.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/jprevost/Bureau/1A/pim/projet/GH11/src/huffman.gpr</vfs_project>
+      <vfs_file>/home/jprevost/Bureau/1A/pim/projet/GH11/src/arbre_binaire.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file />
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/jprevost/Bureau/1A/pim/projet/GH11/src/Decompression.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file />
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/jprevost/Bureau/1A/pim/projet/GH11/src/Decompression.adb</vfs_file>
+    </file_marker>
+    <file_marker current="true" column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/jprevost/Bureau/1A/pim/projet/GH11/src/Compression.adb</vfs_file>
+    </file_marker>
+  </Project>
+</Locations>

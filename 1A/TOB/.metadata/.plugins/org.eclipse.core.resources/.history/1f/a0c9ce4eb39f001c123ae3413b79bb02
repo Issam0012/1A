@@ -1,0 +1,19 @@
+package allumettes;
+
+import java.util.Random;
+
+public class StrategieNaïf implements Strategie {
+	
+	public String strategie = "naïf";
+
+	@Override
+	public int getPrise(jeuAllumettes jeu) {
+		Random random = new Random();
+		int prise;
+		do {
+			prise = random.nextInt(Jeu.PRISE_MAX);
+		} while (prise <= 0);
+		return prise;
+	}
+
+}

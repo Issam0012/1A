@@ -1,0 +1,37 @@
+package allumettes;
+import java.util.Scanner;
+import java.util.Random;
+
+/** La classe qui représente le joueur d'une partie
+ * @author	Issam Alouane
+ */
+
+public class Joueur {
+
+	private String nom;
+	private String strategie;
+	
+	/** Construire un joueur à partir de son nom et de sa stratégie
+	 * @param Nom le nom du joueur
+	 * @param Strategie La strategie du joueur
+	 */
+	public Joueur(String Nom, String strategie) {
+		this.nom = Nom;
+		this.strategie = strategie;
+	}
+	
+	/** Obtenir le nom du joueur
+	 * @return nom du joueur
+	 */
+	public String getNom() {
+		return this.nom;
+	}
+	
+	/** Obtenir la stratégie du joueur
+	 * @return stratégie du joueur
+	 */
+	public String getStrategie() {
+		return this.strategie;
+	}
+	
+}

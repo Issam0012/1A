@@ -1,0 +1,81 @@
+with Ada.Text_IO;           use Ada.Text_IO;
+with Ada.Integer_Text_IO;   use Ada.Integer_Text_IO;
+with SDA_Exceptions; 		use SDA_Exceptions;
+with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+	--! Les Unbounded_String ont une capacité variable, contrairement au String
+	--! pour lesquelles une capacité doit être fixée.
+with LCA;
+
+procedure Test_LCA is
+
+	package LCA_String_Integer is
+		new LCA (T_Cle => Unbounded_String, T_Donnee => Integer);
+	use LCA_String_Integer;
+
+
+	-- Retourner une chaîne avec des guillemets autour de S
+	function Avec_Guillemets (S: Unbounded_String) return String is
+	begin
+		return '"' & To_String (S) & '"';
+	end;
+
+	-- Utiliser & entre String à gauche et Unbounded_String à droite.  Des
+	-- guillemets sont ajoutées autour de la Unbounded_String
+	-- Il s'agit d'un masquage de l'opérteur & défini dans Strings.Unbounded
+	function "&" (Left: String; Right: Unbounded_String) return String is
+	begin
+		return Left & Avec_Guillemets (Right);
+	end;
+
+
+	-- Surcharge l'opérateur unaire "+" pour convertir une String
+	-- en Unbounded_String.
+	-- Cette astuce permet de simplifier l'initialisation
+	-- de cles un peu plus loin.
+	function "+" (Item : in String) return Unbounded_String
+		renames To_Unbounded_String;
+
+
+	-- Afficher une Unbounded_String et un entier.
+	procedure Afficher (S : in Unbounded_String; N: in Integer) is
+	begin
+		Put (Avec_Guillemets (S));
+		Put (" : ");
+		Put (N, 1);
+		New_Line;
+	end Afficher;
+
+	-- Afficher la Sda.
+	procedure Afficher is
+		new Pour_Chaque (Afficher);
+
+
+	Nb_Cles : constant Integer := 7;
+	Cles : constant array (1..Nb_Cles) of Unbounded_String
+			:= (+"un", +"deux", +"trois", +"quatre", +"cinq",
+				+"quatre-vingt-dix-neuf", +"vingt-et-un");
+	Inconnu : constant  Unbounded_String := To_Unbounded_String ("Inconnu");
+
+	Donnees : constant array (1..Nb_Cles) of Integer
+			:= (1, 2, 3, 4, 5, 99, 21);
+	Somme_Donnees : constant Integer := 135;
+	Somme_Donnees_Len4 : constant Integer := 7; -- somme si Length (Cle) = 4
+	Somme_Donnees_Q: constant Integer := 103; -- somme si initiale de Cle = 'q'
+
+
+	-- Initialiser l'annuaire avec les Donnees et Cles ci-dessus.
+	-- Attention, c'est à l'appelant de libérer la mémoire associée en
+	-- utilisant Vider.
+	-- Si Bavard est vrai, les insertions sont tracées (affichées).
+	procedure Construire_Exemple_Sujet (Annuaire : out T_LCA; Bavard: Boolean := False) is
+	begin
+		Initialiser (Annuaire);
+		pragma Assert (Est_Vide (Annuaire));
+		pragma Assert (Taille (Annuaire) = 0);
+
+
+    end Construire_Exemple_Sujet;
+
+begin
+    Construire_Exemple_Sujet;
+end Test_LCA;

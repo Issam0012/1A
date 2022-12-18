@@ -1,0 +1,9 @@
+package allumettes;
+
+public class OperationInterditeException extends Exception {
+
+	public OperationInterditeException() {
+		super();
+	}
+
+}

@@ -1,0 +1,14 @@
+13c13
+< Lou, combien d'allumettes ? Lou prend 0 allumette.
+---
+> Max, combien d'allumettes ? Max prend 0 allumette.
+36c36
+< Max, combien d'allumettes ? Max prend 1 allumette.
+---
+> Lou, combien d'allumettes ? Lou prend 1 allumette.
+38,39c38,39
+< Max perd !
+< Lou gagne !
+---
+> Lou perd !
+> Max gagne !

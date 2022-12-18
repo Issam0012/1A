@@ -1,0 +1,22 @@
+package allumettes;
+
+public class Procuration {
+	
+	private jeuAllumettes jeu;
+	
+	public Procuration (jeuAllumettes jeu) {
+		this.jeu = jeu;
+	}
+	
+	public jeuAllumettes getJeu () {
+		return new jeuAllumettes(this.jeu.getNombreAllumettes());
+	}
+	
+	public void retirer(jeuAllumettes jeu) throws OperationInterditeException {
+		
+		throw new OperationInterditeException();
+		
+	}
+
+	
+}

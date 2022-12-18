@@ -1,0 +1,158 @@
+\documentclass[frenchb]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+%Pour utilisation sous unix
+%\usepackage[utf8]{inputenc}
+%\usepackage[utf8x]{inputenc}
+\usepackage{a4wide}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{babel}
+\usepackage{float}
+
+\begin{document}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=5cm]{inp_n7.png}
+\end{figure}
+
+\title{\vspace{4cm} \textbf{Fonctionnalités du Logiciel de création d'environnement de jeu de rôle}}
+\author{ALOUANE Issam\\ BOUAM Adam\\ DABROWSKI Remi\\ PREVOST Jean-baptiste\\\\ Équipe GH-4}
+\date{\vspace{7cm} Département Sciences du Numérique - Première année \\
+2021-2022 }
+
+\maketitle
+
+\newpage
+\tableofcontents
+\listoffigures
+
+\newpage
+\section{Objectif général du projet}
+L'objectif de ce projet est l'élaboration d'un logiciel permettant la création de jeu de rôle. Ce logiciel offre aussi la possibilité de jouer avec ses propres créations. Tout cela se fera à l'aide d'interface graphique afin de faciliter son utilisation. 
+
+\section{Fonctionnalités}
+	
+\subsection{Interface de création de personnage} 
+Dans cette interface, l'utilisateur aura la possibilité de créer des personnages, en passant par son histoire, ses caractéristiques. De plus, il faudra que le créateur puisse ajouter des éventuelles notes sur les personnages. Lorsque les personnages sont créés, il pourra être possible de sauvegarder ces fiches en format pdf, afin de faciliter les échanges.
+
+\subsection{Interface de jeter de dé}
+Dans un jeu de rôle les actions effectuées sont basées sur des jetées de dés, il est donc indispensable que notre logiciel soit pourvu d'un onglet pour effectuer ses lancers de dés. Cependant, il doit être possible de choisir le nombre de face sur un dé, mais aussi le nombre de dé lancé.
+
+\subsection{Menu de prise de note}
+Le maître du jeu est un élément indispensable d'un jeu de rôle, il doit créer de l'interaction entre les joueurs et leurs environnements. Afin de préparer ses interactions, il aura à disposition un menu de note afin de ne pas oublier les événements passés. Ces événements peuvent servir de point d'ancrage pour des événements futur, mais il pourra aussi y noter des idées qu'il ne veut pas oublier.
+
+\subsection{Interface de création d'environnement}
+Pour qu'un jeu de rôle soit le plus intéressant et immersif possible, il est nécessaire de pouvoir visualiser les environnements dans lesquels les joueurs évoluent. Pour cela, il y aura à disposition un menu de création d'environnement dans lequel le créateur du jeu aura carte blanche. Il aura à disposition des outils lui permettant de créer des formes (cercle, rectangle, dessin libre, ...), une palette de couleurs. De plus, il aura la possibilité d'importer les figures de son choix. Il pourra associer à chaque environnement des notes pour indiquer les spécificités des lieus. Le créateur du jeu pourra définir les objets mobiles ou non pour les parties de jeu. Il aura aussi la possibilité d'ajouter des sons d'ambiance.
+
+\subsection{Interface de jeu}
+Ce logiciel offre aussi la possibilité de jouer avec ses propres créations, pour cela il y aura une interface de jeu qui ressemble à celui de création, mais dans une version plus restreinte, il sera uniquement possible d'y déplacer que certains élément tel que les personnages. 
+
+\subsection{Menu principal}
+Afin d'avoir un logiciel lisible, celui-ci sera pourvu d'un menu principal permettant à l'utilisateur de choisir parmi toutes les fonctionnalités disponible.
+
+\subsection{Interface création de carte événement, objet}
+Afin de créer de la profondeur de jeu, il sera possible de créer des cartes événements explicatifs pour les joueurs, mais aussi des cartes liés a des objets expliquant leur utilité et leurs caractéristiques.
+
+
+\section{Interfaces}
+
+\subsection{Menu principal}
+
+Sur la figure \ref{fig:Menu_esquisse} on retrouve une première ébauche des menus
+
+\begin{figure}[H]
+\includegraphics[width=5cm, angle = 270]{Menu.png} \hfill
+\includegraphics[width=5cm, angle = 270]{Menu_edit.png} \\
+\caption{Esquisse des menus de navigation}\label{fig:Menu_esquisse}
+\end{figure}
+
+\subsection{Interface de jeter de dé}
+
+\begin{figure}[H]
+\center
+\includegraphics[width=7cm, angle = 270]{De.png}
+\caption{Esquisse de l'interface de lancer de dé}\label{fig:De}
+\end{figure}
+
+\subsection{Interface de jeu}
+
+Sur la figure \ref{fig:Plateau} on retrouve les differents éléments utile pour le maitre du jeu afin de gérer la partie.
+
+\begin{figure}[H]
+\center
+\includegraphics[width=7cm, angle = 270]{Plateau.png}
+\caption{Plateau de jeu}\label{fig:Plateau}
+\end{figure}
+
+\begin{figure}[H]
+\center
+\includegraphics[width=7cm, angle = 270]{Plateau_bis.png}
+\caption{Plateau de jeu 2}\label{fig:Plateau_bis}
+\end{figure}
+
+\subsection{Interface création de carte événement, objet}
+
+Sur les figures \ref{fig:Carte_cree} et \ref{fig:Carte} on retrouve les deux interfaces afin d'accomplir cette action.
+
+\begin{figure}[H]
+\center
+\includegraphics[width=7cm, angle = 270]{Carte_cree.png}
+\caption{Menu d'ajout d'une nouvelle carte}\label{fig:Carte_cree}
+\end{figure}
+
+\begin{figure}[H]
+\center
+\includegraphics[width=7cm, angle = 270]{Carte.png}
+\caption{Modification de carte}\label{fig:Carte}
+\end{figure}
+
+\subsection{Interface de création d'environnement}
+
+Sur la figure \ref{fig:Editeur} on retrouve sur la gauche les fonctionnalités et sur la droite un aperçu de sa création.
+
+\begin{figure}[H]
+\center
+\includegraphics[width=7cm, angle = 270]{Editeur.png}
+\caption{Interface de création de plateau}\label{fig:Editeur}
+\end{figure}
+
+\subsection{Menu de prise de notes}
+
+On peut voir sur la figure \ref{fig:Notes} qu'il sera possible d'avoir une mise en forme minime afin de faciliter la relecture.
+
+\begin{figure}[H]
+\center
+\includegraphics[width=7cm, angle = 270]{Menu.png}
+\caption{Interface de notes}\label{fig:Notes}
+\end{figure}
+
+\subsection{Interface de création de personnage}
+
+Sur les figures \ref{fig:Perso_cree} et \ref{fig:Perso} on retrouve plus ou moins les même interfaces que celles des cartes.
+
+\begin{figure}[H]
+\center
+\includegraphics[width=7cm, angle = 270]{Perso_cree.png}
+\caption{Menu d'ajout d'un nouveau personnage}\label{fig:Perso_cree}
+\end{figure}
+
+\begin{figure}[H]
+\center
+\includegraphics[width=7cm, angle = 270]{Perso.png}
+\caption{Modification d'un personnage}\label{fig:Perso}
+\end{figure}
+
+\section{Exemples d'utilisations}
+
+\subsection{Scénario 1}
+
+Imaginons qu'une personne souhaite créer un nouveau plateau. Celui-ci se dirigera grâce au menu principal dans la section éditeur puis dans environnement. Il en est de même si il souhaite créer un personnage, il se dirigera alors dans la section personnage. Et, de manière analogue pour créer des objets ou des événements.
+
+\subsection{Scénario 2}
+
+Si une personne, ayant au préalable créée des personnages ainsi que des environnements, souhaite lancer une aventure il lui faudra se rendre dans le menu aventure. Avant de lancer une partie il sélectionnera les personnages qui pourront participer a cette aventure. En effet, tous les personnages créée ne sont pas forcement dédié a la même aventure. Lors de la partie il aura aussi accès aux plateaux créée afin de sélectionner dans quel environnement se passera la prochaine "scène". Même si la partie est interrompu et que de nouveaux environnements sont créée alors il pourra s'en servir.
+
+\end{document} 

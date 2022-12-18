@@ -1,0 +1,44 @@
+package allumettes;
+
+/** La classe abstraite qui représente le joueur d'une partie et qui laisse la méthode de prise d'allumettes à definir par
+ * chaque type de stratégie
+ * @author	Issam Alouane
+ */
+
+abstract class Joueur {
+	
+	/** Le nom du joueur */
+	private String nom;
+	
+	/** la stratégie du joueur */
+	private String strategie;
+	
+	/** Construire un joueur à partir de son nom et de sa stratégie
+	 * @param Nom le nom du joueur
+	 * @param Strategie La strategie du joueur
+	 */
+	public Joueur(String Nom, String strategie) {
+		this.nom = Nom;
+		this.strategie = strategie;
+	}
+	
+	/** Obtenir le nom du joueur
+	 * @return nom du joueur
+	 */
+	public String getNom() {
+		return this.nom;
+	}
+	
+	/** Obtenir la stratégie du joueur
+	 * @return stratégie du joueur
+	 */
+	public String getStrategie() {
+		return this.strategie;
+	}
+	
+	/** Obtenir le nombre d'allumettes que le joueur veut tirer.
+	 * @param jeu Le jeu en cours
+	 */
+	public abstract int getPrise(Jeu jeu);
+	
+}

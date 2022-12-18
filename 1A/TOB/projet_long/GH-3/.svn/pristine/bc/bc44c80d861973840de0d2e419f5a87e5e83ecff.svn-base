@@ -1,0 +1,40 @@
+package modele;
+
+import java.util.*;
+
+public class Inventaire {
+	
+	// Attributs
+	private ArrayList<Objet> inventaire;
+	private int placeRestantes;
+	
+	public Inventaire(Race race) {
+		this.placeRestantes = race.getInventaireDispo();
+	}
+	
+	public ArrayList<Objet> getInventaire() {
+		ArrayList<Objet> inventaireCopy = this.inventaire;
+		return inventaireCopy;
+	}
+	
+	public int getPlaceRestantes() {
+		return this.placeRestantes;
+	}
+	
+	public void addContenu(Objet objet) throws AjoutInventaireImpossible {
+		if (this.placeRestantes > 0) {
+			this.inventaire.add(objet);
+			this.placeRestantes = this.placeRestantes - 1;
+		} else {
+			throw new AjoutInventaireImpossible();
+		}
+	}
+	
+	public void removeContenu(Objet objet) {
+		if (this.inventaire.contains(objet)) {
+			this.inventaire.remove(objet);
+			this.placeRestantes = this.placeRestantes + 1;
+		}
+	}
+
+}

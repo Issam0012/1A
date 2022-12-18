@@ -1,0 +1,5 @@
+project Huffman is
+    for Source_Dirs use (".");
+    for Object_Dir use ".";
+    for Main use ("huffman_test.adb");
+end Huffman;

@@ -1,0 +1,12 @@
+package allumettes;
+
+public class Procuration {
+	
+	public void retirer( int nombre) throws OperationInterditeException {
+		
+		throw new OperationInterditeException();
+		
+	}
+
+	
+}

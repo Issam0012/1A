@@ -1,0 +1,75 @@
+% Validation de http:///cregut.svn.enseeiht.fr/2021/1sn/pim/projet/GH11
+% 2022-01-21 09:41:25.513551
+
+
+################################################################################
+# Fichiers attendus
+################################################################################
+
+Remarque : un livrable peut ne pas être trouvé car il n'a pas été déposé
+avec le bon nom. Dans ce cas, on peut le renommer en faisant :
+
+	svn mv ancien_nom nouveau_nom
+
+Sinon, si le fichier n'est pas sur SVN, c'est qu'il n'y a pas été ajouté :
+
+	svn add mon_fichier
+
+Ne pas oublier le commit pour pousser les modifications sur le serveur SVN.
+
+
+
+================================================================================
+## Livrables
+================================================================================
+
+* Fichier rapport.pdf trouvé... oui
+* Fichier sources.tgz trouvé... oui
+* Fichier presentation.pdf trouvé... oui
+* Fichier manuel.pdf trouvé... oui
+* Fichier demo.txt ou demo.pdf trouvé... oui (demo.pdf)
+
+================================================================================
+## Fichiers ADA
+================================================================================
+
+* Fichier compresser.adb trouvé... oui
+* Fichier decompresser.adb trouvé... oui
+
+
+################################################################################
+# Format archive sources.tgz
+################################################################################
+
+* Archive construite avec `tar cz` (sources.tgz)... ok
+
+
+################################################################################
+# Compilation des programmes
+################################################################################
+
+* Compilation de compresser.adb... ERREUR
+
+  | compresser.adb:13:11: warning: file name does not match unit name, should be "compression.adb"
+  | compresser.adb:13:11: file "sda_exceptions.ads" not found
+  | compresser.adb:13:11: "Compression (body)" depends on "Lca (body)"
+  | compresser.adb:13:11: "Lca (body)" depends on "Sda_Exceptions (spec)"
+  | compresser.adb:149:53: warning: formal parameter "donnee" is not referenced
+  | lca.adb:2:34: "SDA_Exceptions" is undefined
+  | lca.adb:61:19: "Cle_Absente_Exception" is undefined (more references follow)
+  | gnatmake: "src/compresser.adb" compilation error
+
+* Compilation de decompresser.adb... ERREUR
+
+  | decompresser.adb:11:11: warning: file name does not match unit name, should be "decompression.adb"
+  | decompresser.adb:11:11: file "sda_exceptions.ads" not found
+  | decompresser.adb:11:11: "decompression (body)" depends on "lca (body)"
+  | decompresser.adb:11:11: "lca (body)" depends on "sda_exceptions (spec)"
+  | decompresser.adb:46:15: warning: procedure "Afficher_codage" is not referenced
+  | decompresser.adb:48:14: warning: function "horner" is not referenced
+  | decompresser.adb:72:05: warning: variable "file_hff" is not referenced
+  | lca.adb:2:34: "SDA_Exceptions" is undefined
+  | lca.adb:61:19: "Cle_Absente_Exception" is undefined (more references follow)
+  | gnatmake: "src/decompresser.adb" compilation error
+
+* Running gnatclean... ok

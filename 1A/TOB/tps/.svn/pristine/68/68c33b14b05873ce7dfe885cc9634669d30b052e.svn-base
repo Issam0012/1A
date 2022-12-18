@@ -1,0 +1,53 @@
+import java.awt.Color;
+import org.junit.*;
+import static org.junit.Assert.*;
+
+/**
+  * Classe de test complémentaire de la classe Cercle.
+  * @author	Issam ALOUANE
+  */
+public class ComplementsCercleTest {
+
+	// précision pour les comparaisons réelle
+	public final static double EPSILON = 0.001;
+
+	// Les points du sujet
+	private Point A, B, C, D, E;
+
+	// Les cercles du sujet
+	private Cercle C1, C2;
+
+	@Before public void setUp() {
+		// Construire les points
+		A = new Point(1, 2);
+		B = new Point(2, 1);
+		C = new Point(4, 1);
+
+		// Construire les cercles
+		C1 = new Cercle(A, 5);
+	}
+	
+	/** Vérifier si deux points ont mêmes coordonnées.
+	  * @param message un message à afficher en cas d'erreur
+	  * @param p1 le premier point
+	  * @param p2 le deuxième point
+	  */
+	static void memesCoordonnees(String message, Point p1, Point p2) {
+		assertEquals(message + " (x)", p1.getX(), p2.getX(), EPSILON);
+		assertEquals(message + " (y)", p1.getY(), p2.getY(), EPSILON);
+	}
+
+    @Test public void testercontienta() {
+		assertTrue("contienta", C1.contient(B));
+		assertTrue("contienta", C1.contient(C));
+	}
+	
+	@Test public void testertranslater() {
+		C1.translater(100, 200);
+		memesCoordonnees("translation", new Point(101, 202), C1.getCentre());
+		assertEquals(" (y)", C1.getRayon(), 5, EPSILON);
+		assertFalse("contientb", C1.contient(B));
+		assertFalse("contientb", C1.contient(C));
+	}
+
+}

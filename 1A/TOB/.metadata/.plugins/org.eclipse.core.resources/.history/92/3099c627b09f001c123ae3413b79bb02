@@ -1,0 +1,11 @@
+package allumettes;
+
+public class StrategieRapide implements Strategie {
+
+	@Override
+	public int getPrise(jeuAllumettes jeu) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

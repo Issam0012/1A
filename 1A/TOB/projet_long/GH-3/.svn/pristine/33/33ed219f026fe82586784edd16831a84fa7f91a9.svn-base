@@ -1,0 +1,44 @@
+\documentclass[frenchb]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+%Pour utilisation sous unix
+%\usepackage[utf8]{inputenc}
+%\usepackage[utf8x]{inputenc}
+\usepackage{a4wide}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{babel}
+
+\begin{document}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=5cm]{inp_n7.png}
+\end{figure}
+
+\title{\vspace{4cm} \textbf{Rapport individuel - itération 1}}
+\author{Jean-Baptiste Prevost\\ }
+\date{\vspace{7cm} Département Sciences du Numérique - Première année \\
+2021-2022 }
+
+\maketitle
+
+\newpage
+\tableofcontents
+
+\newpage
+\section{Travail effectué}
+Durant cette itération j'ai fait:
+\begin{itemize}
+\item Création du modèle des classes nécessaires aux personnages et a leurs création.
+\item Création de l'interface graphique afin d'équiper les personnages.
+\item Création de l'interface graphique sur la création d'un personnage.\\
+\end{itemize}
+
+Pour les classes du modèle des personnages toute les classes sont terminées mais reste susceptible a quelques changement.
+\\\\
+\indent Pour l'interface graphique d'équipement des personnages il n'y a que la partie, il reste a lier cette interface a l'application ainsi qu'a faire la partie action.
+\\\\
+\indent La création des personnages est fonctionnelle.
+\end{document} 

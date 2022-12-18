@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Locations >
+  <Project>
+    <vfs_file />
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>C:\Users\Terra\Desktop\N7\git\1A\Semestre 5\PIM\Projet\src\5\PIM\Projet\src\huffman.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>C:\Users\Terra\Desktop\N7\git\1A\Semestre 5\PIM\Projet\src\huffman.gpr</vfs_project>
+      <vfs_file>C:\Users\Terra\Desktop\N7\git\1A\Semestre 5\PIM\Projet\src\huffman.ads</vfs_file>
+    </file_marker>
+    <file_marker current="true" column=" 1" line=" 1" >
+      <vfs_project>C:\Users\Terra\Desktop\N7\git\1A\Semestre 5\PIM\Projet\src\huffman.gpr</vfs_project>
+      <vfs_file>C:\Users\Terra\Desktop\N7\git\1A\Semestre 5\PIM\Projet\src\huffman_test.adb</vfs_file>
+    </file_marker>
+  </Project>
+</Locations>

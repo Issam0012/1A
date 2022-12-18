@@ -1,0 +1,92 @@
+\documentclass[frenchb]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+%Pour utilisation sous unix
+%\usepackage[utf8]{inputenc}
+%\usepackage[utf8x]{inputenc}
+\usepackage{a4wide}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{babel}
+
+\begin{document}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=5cm]{inp_n7.png}
+\end{figure}
+
+\title{\vspace{4cm} \textbf{Rapport - itération 1}}
+\author{Issam Alouane\\Remi Drabowski\\Adam Bouam\\Jean-Baptiste Prevost}
+\date{\vspace{7cm} Département Sciences du Numérique - Première année \\
+2021-2022 }
+
+\maketitle
+
+\newpage
+\tableofcontents
+\listoffigures
+
+\newpage
+\section{Élaboration importance des fonctionnalités}
+Pour élaborer le classement de l'importance des fonctionnalités a implanter nous avons utiliser le modèle MoSCoW (Must / Should / Could / Won't).
+
+\subsection{M de MoSCoW}
+
+Liste des différents éléments classifié comme Must:\\
+\begin{itemize}
+	\item Interface de création de personnage
+	\item Interface de création d'environnement
+	\item Interface de jeu
+\end{itemize}
+
+\subsection{S de MoSCoW}
+
+Liste des différents éléments classifié comme Should:\\
+\begin{itemize}
+	\item Implantation des dés
+	\item Menu Principal
+\end{itemize}
+
+\subsection{C de MoSCoW}
+
+Liste des différents éléments classifié comme Could:\\
+\begin{itemize}
+	\item Onglet de prise de note
+	\item Interface de création carte d'événement
+	\item Gestionnaire de dé
+\end{itemize}
+
+\subsection{W de MoSCoW}
+
+Liste des différents éléments classifié comme Won't:\\
+\begin{itemize}
+	\item Moteur lancer de dé
+\end{itemize}
+
+\section{Élaboration des EPICs}
+
+Liste des EPICs : \\
+
+\begin{itemize}
+	\item \textbf{En tant que} joueur \textbf{je veux} pouvoir éditer mon personnage \textbf{afin de} personnaliser les caractéristiques de celui-ci.
+\end{itemize}
+
+\subsection{User storys EPIC 1}
+Voici les differentes user story liées a la première EPIC de la liste : \\
+
+\begin{itemize}
+	\item \textbf{En tant que} joueur \textbf{je veux} pouvoir éditer mon personnage \textbf{afin de} modifier les statistiques (force, intelligence, ...)  de celui-ci.	
+	\item \textbf{En tant que} joueur \textbf{je veux} pouvoir éditer mon personnage \textbf{afin d'}équiper mon personnage comme je le souhaite.
+	\item \textbf{En tant que} joueur \textbf{je veux} pouvoir éditer mon personnage \textbf{afin de} choisir la race de celui-ci.\\
+\end{itemize}
+
+De plus afin de vérifier avec des tests unitaires le bon fonctionnement des fonctionnalités implanté nous devons respecté les détails suivant : \\
+
+\begin{itemize}
+	\item Verifier que les modifications sont bien enregistrés
+	\item Verifier que le personnage créé soit bien présent sur l'interface
+\end{itemize}
+
+\end{document} 

@@ -1,0 +1,21 @@
+Date de l'évaluation : ven. 11 févr. 2022 10:59:59 CET
+
+Compilation de Cercle.java : OK.
+
+Types d'erreurs checkstyle : 0	(voir evaluations/evaluation1/Cercle.checkstyle)
+
+Résultat de recherche de similitudes sur Cercle.java dans evaluations/evaluation1/Cercle.sim
+
+JavaDoc automatique de Cercle : ok	(voir evaluations/evaluation1/Cercle.javadoc)
+
+Un constructeur devrait appeler l'autre.
+
+Test SujetCercleTest : OK (14 tests)	(voir evaluations/evaluation1/SujetCercleTest.log)
+Test RobustesseCercleTest : OK (20 tests)	(voir evaluations/evaluation1/RobustesseCercleTest.log)
+Test FormeCercleTest : OK (12 tests)	(voir evaluations/evaluation1/FormeCercleTest.log)
+Test Forme2CercleTest : OK (9 tests)	(voir evaluations/evaluation1/Forme2CercleTest.log)
+
+ComplementsCercleTest : non modifiée (ok)
+
+Pas de mise à jour de CercleTest.java sur le SVN !
+CercleTest.java ne compile pas !!!

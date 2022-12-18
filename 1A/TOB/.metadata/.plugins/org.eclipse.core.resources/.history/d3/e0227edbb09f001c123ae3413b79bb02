@@ -1,0 +1,16 @@
+package allumettes;
+
+public class StrategieExpert implements Strategie {
+
+	@Override
+	public int getPrise(jeuAllumettes jeu) {
+		int prise;
+		if (jeu.getNombreAllumettes() <= Jeu.PRISE_MAX + 1) {
+			prise = jeu.getNombreAllumettes() - 1;
+		} else {
+			prise = Jeu.PRISE_MAX;
+		}
+		return prise;
+	}
+	
+}

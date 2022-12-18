@@ -1,0 +1,12 @@
+package allumettes;
+
+public class jeuAllumettesProcuration {
+	
+	private jeuAllumettes jeu;
+	
+	public jeuAllumettesProcuration(jeuAllumettes jeu) {
+		this.jeu = jeu;
+	}
+	
+	
+}

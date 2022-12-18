@@ -1,0 +1,152 @@
+\documentclass[frenchb]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+%Pour utilisation sous unix
+%\usepackage[utf8]{inputenc}
+%\usepackage[utf8x]{inputenc}
+\usepackage{a4wide}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{babel}
+
+\begin{document}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=5cm]{inp_n7.png}
+\end{figure}
+
+\title{\vspace{4cm} \textbf{Rapport - itération 1}}
+\author{Issam Alouane\\Remi Drabowski\\Adam Bouam\\Jean-Baptiste Prevost}
+\date{\vspace{7cm} Département Sciences du Numérique - Première année \\
+2021-2022 }
+
+\maketitle
+
+\newpage
+\tableofcontents
+\listoffigures
+
+\newpage
+\section{Élaboration importance des fonctionnalités}
+Pour élaborer le classement de l'importance des fonctionnalités a implanter nous avons utiliser le modèle MoSCoW (Must / Should / Could / Won't).
+
+\subsection{M de MoSCoW}
+
+Liste des différents éléments classifié comme Must:\\
+\begin{itemize}
+	\item Interface de création de personnage
+	\item Interface de création d'environnement
+	\item Interface de jeu
+\end{itemize}
+
+\subsection{S de MoSCoW}
+
+Liste des différents éléments classifié comme Should:\\
+\begin{itemize}
+	\item Implantation des dés
+	\item Menu Principal
+\end{itemize}
+
+\subsection{C de MoSCoW}
+
+Liste des différents éléments classifié comme Could:\\
+\begin{itemize}
+	\item Onglet de prise de note
+	\item Interface de création carte d'événement
+	\item Gestionnaire de dé
+\end{itemize}
+
+\subsection{W de MoSCoW}
+
+Liste des différents éléments classifié comme Won't:\\
+\begin{itemize}
+	\item Moteur lancer de dé
+\end{itemize}
+
+\section{Élaboration des EPICs}
+
+Liste des EPICs : \\
+
+\begin{itemize}
+	\item \textbf{En tant que} joueur \textbf{je veux} pouvoir éditer mon personnage \textbf{afin de} personnaliser les caractéristiques de celui-ci.
+	\item \textbf{En tant que} maître du jeu \textbf{je veux} pouvoir éditer les environnements  \textbf{afin de} personnaliser l'agencement des éléments de celui-ci.
+	\item \textbf{En tant que} joueur \textbf{je veux} pouvoir faire une partie \textbf{afin d'}utiliser mes créations.
+\end{itemize}
+
+\subsection{User storys de l'EPIC 1}
+Voici les différentes user story liées a la première EPIC de la liste : \\
+
+\begin{itemize}
+	\item \textbf{En tant que} joueur \textbf{je veux} pouvoir éditer mon personnage \textbf{afin de} modifier les statistiques (force, intelligence, ...)  de celui-ci.	
+	\item \textbf{En tant que} joueur \textbf{je veux} pouvoir éditer mon personnage \textbf{afin d'}équiper mon personnage comme je le souhaite.
+	\item \textbf{En tant que} joueur \textbf{je veux} pouvoir éditer mon personnage \textbf{afin de} choisir la race de celui-ci.\\
+\end{itemize}
+
+De plus afin de vérifier avec des tests unitaires le bon fonctionnement des fonctionnalités implanté nous devons respecté les détails suivant : \\
+
+\begin{itemize}
+	\item Vérifier que les modifications sont bien enregistrés
+	\item Vérifier que le personnage créé soit bien présent sur l'interface
+\end{itemize}
+
+\subsection{User storys de l'EPIC 2}
+
+Voici les différentes user story liées a la deuxième EPIC de la liste : \\
+
+\begin{itemize}
+	\item \textbf{En tant que} maître du jeu \textbf{je veux} pouvoir éditer les environnements  \textbf{afin de} rajouter des éléments de décor a celui-ci.
+	\item \textbf{En tant que} maître du jeu \textbf{je veux} pouvoir éditer les environnements  \textbf{afin de} rajouter des ambiances sonores.\\
+\end{itemize}
+
+\subsection{User storys de l'EPIC 3}
+
+Voici les différentes user story liées a la troisième EPIC de la liste : \\
+
+\begin{itemize}
+	\item \textbf{En tant que} joueur \textbf{je veux} pouvoir faire une partie \textbf{afin de} pouvoir déplacer mon personnage.
+	\item \textbf{En tant que} joueur \textbf{je veux} pouvoir faire une partie \textbf{afin de} pouvoir intéragir avec les éléments du décor.
+	\item \textbf{En tant que} joueur \textbf{je veux} pouvoir faire une partie \textbf{afin de} pouvoir interagir avec les autres joueurs.\\
+
+\end{itemize}
+
+\section{Diagramme UML}
+
+Dans cette section on peut retrouver les différents diagrammes UML mis aux points pour chaque modèle.
+
+\subsection{Modèle des personnages}
+
+On peut voir sur la figure \ref{fig : UML_personnage} le diagramme UML associé aux personnages.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=17cm]{umlPerso.png}
+	\caption{Diagramme UML modèle personnage \label{fig : UML_personnage}}
+\end{figure}
+
+\section{Résultats}
+
+Dans cette dernière section vous pourrez trouver quelques aperçu des interfaces de l'application.
+
+\subsection{Menu principal}
+
+Sur la figure \ref{fig : MP} on peut voir le menu principal qui est l'élément central pour la navigation entre les différents éléments de l'application.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=15cm]{MenuPrincipal.png}
+	\caption{Menu principal \label{fig : MP}}
+\end{figure}
+
+\subsection{Édition des personnages}
+
+la figure \ref{fig : CreerPerso} montre le menu de création de personnage et notamment la modification de ses statistiques.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=15cm]{CreerPerso.png}
+	\caption{Menu principal \label{fig : CreerPerso}}
+\end{figure}
+
+\end{document} 

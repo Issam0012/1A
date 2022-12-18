@@ -1,0 +1,65 @@
+with arbre_binaire;
+
+generic
+   type T_Indice is private;
+   type T_Valeur is private;
+   with function sum(a: T_Indice; b: T_Indice) return T_Indice;
+   index_debut : Constant Integer
+   Taille_table : Constant Integer;
+
+package Tableau is
+
+   type T_Tableau is limited private;  
+    
+
+   -- Initialiser une Tab binaire.  La Tab est vide.
+   procedure Initialiser(Tab: out T_Tableau) with
+     Post => Est_Vide (Tab);
+
+      
+   -- Est-ce qu'une Tab est vide ?
+   function Est_Vide (Tab : T_Tableau) return Boolean;
+
+   
+   -- Enregistrer une Donnée associée à une Clé dans une Tab.
+   -- Si la clé est déjà présente dans la Tab, sa donnée est changée.
+   procedure Enregistrer (Tab : in out T_Tableau ; Indice : in T_Indice ; Valeur : in T_Valeur; index : in out Integer);
+    
+   
+   -- Echange l'indice et la valeur avec la l'indice et la valeur de notre choix
+   procedure Echanger(Tab: out T_Tableau; emplacement_d: in Integer; emplacement_a: in Integer);-- with
+   --Pre => emplacement <= Tab.Taille,
+   --Post => T_Tableau.Taille = T_Tableau.Taille'Old and Tab.all.Valeur = Tab.all.Valeur'Old;
+
+                  
+   -- Obtenir la donnée associée à une Indice dans la Tab.
+   -- Exception : Indice_Absente_Exception si Clé n'est pas utilisée dans l'Tab
+   --function Valeur_associee(Tab : in T_Tableau ; Indice : in T_Indice) return T_Valeur;
+
+   
+   --function Valeur_position(Tab : in T_Tableau; Valeur : in T_Valeur) return Integer;
+   
+   
+   -- Supprimer la Donnée associée à une Clé dans une Tab.
+   -- Exception : Indice_Absente_Exception si Clé n'est pas utilisée dans la Tab
+   procedure Supprimer (Tab : in out T_Tableau ; emplacement : in Integer); -- with
+   -- Post =>  Taille (Arbre) = Taille (Arbre)'Old - 1; -- un élément de moins
+
+   
+   -- Supprimer tous les éléments d'une Tab.
+   procedure Vider (Tab : in out T_Tableau) with
+     Post => Est_Vide (Tab);
+
+private
+   
+   package M_AB is new arbre_binaire(T_Indice, T_Valeur,sum);
+
+   type Tab_AB is array (1..Taille_table) of M_AB.T_AB;
+   
+   type T_Tableau is 
+      record
+         Tableau : Tab_AB;
+         Taille: Integer := 0;
+      end record;
+       
+end Tableau;

@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<Locations >
+  <Project>
+    <vfs_file>/home/ialouane/Annee_1/pim/tp/tp06/tp06.gpr</vfs_file>
+    <file_marker column=" 38" line=" 29" >
+      <vfs_project>/home/ialouane/Annee_1/pim/tp/tp06/tp06.gpr</vfs_project>
+      <vfs_file>/home/ialouane/Annee_1/pim/tp/tp06/dates.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 21" line=" 12" >
+      <vfs_project>/home/ialouane/Annee_1/pim/tp/tp06/tp06.gpr</vfs_project>
+      <vfs_file>/home/ialouane/Annee_1/pim/tp/tp06/dates.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 9" line=" 43" >
+      <vfs_project>/home/ialouane/Annee_1/pim/tp/tp06/tp06.gpr</vfs_project>
+      <vfs_file>/home/ialouane/Annee_1/pim/tp/tp06/exemple_dates_erreurs.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 23" line=" 5" >
+      <vfs_project>/home/ialouane/Annee_1/pim/tp/tp06/tp06.gpr</vfs_project>
+      <vfs_file>/home/ialouane/Annee_1/pim/tp/tp06/stocks_materiel.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project />
+      <vfs_file>/home/ialouane/Annee_1/pim/tp/tp06/tp06.gpr</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/ialouane/Annee_1/pim/tp/tp06/tp06.gpr</vfs_project>
+      <vfs_file>/home/ialouane/Annee_1/pim/tp/tp06/stocks_materiel.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/ialouane/Annee_1/pim/tp/tp06/tp06.gpr</vfs_project>
+      <vfs_file>/home/ialouane/Annee_1/pim/tp/tp06/stocks_materiel.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 41" line=" 149" >
+      <vfs_project>/home/ialouane/Annee_1/pim/tp/tp06/tp06.gpr</vfs_project>
+      <vfs_file>/home/ialouane/Annee_1/pim/tp/tp06/stocks_materiel.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 26" line=" 116" >
+      <vfs_project>/home/ialouane/Annee_1/pim/tp/tp06/tp06.gpr</vfs_project>
+      <vfs_file>/home/ialouane/Annee_1/pim/tp/tp06/stocks_materiel.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 17" line=" 132" >
+      <vfs_project>/home/ialouane/Annee_1/pim/tp/tp06/tp06.gpr</vfs_project>
+      <vfs_file>/home/ialouane/Annee_1/pim/tp/tp06/stocks_materiel.ads</vfs_file>
+    </file_marker>
+    <file_marker current="true" column=" 26" line=" 116" >
+      <vfs_project>/home/ialouane/Annee_1/pim/tp/tp06/tp06.gpr</vfs_project>
+      <vfs_file>/home/ialouane/Annee_1/pim/tp/tp06/stocks_materiel.ads</vfs_file>
+    </file_marker>
+  </Project>
+</Locations>

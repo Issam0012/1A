@@ -1,0 +1,106 @@
+--with AB_Exceptions;         use AB_Exceptions;
+-- with Ada.Unchecked_Deallocation;
+
+package body Tableau is
+
+    procedure Initialiser(Tab: out T_Tableau) is
+    begin
+        Tab.Taille:=0;
+    end Initialiser;
+    
+    function Taille (Tab : T_Tableau) return integer is
+    begin
+        return Tab.Taille;
+    end Taille;
+
+    function Est_Vide (Tab : T_Tableau) return Boolean is
+    begin
+        return (Tab.Taille=0);
+    end;
+    
+    procedure Arbre_index (Tab : in T_Tableau; Tab_out: out T_AB; index: in integer) is
+    begin
+        Tab_out:=Tab.Tableau(index);
+    end Arbre_index;
+    
+
+    procedure Echanger (Tab: out T_Tableau; emplacement_d: in Integer; emplacement_a: in Integer) is
+    begin
+        Permutation(Tab.Tableau(emplacement_d), Tab.Tableau(emplacement_a));
+    end Echanger;
+
+
+
+    procedure Enregistrer (Tab : in out T_Tableau ; Indice : in T_Indice ; Valeur : in T_Valeur) is
+        index: integer;
+    begin
+        index:=1;
+        if Est_Vide(Tab) then
+            M_AB.Enregistrer(Tab.Tableau(1),Indice,Valeur);
+        else
+            while index<=Tab.Taille loop
+                if M_AB.Valeur(Tab.Tableau(index)) = Valeur then
+                    M_AB.Enregistrer(Tab.Tableau(index),Indice,Valeur);
+                else
+                    null;
+                end if;
+            end loop;
+            if index=Tab.Taille then
+                M_AB.Enregistrer(Tab.Tableau(index+1),Indice,Valeur);
+            else
+                null;
+            end if;
+        end if;
+        Tab.Taille:=Tab.Taille+1;
+    end Enregistrer;
+
+
+    function Indice_existe(Tab : in T_Tableau; Indice_test : in T_Indice) return Boolean is
+    begin
+        for index in 1..Taille(Tab) loop
+            if M_AB.Indice(Tab.Tableau(index)) = Indice_test then
+                return True;
+            else
+                null;
+            end if;
+        end loop;
+        return False;
+    end Indice_existe;
+
+
+    procedure Supprimer (Tab : in out T_Tableau ; emplacement : in Integer) is
+        index : Integer := emplacement;
+    begin
+        M_AB.Vider(Tab.Tableau(emplacement));
+        M_AB.Initialiser(Tab.Tableau(emplacement));
+        if emplacement = Taille(Tab) then
+            null;
+        else
+            while index<Taille(Tab) loop
+                M_AB.Permutation(Tab.Tableau(index), Tab.Tableau(index+1));
+                index := index +1;
+            end loop;
+        end if;
+        Tab.Taille:=Tab.Taille-1;
+    end Supprimer;
+
+
+    procedure Vider (Tab : in out T_Tableau) is
+    begin
+        for i in 1..Taille(Tab) loop
+            M_AB.Vider(Tab.Tableau(i));
+        end loop;
+        Tab.taille:=0;
+    end Vider;
+
+    procedure Pour_Chaque_tab (Tab : in T_Tableau; nombre : in Integer) is
+        index : Integer;
+    begin
+        index:=1;
+        while index <= Taille(Tab) loop
+            Traiter(Tab.Tableau(index), nombre);
+            index := index + 1;
+        end loop;
+    end Pour_Chaque_tab;
+
+end Tableau;

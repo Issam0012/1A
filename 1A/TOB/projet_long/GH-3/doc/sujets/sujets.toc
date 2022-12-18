@@ -1,0 +1,7 @@
+\babel@toc {french}{}
+\contentsline {section}{\numberline {1}Liste des propositions}{3}%
+\contentsline {subsection}{\numberline {1.1}Simulateur de jeu de plateau}{3}%
+\contentsline {subsection}{\numberline {1.2}Jeu de parchisis}{4}%
+\contentsline {subsection}{\numberline {1.3}Jeu d'\'echec}{5}%
+\contentsline {subsection}{\numberline {1.4}Les tours de Hano\IeC {\"\i }}{5}%
+\contentsline {subsection}{\numberline {1.5}Logiciel de cr\'eation d'environnement de jeu de r\^ole}{5}%

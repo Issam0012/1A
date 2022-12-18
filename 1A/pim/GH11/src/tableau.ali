@@ -1,0 +1,216 @@
+V "GNAT Lib v2021"
+A -gnatA
+A -gnatwa
+A -gnata
+A -g
+A -mtune=generic
+A -march=x86-64
+P ZX
+
+RN
+RV NO_DIRECT_BOOLEAN_OPERATORS
+RV NO_IO
+RV NO_RECURSION
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_DEFAULT_INITIALIZATION
+RV NO_IMPLEMENTATION_PRAGMAS
+
+U tableau%b		tableau.adb		b69a2d9b NE OO PK GE
+W ada%s			ada.ads			ada.ali
+Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+
+U tableau%s		tableau.ads		a84cd09f BN EE NE OO PK GE IL
+W ada%s			ada.ads			ada.ali
+Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
+Z ada.text_io%s		a-textio.adb		a-textio.ali
+Z ada.unchecked_deallocation%s
+W arbre_binaire%s	arbre_binaire.adb	arbre_binaire.ali
+
+D ada.ads		20210520051130 76789da1 ada%s
+D a-except.ads		20210520051127 946f3014 ada.exceptions%s
+D a-ioexce.ads		20210520051127 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20210520051128 119b8fb3 ada.streams%s
+D a-string.ads		20210520051128 90ac6797 ada.strings%s
+D a-sttebu.ads		20210520051128 18209c64 ada.strings.text_buffers%s
+D a-stuten.ads		20210520051128 808c40ad ada.strings.utf_encoding%s
+D a-tags.ads		20210520051129 9eaa38c6 ada.tags%s
+D a-textio.ads		20210520051129 aef4d56d ada.text_io%s
+D a-unccon.ads		20210520051129 0e9b276f ada.unchecked_conversion%s
+D a-uncdea.ads		20210520051129 c3a8ac65 ada.unchecked_deallocation%s
+D arbre_binaire.ads	20220121114418 e90b2c93 arbre_binaire%s
+D arbre_binaire.adb	20220121114417 47fa980b arbre_binaire%b
+D interfac.ads		20210520051131 edec285f interfaces%s
+D i-cstrea.ads		20210520051131 e53d8b8e interfaces.c_streams%s
+D system.ads		20210520051134 a2da961d system%s
+D s-crtl.ads		20210520051131 0ebbdb71 system.crtl%s
+D s-exctab.ads		20210520051131 54135002 system.exception_table%s
+D s-ficobl.ads		20210520051131 078245e4 system.file_control_block%s
+D s-parame.ads		20210520051133 4752c4cb system.parameters%s
+D s-putima.ads		20210520051133 4e095881 system.put_images%s
+D s-secsta.ads		20210520051133 9b3ab94b system.secondary_stack%s
+D s-soflin.ads		20210520051133 a7318a92 system.soft_links%s
+D s-stache.ads		20210520051133 a37c21ec system.stack_checking%s
+D s-stalib.ads		20210520051133 472fbca8 system.standard_library%s
+D s-stoele.ads		20210520051133 2dc34a04 system.storage_elements%s
+D s-stoele.adb		20210520051133 ed88f8fb system.storage_elements%b
+D s-traent.ads		20210520051133 26a8d361 system.traceback_entries%s
+D s-unstyp.ads		20210520051133 2b077493 system.unsigned_types%s
+D s-wchcon.ads		20210520051134 1b7d22d2 system.wch_con%s
+D tableau.ads		20220121114419 4147fc0c tableau%s
+D tableau.adb		20220121114419 592904fa tableau%b
+D unchconv.ads		20210520051134 ca2f9e18 unchecked_conversion%s
+G a e
+G c Z s b [tableau standard 13 9 none]
+X 1 ada.ads
+16K9*Ada 20e8 32|2r6 2r33
+X 9 a-textio.ads
+58K13*Text_IO 725e16 32|2w10 2r37
+262U14*New_Line 32|219s13 226s13
+463U14*Put 32|213s13 215s13 216s13 223s13 225s13 228s17 230s13 233s17 236s13
+X 12 arbre_binaire.ads
+7k9*arbre_binaire 84e18 31|2w6 15r23
+9P10 T_AB 31|47r67[15] 85r38[15] 90r35[15] 93r39[15] 93r57[15] 96r38[15]
+. 96r55[15] 100r33[15] 101r33[15] 105r33[15] 112r43[15] 116r42[15] 116r61[15]
+. 120r45[15] 120r68[15] 125r41[15] 130r37[15] 138r42[15] 143r47[15] 32|30r67[31|15]
+. 134r38[31|15] 140r38[31|15] 140r55[31|15] 146r36[31|15] 146r55[31|15] 152r32[31|15]
+. 158r30[31|15] 164r33[31|15] 170r33[31|15] 176r43[31|15] 182r42[31|15] 182r61[31|15]
+. 188r45[31|15] 188r68[31|15] 194r41[31|15] 200r37[31|15] 206r42[31|15] 207r18[31|15]
+. 208r18[31|15]
+13U15 Initialiser 32|136s12[31|15]
+18V14 Est_Vide{boolean} 32|154s19[31|15]
+21U15 fils_gauche 32|148s12[31|15] 210s12[31|15]
+24U15 fils_droit 32|142s12[31|15] 211s12[31|15]
+28V14 Indice{31|7+10} 32|160s19[31|15] 214s29[31|15] 224s29[31|15]
+29V14 Valeur{31|8+10} 32|166s19[31|15] 218s29[31|15]
+33V14 Taille{integer} 32|172s19[31|15]
+40U15 Enregistrer 32|178s12[31|15]
+44U15 Associer 32|184s12[31|15]
+48U15 Permutation 32|190s12[31|15]
+53U15 Supprimer 32|196s12[31|15]
+58U15 Vider 32|202s12[31|15]
+X 31 tableau.ads
+6i5 Taille_table{integer} 143r30
+7+10 T_indice 9r37 9r61 9r78 10r38 10r55 11r37 11r61 15r37 37r65 100r46 112r62
+. 125r60 136r51 32|36r65 158r43 176r62 194r60
+8+10 T_valeur 15r47 37r88 52r65 56r65 70r89 101r46 112r85 116r78 137r51 32|36r88
+. 49r65 63r65 97r89 164r46 176r85 182r78
+9V19 sum{7+10} 9>23 9>47 15r57
+9*23 indice_1{7+10}
+9*47 indice_2{7+10}
+10V19 increm{7+10} 10>26 32|79s26
+10*26 indice{7+10}
+11V19 sup{boolean} 11>23 11>47 32|87s20 102s32
+11*23 indice_1{7+10}
+11*47 indice_2{7+10}
+13k9*Tableau 6z5 7z10 8z10 9z19 10z19 11z19 143E10 151l5 151e12 32|5b14 242l5
+. 242t12
+15K13*AB[12|7] 16r9 47r64 32|30r64 136r9 142r9 148r9 154r16 160r16 166r16
+. 172r16 178r9 184r9 190r9 196r9 202r9 210r9 211r9 214r26 218r26 224r26
+19A10*Tab_AB(12|9P10[15]) 143c10 147r23
+20R10*T_Tableau 24r36 28r28 32r30 37r41 41r36 47r41 52r37 56r37 62r39 66r36
+. 70r36 75r39 80r35 145c10 149e19 32|8r36 13r28 18r30 24r37 30r41 36r41 49r37
+. 63r37 77r39 83r36 97r36 109r39 125r35
+24U15*Initialiser 24<27 32|8b15 11l9 11t20
+24r27 Tab{20R10} 25r31 32|8b27 10m9
+28V14*Taille{integer} 28>22 43s21 43s35 48s30 76s35 77s22 77s36 32|13b14
+. 16l9 16t15 112s26 115s25
+28r22 Tab{20R10} 32|13b22 15r16
+32V14*Est_Vide{boolean} 25s21 32>24 48s50 76s55 81s21 32|18b14 21t8
+32r24 Tab{20R10} 32|18b24 20r17
+37U15*Enregistrer 37=28 37>53 37>76 32|36b15 46l9 46t20 79s9
+37r28 Tab{20R10} 32|36b28 38r30 39m25 39r25 39r37 40m25 40r25 40r37 41m13
+. 41r25 43m25 43r25 43r51
+37*53 Indice{7+10} 32|36b53 40r52 43r66
+37*76 Valeur{8+10} 32|36b76 38r35 40r60 43r56 43r74
+41U15*Echanger 41=24 41>47 41>74 32|24b15 27l9 27t17 88s21 103s13
+41r24 Tab{20R10} 43r28 43r42 32|24b25 26m21 26r21 26m49 26r49
+41i47 emplacement_d{integer} 32|24b48 26r33
+41i74 emplacement_a{integer} 32|24b75 26r61
+47U15*Extraction_arbre 47>32 47<52 47>73 32|30b15 33l9 33t25
+47r32 Tab{20R10} 48r37 48r59 32|30b32 32r18
+47p52 Arbre{12|9P10[15]} 32|30b52 32m9
+47i73 Indice{integer} 48r20 32|30b73 32r30
+52V14*Valeur_existe{boolean} 52>28 52>48 58s20 32|38s16 49b14 60l9 60t22
+52r28 Tab{20R10} 32|49b28 52r25 53r23
+52*48 Valeur_test{8+10} 32|49b48 53r45
+56V14*indice_valeur{integer} 56>28 56>48 32|43s37 63b14 74l9 74t22
+56r28 Tab{20R10} 58r34 32|63b28 66r21 67r23
+56*48 Valeur_test{8+10} 58r39 32|63b48 67r41
+62U15*Incrementer 62=27 62>50 32|77b15 80l9 80t20
+62r27 Tab{20R10} 32|77b27 79m21 79r40 79r75
+62i50 emplacement{integer} 32|77b50 79r52 79r87
+66U15*Tri_Tab 66=23 32|83b15 94l9 94t16
+66r23 Tab{20R10} 32|83b23 85r21 86r25 87r31 87r54 88m31
+70U15*Associer 70=24 70>47 70>62 70>77 32|97b15 106l9 106t17
+70r24 Tab{20R10} 32|97b24 100m18 100r18 100r34 101m19 102r17 102r43 102r66
+. 103m22
+70i47 i{integer} 32|97b47 98r23 100r30
+70i62 j{integer} 32|97b62 100r46 101r24
+70*77 valeur{8+10} 32|97b77 100r50
+75U15*Supprimer 75=26 75>51 32|101s9 109b15 122l9 122t18
+75r26 Tab{20R10} 76r42 76r64 77r29 77r43 32|109b26 112r33 115r32 116m29 116r29
+. 116m49 116r49 121m9 121r21
+75i51 emplacement{integer} 76r20 32|109b51 110r28 112r12
+80U15*Vider 80=22 32|125b15 131l9 131t14
+80r22 Tab{20R10} 81r31 32|125b22 127r21 128m19 128r19 130m9
+85U15*Initialiser 85<27 32|39s13 134b15 137l9 137t20
+85p27 Arbre{12|9P10[15]} 86r31 32|134b27 136m24
+90V14*Est_Vide{boolean} 86s21 90>24 107s39 131s21 32|152b14 155l9 155t17
+. 212s12 212s33 220s15
+90p24 Arbre{12|9P10[15]} 32|152b24 154r29
+93U15*fils_gauche 93>28 93<45 32|146b15 149l9 149t20
+93p28 Arbre{12|9P10[15]} 32|146b28 148r25
+93p45 gauche{12|9P10[15]} 32|146b42 148m32
+96U15*fils_droit 96>27 96<44 32|140b15 143l9 143t19
+96p27 Arbre{12|9P10[15]} 32|140b27 142r24
+96p44 droit{12|9P10[15]} 32|140b44 142m32
+100V14*Indice{7+10} 100>22 32|79s33 87s24 87s47 102s36 102s59 158b14 161l9
+. 161t15
+100p22 Arbre{12|9P10[15]} 32|158b22 160r27
+101V14*Valeur{8+10} 101>22 32|53s16 67s16 79s68 164b14 167l9 167t15
+101p22 Arbre{12|9P10[15]} 32|164b22 166r27
+105V14*Taille{integer} 105>22 126s22 126s39 32|170b14 173l9 173t15
+105p22 Arbre{12|9P10[15]} 107r49 32|170b22 172r26
+112U15*Enregistrer 112=28 112>50 112>73 32|40s13 43s13 176b15 179l9 179t20
+112p28 Arbre{12|9P10[15]} 32|176b28 178m24
+112*50 Indice{7+10} 32|176b50 178r31
+112*73 Valeur{8+10} 32|176b73 178r39
+116U15*Associer 116=25 116>49 116>67 32|100s9 182b15 185l9 185t17
+116p25 Arbre_1{12|9P10[15]} 32|182b25 184m21
+116p49 Arbre_2{12|9P10[15]} 32|182b49 184r31
+116*67 valeur{8+10} 32|182b67 184r40
+120U15*Permutation 120=28 120=52 32|26s9 116s17 188b15 191l9 191t20
+120p28 Arbre_1{12|9P10[15]} 32|188b28 190m24
+120p52 Arbre_2{12|9P10[15]} 32|188b52 190m33
+125U15*Supprimer 125=26 125>48 32|194b15 197l9 197t18
+125p26 Arbre{12|9P10[15]} 126r30 126r47 32|194b26 196m22
+125*48 Indice{7+10} 32|194b48 196r29
+130U15*Vider 130=22 32|128s13 200b15 203l9 203t14
+130p22 Arbre{12|9P10[15]} 131r31 32|200b22 202m18
+136U24 afficher_int 136>37 32|214s13 224s13
+136*37 variable{7+10}
+137U24 afficher_str 137>37 32|218s13
+137*37 variable{8+10}
+138u15*affichage_arbre 138>31 138>48 32|206b15 231s13 237s13 239l9 239t24
+138p31 arbre{12|9P10[15]} 32|206b31 210r24 211r23 214r36 218r36 220r24 224r36
+138i48 nombre{integer} 32|206b48 227r25 231r37 232r25 237r37
+147a13 Tableau{19A10} 32|26m25 26m53 32r22 39m29 40m29 43m29 53r27 67r27
+. 79r44 79r79 87r35 87r58 100m22 100r38 102r47 102r70 116m33 116m53 128m23
+148i13 Taille{integer} 32|10m13 15r20 20r21 39r41 40r41 41m17 41r29 52r29
+. 66r25 85r25 86r29 102r21 121m13 121r25 127r25 130m13
+X 32 tableau.adb
+50b9 existance{boolean} 54m17 59r16
+52i13 index{integer} 53r35
+64i9 index{integer} 68m17 73r16
+66i13 i{integer} 67r35 68r26
+85i13 i{integer}
+86i17 j{integer} 87r43 87r66 88r36 88r39
+98i9 k{integer} 102r15 102r55 102r78 103r27 103r30 104m13 104r16
+110i9 index{integer} 115r19 116r41 116r61 117m17 117r26
+127i13 i{integer} 128r31
+207p9 fils_g{12|9P10[31|15]} 210m31 210r31 212r42 231r29
+208p9 fils_d{12|9P10[31|15]} 211m30 211r30 212r21 237r29
+227i17 i{integer}
+232i17 i{integer}
+

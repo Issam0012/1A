@@ -1,0 +1,27 @@
+package allumettes;
+
+/** La classe qui représente le joueur rapide
+ * @author	Issam Alouane
+ */
+
+public class StrategieRapide implements Strategie {
+
+	/** Construire un joueur rapide à partir de son nom
+	 * @param Nom le nom du joueur
+	 */
+	//public JoueurRapide(String Nom) {
+		//super(Nom, "rapide");
+	//}
+	
+	/** Obtenir le nombre d'allumettes que le joueur veut tirer.
+	 * @param jeu Le jeu en cours
+	 */
+	public int getPrise(Jeu jeu, String nom) {
+		
+		//Ce joueur va tirer le minimum entre le nombre maximum de prises possible ou le nombre d'allumettes
+		
+		return Math.min(Jeu.PRISE_MAX, jeu.getNombreAllumettes());
+		
+	}
+
+}

@@ -1,0 +1,9 @@
+package allumettes;
+
+public interface Strategie {
+
+	/** Obtenir nombre d'allumettes prises à partir du stratégie
+	 * 
+	 */
+	int getPrise(jeuAllumettes jeu);
+}

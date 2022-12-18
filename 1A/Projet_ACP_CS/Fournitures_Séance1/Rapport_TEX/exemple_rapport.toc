@@ -1,0 +1,12 @@
+\babel@toc {french}{}
+\contentsline {section}{\numberline {1}Introduction}{3}%
+\contentsline {section}{\numberline {2}Eigenfaces}{3}%
+\contentsline {subsection}{\numberline {2.1}Analyse en Composantes Princiales ACP :}{3}%
+\contentsline {subsection}{\numberline {2.2}Repr\'esentation des Eigenfaces :}{4}%
+\contentsline {section}{\numberline {3}Projection des images sur les "eigenfaces"}{5}%
+\contentsline {subsection}{\numberline {3.1}Et pour les visages masqu\'es}{6}%
+\contentsline {section}{\numberline {4}L'ACP et la m\'ethode de la puissance it\'er\'ee :}{7}%
+\contentsline {subsection}{\numberline {4.1}Question 4}{7}%
+\contentsline {subsection}{\numberline {4.2}Question 6}{7}%
+\contentsline {subsection}{\numberline {4.3}Question 7}{7}%
+\contentsline {section}{\numberline {5}Conclusion}{8}%

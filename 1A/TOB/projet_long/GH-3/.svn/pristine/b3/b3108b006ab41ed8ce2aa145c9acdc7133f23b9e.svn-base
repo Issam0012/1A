@@ -1,0 +1,43 @@
+\documentclass[frenchb]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+%Pour utilisation sous unix
+%\usepackage[utf8]{inputenc}
+%\usepackage[utf8x]{inputenc}
+\usepackage{a4wide}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{babel}
+
+\begin{document}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=5cm]{inp_n7.png}
+\end{figure}
+
+\title{\vspace{4cm} \textbf{Manuel utilisateur - itération 1}}
+\author{Issam Alouane\\Remi Drabowski\\Adam Bouam\\Jean-Baptiste Prevost }
+\date{\vspace{7cm} Département Sciences du Numérique - Première année \\
+2021-2022 }
+
+\maketitle
+
+\newpage
+\tableofcontents
+\listoffigures
+
+\newpage
+\section{Menu principal}
+Une fois que l'application est lancée grâce à la classe MenuPrincipal.java il y a la possibilité soit de quitter, soit d'accéder aux différentes fonctionnalités. A ce stade il est uniquement possible de se rendre dans le sous menu personnages.
+
+\section{Sous menu personnage}
+Une fois dans le menu personnage vous avez la possibilité de créer un personnage avec le bouton Nouveau. Une interface devrait s'ouvrir en demandant un nom une description est une race afin d'initialiser le personnage avant d'avoir la possibilité de modifier ses statistiques.\\
+
+Une fois le personnage créé un cadre avec le personnage créé devrait apparaitre en cliquant sur celui-ci vous aurez la possibilité de supprimer ou de modifier ce personnage (Cette fonctionnalité n'est pas encore disponible).
+
+\section{Menu équipement personnage}
+Ce menu n'est pas relié à l'application principale. Il faut donc lancer ce menu grâce à la classe FenetreEquiper.java. Dans ce menu, vous avez cinq onglets, un onglet général qui affiche les statistiques générales. Les quatre autres onglets concernent chaque équipement avec la possibilité de les changer grâce aux sliders et au bouton de validation. 
+
+\end{document} 

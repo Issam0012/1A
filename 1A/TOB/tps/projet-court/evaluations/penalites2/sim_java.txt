@@ -1,0 +1,175 @@
+File allumettes/Arbitre.java: 530 tokens, 155 lines
+File allumettes/CoupInvalideException.java: 68 tokens, 39 lines
+File allumettes/Joueur.java: 104 tokens, 60 lines
+File allumettes/StrategieNaïf.java: 57 tokens, 25 lines
+File allumettes/OperationInterditeException.java: 39 tokens, 27 lines
+File allumettes/StrategieHumain.java: 175 tokens, 65 lines (not NL-terminated)
+File allumettes/StrategieRapide.java: 36 tokens, 20 lines
+File allumettes/ConfigurationException.java: 21 tokens, 16 lines
+File allumettes/Jouer.java: 534 tokens, 117 lines
+File allumettes/Jeu.java: 23 tokens, 21 lines
+File allumettes/StrategieExpert.java: 102 tokens, 31 lines
+File allumettes/Procuration.java: 72 tokens, 39 lines (not NL-terminated)
+File allumettes/jeuAllumettes.java: 179 tokens, 57 lines
+File allumettes/Strategie.java: 16 tokens, 12 lines
+File allumettes/StrategieTricheur.java: 75 tokens, 30 lines
+Total input: 15 files (15 new, 0 old), 2031 tokens
+
+allumettes/Arbitre.java: line 37-54 [58]
+allumettes/Arbitre.java: line 54-70
+< 			if (joueurActuel == joueur_1) {
+< 				
+< 				joueurActuel = joueur_2;
+< 				
+< 				int indice = 0;
+< 				
+< 				try {
+< 					indice = jouerAfficher( jeu, joueur_1);
+< 				} catch (OperationInterditeException e) {
+< 					System.out.println("Abandon de la partie car " + e.getNomTricheur() +" triche !");
+< 					triche = true;
+< 				}
+< 				
+< 				if (indice == 1) {
+< 				    joueurActuel = joueur_1;
+< 				}
+< 				
+< 			} else {
+---
+> 			} else {
+> 				
+> 				joueurActuel = joueur_1;
+> 				
+> 				int indice = 0;
+> 				
+> 				try {
+> 					indice = jouerAfficher( jeu, joueur_2);
+> 				} catch (OperationInterditeException e) {
+> 					System.out.println("Abandon de la partie car " + e.getNomTricheur() +" triche !");
+> 					triche = true;
+> 				}
+> 			
+> 			    if (indice == 1) {
+> 				    joueurActuel = joueur_2;
+> 				}
+> 		}
+
+allumettes/Jouer.java: line 66-69 [33]
+allumettes/Jouer.java: line 72-75
+< 			joueur = new Joueur(joueurSplit[0], new StrategieHumain(joueurSplit[0]));
+< 		} else if (joueurSplit[1].equals("expert")) {
+< 			joueur = new Joueur(joueurSplit[0], new StrategieExpert());
+< 		} else if (joueurSplit[1].equals("rapide")) {
+---
+> 			joueur = new Joueur(joueurSplit[0], new StrategieNaïf());
+> 		} else if (joueurSplit[1].equals("tricheur")) {
+> 			joueur = new Joueur(joueurSplit[0], new StrategieTricheur());
+> 		} else {
+
+allumettes/Arbitre.java: line 1-19 [33]
+allumettes/Joueur.java: line 1-23
+< package allumettes;
+< 
+< /** La classe qui représente l'arbitre d'une partie
+<  * @author	Issam Alouane
+<  */
+< 
+< public class Arbitre {
+< 	
+< 	private Joueur joueur_1;
+< 	private Joueur joueur_2;
+< 
+< 	/** Construire un arbitre pour une partie entre 2 joueurs
+< 	 * @param joueur_1 le premier joueur
+< 	 * @param joueur_2 le deuxième joueur
+< 	 */
+< 	public Arbitre(Joueur joueur_1, Joueur joueur_2) {
+< 		this.joueur_1 = joueur_1;
+< 		this.joueur_2 = joueur_2;
+< 	}
+---
+> package allumettes;
+> 
+> /** La classe abstraite qui représente le joueur d'une partie et qui laisse la méthode de prise d'allumettes à definir par
+>  * chaque type de stratégie
+>  * @author	Issam Alouane
+>  */
+> 
+> public class Joueur {
+> 	
+> 	/** Le nom du joueur */
+> 	private String nom;
+> 	
+> 	/** la stratégie du joueur */
+> 	private Strategie strategie;
+> 	
+> 	/** Construire un joueur à partir de son nom et de sa stratégie
+> 	 * @param Nom le nom du joueur
+> 	 * @param Strategie La strategie du joueur
+> 	 */
+> 	public Joueur(String Nom, Strategie strategie) {
+> 		this.nom = Nom;
+> 		this.strategie = strategie;
+> 	}
+
+allumettes/Jouer.java: line 69-71 [30]
+allumettes/Jouer.java: line 73-75
+< 		} else if (joueurSplit[1].equals("rapide")) {
+< 			joueur = new Joueur(joueurSplit[0], new StrategieRapide());
+< 		} else if (joueurSplit[1].equals("naïf")) {
+---
+> 		} else if (joueurSplit[1].equals("tricheur")) {
+> 			joueur = new Joueur(joueurSplit[0], new StrategieTricheur());
+> 		} else {
+
+allumettes/Joueur.java: line 8-23 [29]
+allumettes/Procuration.java: line 7-21
+< public class Joueur {
+< 	
+< 	/** Le nom du joueur */
+< 	private String nom;
+< 	
+< 	/** la stratégie du joueur */
+< 	private Strategie strategie;
+< 	
+< 	/** Construire un joueur à partir de son nom et de sa stratégie
+< 	 * @param Nom le nom du joueur
+< 	 * @param Strategie La strategie du joueur
+< 	 */
+< 	public Joueur(String Nom, Strategie strategie) {
+< 		this.nom = Nom;
+< 		this.strategie = strategie;
+< 	}
+---
+> public class Procuration implements Jeu {
+> 	
+> 	// Le jeu d'allumettes qui va servir comme objet de procuration
+> 	private Jeu jeu;
+> 	
+> 	// Le joueur en train de jouer
+> 	private Joueur joueur;
+> 	
+> 	/** Construire une procuration à partir d'un jeu
+> 	 * @param jeu
+> 	 */
+> 	public Procuration(Jeu jeu, Joueur joueur) {
+> 		this.jeu = jeu;
+> 		this.joueur = joueur;
+> 	}
+
+allumettes/Jouer.java: line 65-66 [26]
+allumettes/Jouer.java: line 67-68
+< 		if (joueurSplit[1].equals("humain")) {
+< 			joueur = new Joueur(joueurSplit[0], new StrategieHumain(joueurSplit[0]));
+---
+> 		} else if (joueurSplit[1].equals("expert")) {
+> 			joueur = new Joueur(joueurSplit[0], new StrategieExpert());
+
+allumettes/Jouer.java: line 71-72 [24]
+allumettes/Jouer.java: line 73-74
+< 		} else if (joueurSplit[1].equals("naïf")) {
+< 			joueur = new Joueur(joueurSplit[0], new StrategieNaïf());
+---
+> 		} else if (joueurSplit[1].equals("tricheur")) {
+> 			joueur = new Joueur(joueurSplit[0], new StrategieTricheur());
+

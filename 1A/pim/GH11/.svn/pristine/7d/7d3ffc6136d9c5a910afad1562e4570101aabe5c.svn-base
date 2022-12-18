@@ -1,0 +1,62 @@
+generic
+    type T_Indice is private;
+    type T_Valeur is private;
+
+package arbre_binaire is
+
+    type T_AB is private;  
+    
+
+    -- Initialiser une arbre binaire.  La Arbre est vide.
+    procedure Initialiser(Arbre: out T_AB) with
+            Post => Est_Vide (Arbre);
+
+
+    -- Est-ce qu'une Arbre est vide ?
+    function Est_Vide (Arbre : T_AB) return Boolean;
+
+
+    -- Obtenir le nombre d'éléments d'une Arbre. 
+    function Taille (Arbre : in T_AB) return Integer with
+            Post => Taille'Result >= 0
+            and (Taille'Result = 0) = Est_Vide (Arbre);
+
+
+    -- Enregistrer une Donnée associée à une Clé dans une Arbre.
+    -- Si la clé est déjà présente dans la Arbre, sa donnée est changée.
+    procedure Enregistrer (Arbre : in out T_AB ; Indice : in T_Indice ; Valeur : in T_Valeur) with
+            Post => Indice_Presente (Arbre, Indice) and (La_Valeur (Arbre, Indice) = Valeur)   -- donnée insérée
+            and (not (Indice_Presente (Arbre, Indice)'Old) or Taille (Arbre) = Taille (Arbre)'Old)
+            and (Indice_Presente (Arbre, Indice)'Old or Taille (Arbre) = Taille (Arbre)'Old + 1);
+
+    -- Supprimer la Donnée associée à une Clé dans une Arbre.
+    -- Exception : Indice_Absente_Exception si Clé n'est pas utilisée dans la Arbre
+    procedure Supprimer (Arbre : in out T_AB ; Indice : in T_Indice) with
+            Post =>  Taille (Arbre) = Taille (Arbre)'Old - 1; -- un élément de moins
+                  
+    -- Obtenir la donnée associée à une Indice dans la Arbre.
+    -- Exception : Indice_Absente_Exception si Clé n'est pas utilisée dans l'Arbre
+    function Valeur_associee(Arbre : in T_AB ; Indice : in T_Indice) return T_Valeur;
+
+
+    -- Supprimer tous les éléments d'une Arbre.
+    procedure Vider (Arbre : in out T_AB) with
+            Post => Est_Vide (Arbre);
+
+
+private
+
+	
+    type T_noeud;
+
+    type T_AB is access T_noeud;
+    
+    type T_noeud is 
+        record
+            Indice : T_Indice;  -- Cle
+            Valeur : T_Valeur;  -- Donnee
+            Fils_D : T_AB;
+            Fils_G : T_AB;
+        end record;
+    
+end arbre_binaire;

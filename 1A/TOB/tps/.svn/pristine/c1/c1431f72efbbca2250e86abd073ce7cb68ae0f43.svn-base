@@ -1,0 +1,42 @@
+Nom       : ALOUANE
+Prénom    : Issam
+Groupe TP : 1SN-H
+
+
+Consigne :  Ci-dessous, répondre à la place des « ... ».
+
+
+=====[ Temps ]==================================================================
+
+Temps passé sur la V1 : 3 heures 30 minutes
+Temps passé sur la V2 : ... heures ... minutes
+Pour la V2 on ne tiendra pas compte du temps passé sur la V1.
+Bien sûr, les temps renseignés ici ne sont pas pris en compte dans la notation.
+
+
+=====[ Questions ]==============================================================
+
+Indiquer la relation UML entre Cercle et le Point centre du cercle.
+-------------------------------------------------------------------
+
+La relation entre Cercle et le Point centre du cercle est une relation de 
+composition, où quand le tout est détruit, les parties sont aussi détruites
+
+
+Comment est réalisée l'exigence E18 ?
+-------------------------------------
+
+D'abord, il faut utiliser "private" pour que l'utilisateur n'ait pas un accès 
+direct aux éléments du cercle et sera obligé à utiliser nos fonctions, mais il 
+peut encore utiliser getCentre() et modifier le centre, pour cela on renvoie
+une copie du centre, c'est-à-dire une autre poignée d'un autre objet qui a
+les mêmes coordonnées, et pas le centre réelle du cercle
+
+
+
+=====[ Explications ]===========================================================
+
+(Facultatif) Donner ici les explications supplémentaires utiles à la
+compréhension du travail rendu.
+
+...

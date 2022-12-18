@@ -1,0 +1,33 @@
+Dans ce fichier `reponses1.txt`, 
+
+
+[Question 1.1] Indiquer 
+- comment obtenir le ou les exécutables par compilation séparée.
+
+On lance la commande : "c99 -Wextra -pedantic -c *.c" pour avoir les fichier .o,
+après on compile exemple_file.c par : "c99  file.o exemple_file.o -o exemple_file" 
+et on compile test_file.c par : "c99  file.o test_file.o -o test_file"
+
+- les dépendances entre les fichiers qui constituent l’application.
+
+Pour exemple_file : file.o et exemple_file.o
+
+pour test_file : file.o et test_file.o
+
+- le rôle de la règle `.PHONY` dans Makefile.
+
+.PHONY indique que la commande donnée ne dépend d'aucun fichier
+
+[Question 1.5] Indiquer
+- Quel est le sous-programme non-visible des autres modules et défini dans le module File.
+
+c'est le sous-programme cellule puisqu'il commence par le mot "static"
+
+- Que se passe-t-il si on enlève le mot-clé static à la compilation ?  
+ 
+Le programme compile normalement
+
+- Quel est le risque de ne pas le mettre ?
+
+Le risque est que l'utilisateur peut utiliser cellule tant qu'on ne veut pas
+qu'il puisse l'utiliser

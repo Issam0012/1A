@@ -1,0 +1,98 @@
+package vue;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+
+import javax.swing.*;
+
+public class FenetreNouveauPersonnage {
+	
+	private JFrame fenetreEditPerso;
+	
+	final private JLabel JNom = new JLabel("Nom");
+	
+	final private JTextField nom = new JTextField(25);
+	
+	final private JLabel JRace = new JLabel("Race");
+	
+	final private JCheckBox JHumain = new JCheckBox("Humain");
+	
+	final private JCheckBox JAutre = new JCheckBox("Autre");
+	
+	final private JLabel JDescription = new JLabel("Description");
+	
+	final private JTextField description = new JTextField(25);
+	
+	final private JButton JFin = new JButton("FIN");
+	
+	final private JButton JStats = new JButton("Modifier Statistiques");
+	
+	public FenetreNouveauPersonnage() {
+		
+		this.fenetreEditPerso = new JFrame("Menu création personnages");
+
+		Container contenu = this.fenetreEditPerso.getContentPane();
+		
+		contenu.setLayout(new BorderLayout());
+		
+		JPanel panel = new JPanel(new GridLayout(4,2));
+		
+		JNom.setHorizontalAlignment(JLabel.CENTER);
+		panel.add(JNom);
+		
+		JPanel panelNom = new JPanel();
+		panelNom.setLayout(new FlowLayout());
+		nom.setPreferredSize(new Dimension(150,100));
+		panelNom.add(nom);
+		panel.add(panelNom);
+		
+		JRace.setHorizontalAlignment(JLabel.CENTER);
+		panel.add(JRace);
+		
+		JPanel Races = new JPanel(new GridLayout(2,1));
+		JHumain.setHorizontalAlignment(JLabel.CENTER);
+		Races.add(JHumain);
+		
+		JAutre.setHorizontalAlignment(JLabel.CENTER);
+		Races.add(JAutre);
+		
+		panel.add(Races);
+		
+		JDescription.setHorizontalAlignment(JLabel.CENTER);
+		panel.add(JDescription);
+		
+		JPanel panelDescription = new JPanel();
+		panelDescription.setLayout(new FlowLayout());
+		description.setPreferredSize(new Dimension(150,100));
+		panelDescription.add(description);
+		panel.add(panelDescription);
+		
+		JPanel panelFin = new JPanel();
+		panelFin.setLayout(new FlowLayout());
+		JFin.setPreferredSize(new Dimension(100,70));
+		panelFin.add(JFin);
+		panel.add(panelFin);
+		
+		JPanel panelStats = new JPanel();
+		panelStats.setLayout(new FlowLayout());
+		JStats.setPreferredSize(new Dimension(200,70));
+		panelStats.add(JStats);
+		panel.add(panelStats);
+		
+		contenu.add(panel);
+		
+		this.fenetreEditPerso.pack();
+		this.fenetreEditPerso.setSize(1024, 640);
+		this.fenetreEditPerso.setLocationRelativeTo(null);
+		this.fenetreEditPerso.setVisible(true);
+	}
+	
+	public static void main(String[] args) {
+		new FenetreNouveauPersonnage();
+	}
+}

@@ -1,0 +1,187 @@
+package vue;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.*;
+
+import modele.Personnage;
+public class FenetreAjoutPersonnage {
+
+	
+	private JFrame fenetreAjoutPerso;
+	
+	private final JButton boutonAjouter = new JButton("Nouveau");
+	
+	private final JButton boutonRetour = new JButton("Retour");
+	
+	JMenu menuPerso = new JMenu();
+	
+	JMenuItem supprimer = new JMenuItem("Supprimer");
+	
+	public FenetreAjoutPersonnage() {
+		
+		this.fenetreAjoutPerso = new JFrame("Personnages");
+		
+		Container contenu = this.fenetreAjoutPerso.getContentPane();
+		
+		JPanel panelBouton = new JPanel();
+		
+		panelBouton.setLayout(new BoxLayout(panelBouton, BoxLayout.Y_AXIS));
+		//bordure jolie
+		panelBouton.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		
+		boutonAjouter.setPreferredSize(new Dimension(150,50));
+		boutonAjouter.addActionListener(new ActionNouveauPerso());
+		boutonAjouter.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		boutonRetour.setPreferredSize(new Dimension(150,50));
+		boutonRetour.addActionListener(new ActionRetour());
+		boutonRetour.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		panelBouton.add(boutonAjouter);
+		panelBouton.add(Box.createVerticalGlue());
+		panelBouton.add(boutonRetour);
+		
+		contenu.add(panelBouton, BorderLayout.WEST);
+		
+		
+		// grille persos
+		
+		JPanel panelPersos = new JPanel();
+		panelPersos.setLayout(new FlowLayout());
+		//panelPersos.setSize(700, 500);
+		
+		contenu.add(panelPersos, BorderLayout.CENTER);
+		
+		List<String> Noms = new ArrayList<String>();
+		
+		List<String> descriptions = new ArrayList<String>();
+		try {
+			Path pathNom = Paths.get("vue/Sauvegarde/Nom");
+			Noms = Files.readAllLines(pathNom);
+			
+			Path pathDescription = Paths.get("vue/Sauvegarde/Description");
+			descriptions = Files.readAllLines(pathDescription);
+		} catch (IOException e) {
+		}
+		
+		for (int i=0; i<Noms.size(); i++) {
+			JPanel panelPerso = creerPanelPerso(Noms.get(i), descriptions.get(i));
+			panelPerso.addMouseListener(new MenuPerso(Noms.get(i)));
+			panelPersos.add(panelPerso);
+		}
+		
+		
+		this.fenetreAjoutPerso.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			
+		this.fenetreAjoutPerso.pack();
+		this.fenetreAjoutPerso.setSize(1024, 640);
+		this.fenetreAjoutPerso.setLocationRelativeTo(null);
+		this.fenetreAjoutPerso.setVisible(true);
+		
+	}
+	
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				new FenetreAjoutPersonnage();
+			}
+		});
+	}
+	
+	
+	private class ActionRetour implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("Retour");
+			fenetreAjoutPerso.dispose();
+			new MenuPrincipal();
+		}		
+	}
+	
+	private class ActionNouveauPerso implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			new FenetreNouveauPersonnage();
+		}		
+	}
+	
+	JPanel creerPanelPerso(String Nom, String Race) {
+		// Carte Perso
+				JPanel panelPerso = new JPanel();
+				panelPerso.setLayout(new BoxLayout(panelPerso, BoxLayout.Y_AXIS));
+				//bordure jolie
+				panelPerso.setBorder(BorderFactory.createEmptyBorder(55, 55, 55, 55));
+				
+				JLabel JNom = new JLabel(Nom, JLabel.CENTER);
+				JLabel JRace = new JLabel(Race,JLabel.CENTER);
+				
+				JNom.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+				JRace.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+				
+				panelPerso.add(Box.createRigidArea(new Dimension(10, 10)));
+				panelPerso.add(JNom);
+				panelPerso.add(Box.createRigidArea(new Dimension(20, 20)));
+				panelPerso.add(JRace);
+				panelPerso.setBorder(BorderFactory.createLineBorder(Color.black));
+				panelPerso.setPreferredSize(new Dimension(80, 120));
+				
+				
+				
+				return panelPerso;
+				
+				//a faire : event listener on click
+				
+	}
+	
+	private class MenuPerso extends MouseAdapter {
+		
+		private String nomPerso;
+		
+		public MenuPerso(String nom) {
+			this.nomPerso = nom;
+		}
+		
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			JFrame Fmenu = new JFrame("Menu Personnage");
+			Container content = Fmenu.getContentPane();
+			JPanel panel = new JPanel();
+			panel.setLayout(new GridLayout(3,1));
+			JLabel nom = new JLabel(nomPerso);
+			nom.setHorizontalAlignment(JLabel.CENTER);
+			panel.add(nom);
+			
+			JButton JModifier = new JButton("Modifier");
+			JButton JSupprimer = new JButton("Suprrimer");
+			panel.add(JModifier);
+			panel.add(JSupprimer);
+			
+			content.add(panel);
+			
+			Fmenu.pack();
+			Fmenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			Fmenu.setSize(200, 400);
+			Fmenu.setLocationRelativeTo(null);
+			Fmenu.setVisible(true);
+		}		
+	}
+
+}

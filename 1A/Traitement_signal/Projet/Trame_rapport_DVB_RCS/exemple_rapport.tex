@@ -1,0 +1,338 @@
+\documentclass[frenchb]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+%Pour utilisation sous unix
+%\usepackage[utf8]{inputenc}
+%\usepackage[utf8x]{inputenc}
+\usepackage{a4wide}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{babel}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\begin{document}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=5cm]{inp_n7.png}
+\end{figure}
+
+\title{\vspace{4cm} \textbf{Rapport projet traitement du signal}}
+\author{Issam ALOUANE\\ }
+\date{\vspace{7cm} Département Sciences du Numérique - Première année \\
+2021-2022 }
+
+\maketitle
+
+\newpage
+\tableofcontents
+\listoffigures
+
+\newpage
+\section{Introduction}
+L'objectif de ce projet était d'accéder à la station d'interconnexion en tant qu'émetteur et en tant que récepteur
+
+\section{Construction du signal MF-TDMA à décoder}
+La figure \ref{fig : MF_TDMA_recu} présente la trame MF-TDMA à étudier, implanter puis décoder.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=15cm]{MF_TDMA_recu.png}
+    \caption{Construction du signal MF-TDMA à décoder \label{fig : MF_TDMA_recu}}
+ \end{figure}
+
+
+    \subsection{Paramètres}
+    La trame MF-TDMA est composée de $2$ porteuses, $f_{p_1}=0$ kHz et $f_{p_2}=46$ kHz, contenant chacune $5$ timeslots de durées $T=40$ ms. La fréquence d'échantillonnage est fixée à $128$ kHz. Les deux utilisateurs vont accéder au système en utilisant la trame de la manière suivante :
+        \begin{itemize}
+            \item L'utilisateur n° $1$ exploite le $2^{ème}$ timeslot de la porteuse n° $1$ ($f_{p_1}$).
+            \item L'utilisateur n° $2$ exploite le $5^{ème}$ timeslot de la porteuse n° $2$ ($f_{p_2}$).
+        \end{itemize}
+
+    Le canal de transmission considéré sera à bruit additif blanc et Gaussien (canal AWGN : Additive White Gaussian Noise). La puissance du bruit à ajouter devra être déduite du rapport signal sur bruit (SNR : Signal to Noise Ratio) souhaité donné en dB.
+
+    \subsection{Etude théorique}
+    Le signal MF-TDMA non bruité peut s'écrire de la manière suivante :
+        $$
+        x(t)=m_1(t) \cos\left(2 \pi f_1 t + \phi_1\right) + m_2(t) \cos\left(2 \pi f_2 t + \phi_2\right)
+        $$
+        \subsubsection{Calcul de la densité spectrale de puissance} \label{Calcul_DSP}
+         On a : 
+            $$
+            x(t)=m_1(t) \cos\left(2 \pi f_1 t + \phi_1\right) + m_2(t) \cos\left(2 \pi f_2 t + \phi_2\right)
+            $$ \\
+        Par les hypothèses données:
+        $$
+            x(t)=m_1(t) \cos(2 \pi f_1 t) + m_2(t) \cos(2 \pi f_2 t)
+            $$ \\
+        Alors par passage au transformée de fourrier:
+        $$
+        X(f)= M_1(f)*\frac{(\delta(f-f_{p_1}) + \delta(f+f_{p_1}))}{2} + M_2(f)*\frac{(\delta(f-f_{p_2}) + \delta(f+f_{p_2}))}{2}
+        $$ \\
+        Alors:
+        $$
+        X(f)=\frac{(M_1(f-f_{p_1}) + M_1(f+f_{p_1}) + M_2(f-f_{p_2}) + M_2(f+f_{p_2}))}{2}
+        $$
+        Et puisque (par définition) :
+        $
+        s_x(f) = |X(f)|^2
+        $
+        Alors:
+        $$
+        s_x(f)=|\frac{(M_1(f-f_{p_1}) + M_1(f+f_{p_1}) + M_2(f-f_{p_2}) + M_2(f+f_{p_2}))}{2}|^2
+        $$
+        Et, puisque les signaux $m_1(t)$ et $m_2(t)$ occupent la même bande de fréquence $[-b,b]$ autour de 0 et aussi $b<<f_{p_1}$ et $b<<f_{p_2}$, alors si on essaie, par exemple, de calculer: $M_1(f-f_{p_1})M_1(f+f_{p_1})$ on aura 0, car $M_1(f+f_{p_1}) \ne 0$ que sur $[f_{p_1}-b, f_{p_1}+b]$ et $M_2(f-f_{p_1}) \ne 0$ que sur $[-f_{p_1}-b, -f_{p_1}+b]$ et puisque $b<<f_{p_1}$ alors les deux intervalles sont disjoints, et le produit est 0.
+        De même, on montre que les produits deux à deux entre $M_1(f-f_{p_1})$ et $M_1(f+f_{p_1})$ et $M_2(f-f_{p_2})$ et $M_2(f+f_{p_2})$ sont tous nulles. \\
+        D'où on peut conclure que:
+        $$s_x(f)=\frac{|(M_1(f-f_{p_1})|^2}{4} + \frac{|M_1(f+f_{p_1})|^2}{4} + \frac{|M_2(f-f_{p_2})|^2}{4} + \frac{|M_2(f+f_{p_2}))|^2}{4}
+        $$
+        Finalement,
+        $$s_x(f)=\frac{S_{m_1}(f-f_{p_1})}{4} + \frac{S_{m_1}(f+f_{p_1})}{4} + \frac{S_{m_2}(f-f_{p_2})}{4} + \frac{S_{m_2}(f+f_{p_2})}{4}
+        $$
+        
+        
+        \subsubsection{Expression de la puissance du bruit à ajouter}
+        On sait que:
+        $$
+        SNR = 10log_{10}(\frac{P_s}{P_b})
+        $$
+        Alors:
+        $$
+        P_b = P_s10^{\frac{-SNR}{10}}
+        $$
+ \newpage
+    \subsection{Implantation}
+        \subsubsection{Modulation bande base}
+            \begin{enumerate}
+                \item Calcul de $N_s$\\
+                $$
+                N_s = \frac{T/T_e}{length(bits\_utilisateurs\_1)}
+                $$  \\
+                Le nombre d'échantillon pour chaque information est la période voulue T divisé par la période d'échantillonage $T_e$ qui donne le nombre total des échantillon et pour obtenir le nombre d'échantillon par information il faut diviser ce nombre par la longueur du signal \\
+                \item Tracés des signaux $m_1(t)$ et $m_2(t)$\\\\
+                Les figures ci-après montrent les tracés des signaux $m_1(t)\; et\; m_2(t)$. Ils étaient réalisées par la fonction matlab Kron qui réplique chaque élément du message Ns fois, mais puisqu'on a un message binaire, c'est-à-dire $m_1(t)\; et\; m_2(t)$ seront limités entre 0 et 1, il faut multiplier par 2 et soustraire 1 pour être dans l'intervalle [-1,1]
+    
+\begin{figure}[ht!]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1.2\linewidth]{m1(t).png}
+  \label{fig:m1(t)}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1.2\linewidth]{m2(t).png}
+  \label{fig:m2(t)}
+\end{subfigure}
+\caption{Le tracé des deux signaux $m_1(t)$ et $m_2(t)$.}
+\end{figure}
+ 
+                \item Estimation et tracé des densités spectrales de puissance des signaux $m_1(t)$ et $m_2(t)$. Concernant l'estimation on donnera notamment l'estimateur utilisé. \\\\
+                Les estimations utilisées sont les suivantes: 
+                $s_{m_1}(f) = |TF(m_1)(f)|^2$
+                et 
+                $
+                s_{m_2}(f) = |TF(m_2)(f)|^2
+                $
+                afin d'obtenir la figure suivante : \\\\\\\\\\\\\\
+                \begin{figure}[ht!]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1.1\linewidth]{dspm1.png}
+  \label{fig:dspm1}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1.1\linewidth]{dspm2.png}
+  \label{fig:dspm2}
+\end{subfigure}
+\caption{Le tracé des DSP des deux signaux $m_1(t)$ et $m_2(t)$.}
+\end{figure}
+            \end{enumerate}
+            
+
+        \subsubsection{Construction du signal MF-TDMA}
+            \begin{enumerate}
+                \item Tracé des signaux à envoyer sur porteuse pour chaque utilisateur. \\\\
+                Après génération de deux signaux comportant 5 slots chacun de durée $T = 40$ ms, on a mis les deux signaux dans les slots autorisés comme montre la figure suivante : \\
+                 
+\begin{figure}[ht!]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1.1\linewidth]{sae2.png}
+  \label{fig:sae2}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1.1\linewidth]{sae1.png}
+  \label{fig:sae1}
+\end{subfigure}
+\caption{Le tracé des deux signaux à envoyer sur les porteuses.}
+\end{figure}
+                \item Tracé du signal MF-TDMA. Le tracé observé est-il conforme à ce qui est attendu ? Explications.\\\\
+                Le tracé ci-après montre le signal MF-TDMA résultant. Il est conforme à ce qui est attendu car on a une juxtaposition des deux figures précédentes dans une même figure et l'ajout d'un bruit gaussien qui va causer un décalage dans les limites, ce qu'on voit bien dans la figure 5 où le signal MF-TDMA n'est plus limité entre -1 et 1, il les dépasse un peu
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=10.5cm]{MF-TDMA.png}
+    \caption{Le tracé du signal MF-TDMA}
+    \label{fig : MF-TDMA}
+ \end{figure} \\
+                \item Estimation puis tracé de la densité spectrale de puissance du signal MF-TDMA. Le tracé observé est-il conforme à l'expression théorique obtenue précédemment ? Explications. Pour faire un appel à section : on retrouve bien le résultat obtenu dans la partie théorique (paragraphe \ref{Calcul_DSP}). En effet ... \\\\
+                La figure 6 représente le tracé de la densité spectrale de puissance du signal MF-TDMA. Ce tracé-là n'est pas totalement conforme à l'expression trouvé dans la partie théorique (paragraphe \ref{Calcul_DSP}) (car pour $f_{p_1}=0$ on obtient $$s_x(f)= \frac{S_{m_1}(f)}{2} + \frac{S_{m_2}(f-f_{p_2})}{4} + \frac{S_{m_2}(f+f_{p_2})}{4}
+        $$ On a la DSP du signal 2 divisé par 4 mais la DSP du signal 1 n'est pas divisé par 2), et ceci est parce que, dans nos calculs, on a supposé que $f_{p_1} >> b$ avec $b>0$ mais alors on a pris $f_{p_1} = 0$ et les calculs ne seront plus valides. Mais, on peut resumer les calculs fait dans (paragraphe \ref{Calcul_DSP}) avec $f_{p_1}=0$ on obtient: $$
+            x(t)=m_1(t) + m_2(t) \cos(2 \pi f_2 t)
+            $$ \\
+           Après, puisque $f_{p2}>>b$ et $b>0$ c'est-à-dire que $f_{p2}>>0$, et encore pour les mêmes raisons citées auparavant, on aboutit au résultat suivant:
+           $$s_x(f)=S_{m_1(f)} + \frac{S_{m_2}(f-f_{p_2})}{4} + \frac{S_{m_2}(f+f_{p_2})}{4}
+        $$
+            ce qui est conforme au tracé de la figure 6. \\\\\\\\
+            
+                \begin{figure}[ht!]
+    \centering
+    \includegraphics[width=11cm]{dsmf.png}
+    \caption{La densité spectrale de puissance du signal MF-TDMA}
+    \label{fig : dsmf}
+ \end{figure}
+            \end{enumerate}
+
+\section{Mise en place du récepteur MF-TDMA}
+La figure \ref{fig : recepteur} présente le récepteur à implanter pour retrouver, à partir du signal MF-TDMA bruité, les messages binaires envoyés par les deux utilisateurs.\\
+ \begin{figure}[ht!]
+    \centering
+    \includegraphics[width=15cm]{recepteur.png}
+    \caption{Récepteur MF-TDMA à implanter \label{fig : recepteur}}
+ \end{figure}\\
+
+    \subsection{Démultiplexage des porteuses}
+        Le démutiplexage des porteuses se fait par filtrage : à partir du signal MF-TDMA reçu, un filtre passe-bas permet de récupérer le signal porté par le cosinus à la fréquence $f_{p_1}$ (provenant de l'utilisateur $1$), tandis qu'un filtre passe-haut permet de récupérer le signal porté par le cosinus à la fréquence $f_{p_2}$ (provenant de l'utilisateur $2$).
+
+        \subsubsection{Synthèse du filtre passe-bas}
+            \begin{enumerate}
+                \item Rappel de la réponse impulsionnelle idéale du filtre passe-bas à implanter (calcul effectué dans le TP$2$). \\\\
+          La réponse impulsionnelle d'un filtre passe-bas est la suivante :
+          $$
+          h(t) = F sinc (\pi F t)
+          $$      
+                \item Explications implémentation. \\\\
+                Pour implémenter la réponse impulsionnelle d'un filtre passe-bas, on a une fonction sinus cardinal sur matlab qui est définie par $sinc(x) = \frac{sin(\pi x)}{\pi x}$, donc il suffit d'écrire $$ h = 2 \frac{f_c}{f_e} sinc(2 \frac{f_c}{f_e} k)$$ avec:
+                \begin{enumerate}
+                \item $f_c$ : La fréquence de coupure
+                \item $f_e$ : la fréquence d'échantillonage
+                \item k : une matrice allant de l'ordre du filtre moins 1 sur 2 jusqu'à l'ordre plus 1 sur 2 avec un pas de 1
+\end{enumerate}                 
+                \item Tracé de la réponse impulsionnelle et de la réponse en fréquence du filtre implanté.\\\\
+                La figure 8 ci-après montre la réponse impulsionnelle et la réponse en fréquence du filtre passe-bas implanté : \\
+                \begin{figure}[ht!]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1.1\linewidth]{ripb.png}
+  \label{fig:ripb}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1.1\linewidth]{rfpb.png}
+  \label{fig:rfpb}
+\end{subfigure}
+\caption{Le tracé de la réponse impulsionnelle et la réponse en fréquence du filtre passe-bas implanté.}
+\end{figure} \\
+
+                \item Tracé de la densité spectrale de puissance du signal MF-TDMA reçu et du module de la réponse en fréquences du filtre implanté. Le filtre implanté vous parait-il réaliser la fonction souhaitée ? Explications. \\\\
+                Le filtre implanté parait réaliser la fonction souhaitée puisqu'il a conservé les fréquences inférieures à 2600 Hz et supérieures à -2600 Hz et supprime les autres. \\
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=12cm]{dsptdma.png}
+    \caption{Densité spectrale du MF-TDMA et du filtre passe-bas \label{fig : dsptdma}}
+ \end{figure}
+            \end{enumerate}
+
+        \subsubsection{Synthèse du filtre passe-haut}
+            \begin{enumerate}
+                \item Calcul de la réponse impulsionnelle idéale du filtre passe-haut à implanter.\\\\
+                La
+réponse en fréquence d'un filtre passe-haut idéal peut être donnée par : $$
+H_{p_h}(f) = 1 - H_{p_b}(f)
+$$ alors on peut déduire: $$
+h_{p_h}(t) = \delta(t) - h_{p_b}(t)
+$$  
+                \item Explications implémentation.\\
+                Puisque $\delta(t) = $     
+$ \{
+ \begin{array}{c @{} c}
+                1, \;si\; x \;= \;0 \\
+                0 \;sinon
+\end{array}
+      $    
+       alors pour tout t non null on a $h_{p_b}(t) = -h_{p_h}(t)$ et \\ $h_{p_b}(0) = 1-h_{p_h}(0)$,
+       et puisqu'on a déjà implanté $h_{p_b}$ alors on peut écrire : $h_{p_b} = -h_{p_h}$ et pour exprimer t = 0 il suffit d'affecter au milieu de $h_{p_h}$ le milieu de $h_{p_b}$ en le multipliant par -1 et en l'ajoutant à 1 
+                \item Tracé de la réponse impulsionnelle et de la réponse en fréquence du filtre implanté. \\\\
+                La figure 10 ci-après montre la réponse impulsionnelle et la réponse en fréquence du filtre passe-haut implanté : \\\\\\\\\\\\\\\
+                \begin{figure}[ht!]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1.1\linewidth]{riph.png}
+  \label{fig:riph}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1.1\linewidth]{rfph.png}
+  \label{fig:rfph}
+\end{subfigure}
+\caption{Le tracé de la réponse impulsionnelle et la réponse en fréquence du filtre passe-haut implanté.}
+\end{figure} \\
+                \item Tracé de la densité spectrale de puissance du signal MF-TDMA reçu et du module de la réponse en fréquences du filtre implanté. Le filtre implanté vous parait-il réaliser la fonction souhaitée ? Explications. \\\\
+Le filtre implanté parait réaliser la fonction souhaitée puisqu'il a supprimé les fréquences inférieures à 2600 Hz et supérieures à -2600 Hz et a conservé les autres.                
+                \\
+                \begin{figure}[ht!]
+    \centering
+    \includegraphics[width=12cm]{dsptdmah.png}
+    \caption{Densité spectrale du MF-TDMA et du filtre passe-bas \label{fig : dsptdmah}}
+ \end{figure}
+            \end{enumerate}
+
+        \subsubsection{Filtrage} \label{filtrage}
+        Avant d'effectuer le filtrage, on avait d'abord fait le zero padding pour respecter la condition de causalité. Ainsi, on avait obtenu la figure ci-après qui représente les tracés des signaux après filtrage. Ces tracés paraissent logique puisqu'après le filtre passe-bas une grande partie du signal haute fréquence a été supprimé (puisque le filtre n'est pas parfait) et aussi pour le filtre passe-haut.\\
+\begin{figure}[ht!]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1.1\linewidth]{sfpb.png}
+  \label{fig:sfpb}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1.1\linewidth]{sfph.png}
+  \label{fig:sfph}
+\end{subfigure}
+\caption{Le tracé deux signaux résultants après le passage du signal par les deux filtres.}
+\end{figure} \\
+    \subsection{Retour en bande de base}
+        Puisqu'on a supposé que notre système est parfaitement synchronisé, c'est-à-dire que l'émetteur et le récepteur connaissent les fréquences porteuses, alors on peut effetuer notre retour en bande de base en multipliant le premier signal par $cos(2 \pi f{p_1} t)$ et le deuxième par $cos(2 \pi f{p_2} t)$ avec t la matrice temps précédemment défini dans le code
+
+    \subsection{Détection du slot utile}
+        Pour chaque utilisateur, afin de procèder à la détection du slot utile, on divise la trame après retour en bande da base en tranches de durée $T=40$ ms. Afin de détecter le slot utile, on calcule l'énergie de chaque tranche et on stocke les résultats dans une matrice "energie", ensuite on cherche l'indice du maximum dans cette matrice qui sera l'indice du slot utile
+
+    \subsection{Démodulation bande de base}
+        Pour chaque utilisateur, à partir du message retrouvé dans le slot utile, on réalise une démodulation bande de base qui permet de retrouver les messages binaires envoyés. On utilise ensuite la fonction \emph{bin2str.m} fournie afin de retrouver les messages textes.
+
+\section{Conclusion}
+Après avoir exécuté tout le programme, on obtient les deux indices qui vont nous guider au prof mystère :
+\begin{enumerate}
+\item Ma probabilité d'apparition au semestre 5 est assez élevée.
+\item Mes initiales, placées à l'envers, évoquent un vert support.
+\end{enumerate}
+Dans le premier indice on a : 'Ma *probabilité* .....' donc on peut déduire qu'il s'agit d'un prof de probabilité, et le premier prof de probabilité qui tombe en esprit est Mr. Jean Yves Tourneret, puisqu'il a laissé chez nous une bonne impression avec ses cours bien organisés (Et aussi parce qu'il a une bonne relation avec les deux matières, la probabilité et le traitement du signal). Et si on essaie de voir les initiales de son nom placées à l'envers, on trouve "tyj", qui se prononce de la même manière que "tige", c'est l'interprétation de "vert support" à laquelle je me suis arrivé. Et enfin, le prof mystère est Mr. Jean Yves Tourneret
+
+\section{Références}
+\begin{enumerate}
+\item Le cours et les tds du traitement du signal sur moodle
+\item Les ressources matlab
+\end{enumerate}
+
+
+\end{document} 

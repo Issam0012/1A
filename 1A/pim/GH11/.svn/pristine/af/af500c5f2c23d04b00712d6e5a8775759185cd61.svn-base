@@ -1,0 +1,118 @@
+with Ada.Text_IO;           use Ada.Text_IO;
+with Ada.Integer_Text_IO;   use Ada.Integer_Text_IO;
+with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+with Ada.Streams.Stream_IO; use Ada.Streams.Stream_IO;
+with AB_Exceptions;         use AB_Exceptions;
+with arbre_binaire;
+with tableau;
+--with lca;
+
+procedure Compression is
+    
+    Taille_table : Constant Integer := 256;
+    
+    Caractere : Unbounded_String;
+    Occurence : Integer := 0;
+    
+    type T_Octet is mod 2 ** 8;	-- sur 8 bits
+    for T_Octet'Size use 8;
+
+    -- File_Name : String :=  "exemple_fichier.out";
+    File      : Ada.Streams.Stream_IO.File_Type;	-- car il y a aussi Ada.Text_IO.File_Type
+    S         : Stream_Access;
+    Octet     : T_Octet;
+    
+    function somme(a: in integer; b: in integer) return integer is
+    begin
+        return a+b;
+    end somme;
+    
+    package AB_integer_string is
+            new arbre_binaire (Integer,Unbounded_String, somme);
+    use AB_integer_string;
+
+    package Tab_integer_string is
+            new tableau (Integer,Unbounded_String,somme,Taille_table);
+    use Tab_integer_string;    
+
+    function Avec_Guillemets (U: Unbounded_String) return String is
+    begin
+        return '"' & To_String (U) & '"';
+    end;
+
+    -- Afficher les arbres présent dans le tableau d'arbre
+    Procedure affichage_arbre(arbre : in T_AB; nombre: in integer) is --nombre sera toujours remis Ã  0
+    begin
+        If Est_Vide(fils_G(arbre)) and Est_Vide(fils_D(arbre)) then
+            Put("(");
+            Put(Indice(arbre), 0);
+            Put(")");
+            Put(" ");
+            Put(Avec_Guillemets(Valeur(arbre)));
+        Else
+            Put ("(");
+            Put(Indice(arbre), 0);
+            Put(")");
+            New_Line;
+            for i in 1..nombre loop
+                Put("       ");
+            end loop;
+            Put("\--0--");
+            affichage_arbre(fils_D(arbre), nombre+1);
+            for i in 2..Taille(arbre)/2 loop
+                Put("|");
+                New_Line;
+            end loop;
+            for i in 1..nombre loop
+                Put("       ");
+            end loop;
+            Put("\--1--" );
+            affichage_arbre(fils_G(arbre), nombre+1);
+        end if;
+        New_Line;
+    end affichage_arbre;
+
+    Procedure Tri_Tab(Tab : in Tab_AB) is 
+    begin
+        null;
+    end Tri_Tab;
+    
+    Tableau_AB : T_Tableau;
+    
+begin
+
+    Open(File, In_File, File_Name);
+
+    S := Stream(File);
+    while not End_Of_File(File) loop
+        Octet := T_Octet'Input(S);
+        Caractere := To_Unbounded_String(T_Octet'Image(Octet));
+        
+        if not(Indice_existe(Tableau_AB, Caractere)) then
+            Occurence := 1;
+            while not End_Of_File(File) loop
+                Octet_test := T_Octet'Input(S);                  
+                if To_Unbounded_String(T_Octet'Image(Octet_test)) = Caractere then
+                    Occurence := Occurence+1;
+                else
+                    null;
+                end if;
+            end loop;
+        else
+            null;
+        end if;
+        
+        Enregistrer(Tableau_AB, Caractere, Occurence);
+        Occurence := 0;
+        --Put("Octet = " & T_Octet'Image(Octet));
+        --Put(" '" & Character'Val(Octet) & "'");
+        --New_Line;        
+    end loop;
+
+    -- Fermer le fichier
+    Close (File);
+    
+    -- Tri par ordre croissant 
+    Tri_Tab(Tableau_AB);
+   
+end Compression;

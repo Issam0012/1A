@@ -1,0 +1,66 @@
+\documentclass[frenchb]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+%Pour utilisation sous unix
+%\usepackage[utf8]{inputenc}
+%\usepackage[utf8x]{inputenc}
+\usepackage{a4wide}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{babel}
+
+\begin{document}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=5cm]{inp_n7.png}
+\end{figure}
+
+\title{\vspace{4cm} \textbf{Fonctionnalités du Logiciel de création d'environnement de jeu de rôle}}
+\author{ALOUANE Issam\\ BOUAM Adam\\ DABROWSKI Remi\\ PREVOST Jean-baptiste\\\\ Équipe GH-4}
+\date{\vspace{7cm} Département Sciences du Numérique - Première année \\
+2021-2022 }
+
+\maketitle
+
+\newpage
+\tableofcontents
+\listoffigures
+
+\newpage
+\section{Objectif général du projet}
+L'objectif de ce projet est l'élaboration d'un logiciel permettant la création de jeu de rôle. Ce logiciel offre aussi la possibilité de jouer avec ses propres créations. Tout cela se fera a l'aide d'interface graphique afin de faciliter son utilisation. 
+
+\section{Fonctionnalités}
+une description des fonctionnalités (attendues) de l'application qui sera développée. Il s'agit de décrire le service rendu (besoin) et non la manière dont ce service sera rendu (comment).
+
+\subsection{Interface de création de personnage} 
+Dans cette interface l'utilisateur aura la possibilité de créer des personnages, en passant par son histoire, ses caractéristiques. De plus, il faudra que le créateur puisse ajouter des éventuelles notes sur les personnages. Lorsque les personnages sont créée il pourra être possible de sauvegarder ces fiches en format pdf, afin de faciliter les échanges.
+
+\subsection{Interface de jeter de dé}
+Dans un jeu de rôle les actions effectués sont basés sur des jeter de dés, il est donc indispensable que notre logiciel soit pourvu d'un onglet pour effectuer ses lancer de dés. Cependant, il doit être possible de choisir le nombre de face sur un dé, mais aussi le nombre de dé lancé.
+
+\subsection{Menu de prise de note}
+Le maître du jeu est un élément indispensable d'un jeu de rôle, il doit créer de l'interaction entre les joueurs et leurs environnement. Afin de préparer ses interactions, il aura a disposition un menu de note afin de ne pas oublier les événements passés. Ces événements peuvent servir de point d'ancrage pour des événements futur, mais il pourra aussi y noter des idées qu'il ne veut pas oublier.
+
+\subsection{Interface de création d'environnement}
+Pour qu'un jeu de rôle soit le plus intéressant et immersif possible, il est nécessaire de pouvoir visualiser les environnements dans lesquels les joueurs évoluent. Pour cela il y aura a disposition un menu de création d'environnement dans lequel le créateur du jeu aura carte blanche. Il aura a disposition des outils lui permettant de créer des formes (cercle, rectangle, dessin libre, ...), une palette de couleurs. De plus, il aura la possibilité d'importer les figures de son choix. Il pourra associé a chaque environnement des notes pour indiquer les spécificités des lieu. Le créateur du jeu pourra définir les objets mobiles ou non pour les parties de jeu.
+
+\subsection{Interface de jeu}
+Ce logiciel offre aussi la possibilité de jouer avec ses propres créations, pour cela il y aura une interface de jeu qui ressemble a celui de création mais dans une version plus restreinte, il sera uniquement possible d'y déplacer que certain élément tel que les personnages. 
+
+\subsection{Menu principal}
+Afin d'avoir un logiciel lisible, celui-ci sera pourvu d'un menu principal permettant a l'utilisateur de choisir parmi toutes les fonctionnalités disponible.
+
+\subsection{Interface création de carte événement, objet}
+Afin de créer de la profondeur de jeu, il sera possible de créer des cartes événements explicatif pour les joueurs, mais aussi des cartes liés a des objets expliquant leur utilité et leurs caractéristiques.
+
+
+\section{Interfaces}
+les interfaces utilisateur envisagées (esquisses réalisées à main levée ou avec un outil de dessin).
+
+\section{Exemples d'utilisations}
+plusieurs cas d'usage (scénarios) pour comprendre les fonctionnalités (et, plus tard, valider l?application développée).
+
+\end{document} 

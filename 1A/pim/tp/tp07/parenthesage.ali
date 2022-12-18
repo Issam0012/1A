@@ -1,0 +1,81 @@
+V "GNAT Lib v2021"
+M P W=b
+A -gnatA
+A -gnatwa
+A -gnata
+A -g
+A -mtune=generic
+A -march=x86-64
+P ZX
+
+RN
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV NO_IMPLEMENTATION_PRAGMAS
+
+U parenthesage%b	parenthesage.adb	418cb4c4 NE OO SU
+W piles%s		piles.adb		piles.ali
+Z system.assertions%s	s-assert.adb		s-assert.ali
+
+D ada.ads		20210520051130 76789da1 ada%s
+D a-assert.ads		20210520051127 a718b65c ada.assertions%s
+D a-except.ads		20210520051127 946f3014 ada.exceptions%s
+D a-ioexce.ads		20210520051127 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20210520051128 119b8fb3 ada.streams%s
+D a-string.ads		20210520051128 90ac6797 ada.strings%s
+D a-sttebu.ads		20210520051128 18209c64 ada.strings.text_buffers%s
+D a-stuten.ads		20210520051128 808c40ad ada.strings.utf_encoding%s
+D a-tags.ads		20210520051129 9eaa38c6 ada.tags%s
+D a-textio.ads		20210520051129 aef4d56d ada.text_io%s
+D a-unccon.ads		20210520051129 0e9b276f ada.unchecked_conversion%s
+D interfac.ads		20210520051131 edec285f interfaces%s
+D i-cstrea.ads		20210520051131 e53d8b8e interfaces.c_streams%s
+D parenthesage.adb	20211020151437 b9362b8b parenthesage%b
+D piles.ads		20211018142313 f8ba9f4f piles%s
+D piles.adb		20211018142313 f5008280 piles%b
+D system.ads		20210520051134 a2da961d system%s
+D s-assert.ads		20210520051131 6a49a4e4 system.assertions%s
+D s-crtl.ads		20210520051131 0ebbdb71 system.crtl%s
+D s-exctab.ads		20210520051131 54135002 system.exception_table%s
+D s-ficobl.ads		20210520051131 078245e4 system.file_control_block%s
+D s-parame.ads		20210520051133 4752c4cb system.parameters%s
+D s-putima.ads		20210520051133 4e095881 system.put_images%s
+D s-secsta.ads		20210520051133 9b3ab94b system.secondary_stack%s
+D s-soflin.ads		20210520051133 a7318a92 system.soft_links%s
+D s-stache.ads		20210520051133 a37c21ec system.stack_checking%s
+D s-stalib.ads		20210520051133 472fbca8 system.standard_library%s
+D s-stoele.ads		20210520051133 2dc34a04 system.storage_elements%s
+D s-stoele.adb		20210520051133 ed88f8fb system.storage_elements%b
+D s-traent.ads		20210520051133 26a8d361 system.traceback_entries%s
+D s-unstyp.ads		20210520051133 2b077493 system.unsigned_types%s
+D s-wchcon.ads		20210520051134 1b7d22d2 system.wch_con%s
+D unchconv.ads		20210520051134 ca2f9e18 unchecked_conversion%s
+G a e
+G c Z b b [parenthesage standard 3 11 none]
+X 14 parenthesage.adb
+3U11*Parenthesage 3b11 115l5 115t17
+8V14 Index{integer} 8b14 8>21 8>40 9r32 9r54 10r23 10r64 23l9 23t14 30s28
+. 31s28 32s28 33s28 34s28 35s28 36s28 37s28 38s28
+8a21 Meule{string} 9r17 9r70 10r38 10r57 15r21 16r16
+8e40 Aiguille{character} 10r80 16r30
+12i9 index{integer} 14m9 16r22 17m17 17r24 22r16
+15i13 i{integer}
+27U15 Tester_Index 27b15 39t8 113s5
+28a9 ABCDEF{string} 30r35 31r35 32r35 33r35 34r35 35r35 36r35 37r35 38r35
+52U15 Verifier_Parenthesage 52b15 52>38 52<58 52<82 57l9 57t30 68s9 71s9
+. 74s9 78s9 82s9 86s9 90s9 94s9 97s9 100s9 104s9 107s9
+52a38 Chaine{string}
+52b58 Correct{boolean}
+52i82 Indice_Erreur{integer}
+53a9 Ouvrants{string}
+54a9 Fermants{string}
+61U15 Tester_Verifier_Parenthesage 61b15 110l9 110t37 114s5
+62a9 Exemple1{string} 97r32
+63a9 Exemple2{string} 100r32 104r32 107r32
+65i9 Indice{integer} 68m52 71m52 74m53 76r24 78m53 80r24 82m52 84r24 86m48
+. 88r24 90m50 92r24 94m45 97m51 100m51 102r24 104m59 107m59 109r24
+66b9 Correct{boolean} 68m43 69r24 71m43 72r24 74m44 75r28 78m44 79r28 82m43
+. 83r28 86m39 87r28 90m41 91r28 94m36 95r24 97m42 98r24 100m42 101r28 104m50
+. 105r24 107m50 108r28
+X 15 piles.ads
+7k9*Piles 14|1w6 15|58e10
+

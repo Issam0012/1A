@@ -1,0 +1,64 @@
+Nom       : Alouane
+Prénom    : Issam
+Groupe TP : 1SN-H
+
+Les « ... » indiquent les endroits à compléter.
+
+=====[ Temps passé ]============================================================
+
+Ces informations de temps sont demandées à titre indicatif et ne sont pas
+prises en compte dans la notation du projet.
+
+
+* Temps passé sur la V1 : 10 heures ... minutes
+* Temps passé sur la V2 : ... heures ... minutes
+
+Pour la V2 on ne tiendra pas compte du temps passé sur la V1.
+
+
+=====[ Questions ]==============================================================
+
+--------------------------------------------------------------------------------
+Pourquoi l'exception OperationInterditeException ne peut pas être définie
+comme vérifiée par le compilateur ?
+--------------------------------------------------------------------------------
+
+Car dans l'interface Jeu la méthode getPrise ne lève que CoupInvalideException 
+et donc si OperationInterditeException est vérifiée par le compilateur on aura
+à modifier l'interface pour une réalisation ce qui n'est pas trop "naturel"
+
+
+--------------------------------------------------------------------------------
+Expliquer ce qu'il faut faire pour ajouter un nouveau niveau de jeu, par
+exemple la stratégie lente (C13).  Pour plus de précision, on numérotera
+les étapes à faire.
+--------------------------------------------------------------------------------
+
+1- Créer la classe JoueurLent
+2- Créer le constructeur de cette classe
+3- définir la méthode getPrise pour un joueur avec cette stratégie
+4- ajouter dans jouer un cas de stratégie égal "lent" et dans ce cas on utilise
+le constructeur de la classe JoueurLent
+
+
+--------------------------------------------------------------------------------
+Expliquer ce qui permet, dans votre conception, de changer dynamiquement
+(en cours d'exécution du programme) la stratégie d'un joueur (C14).
+--------------------------------------------------------------------------------
+
+On peut créer une nouvelle méthode setStratégie dans la classe Joueur qui prend
+en paramètre une stratégie (un objet d'une réalisation de l'interface Strategie),
+et quand on veut changer une stratégie il suffit d'appeler :
+joueur.setStrategie(nouvellestrategie)
+
+
+=====[ Explications ]===========================================================
+
+--------------------------------------------------------------------------------
+Donner ici les explications supplémentaires utiles à la compréhension du
+travail rendu.
+--------------------------------------------------------------------------------
+
+...
+
+--------------------------------------------------------------------------------

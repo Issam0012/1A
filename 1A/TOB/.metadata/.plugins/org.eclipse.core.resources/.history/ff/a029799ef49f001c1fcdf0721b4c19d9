@@ -1,0 +1,12 @@
+package allumettes;
+
+public class Procuration {
+	
+	public static void verifierCommande(String commande) throws OperationInterditeException {
+		
+		if (commande == "retirer") {
+			throw new OperationInterditeException("tricheur");
+		}
+	}
+
+}

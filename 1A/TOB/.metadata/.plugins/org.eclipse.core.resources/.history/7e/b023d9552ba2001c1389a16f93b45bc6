@@ -1,0 +1,115 @@
+package allumettes;
+
+/** Lance une partie des 13 allumettes en fonction des arguments fournis
+ * sur la ligne de commande.
+ * @author	Xavier Crégut
+ * @version	$Revision: 1.5 $
+ */
+public class Jouer {
+
+	/** Lancer une partie. En argument sont donnés les deux joueurs sous
+	 * la forme nom@stratégie.
+	 * @param args la description des deux joueurs
+	 */
+	public static void main(String[] args) {
+
+		try {
+			
+			verifierArguments(args);
+			
+			int i = 0;
+			boolean modeArbitre = false;
+			
+			if (args.length==3) {
+				modeArbitre = true;
+				i = 1;
+			}
+			
+			jeuAllumettes jeu= new jeuAllumettes(13, modeArbitre);
+			String donneesJoueur1 = args[i];
+			String donneesJoueur2 = args[i+1];
+			
+			String[] joueurSplit1 = donneesJoueur1.split("@");
+			String[] joueurSplit2 = donneesJoueur2.split("@");
+			
+			Joueur joueur_1 = null;
+			if (joueurSplit1[1].equals("humain")) {
+				joueur_1 = new JoueurHumain(joueurSplit1[0]);
+			} else if (joueurSplit1[1].equals("expert")) {
+				joueur_1 = new JoueurExpert(joueurSplit1[0]);
+			} else if (joueurSplit1[1].equals("rapide")) {
+				joueur_1 = new StrategieRapide(joueurSplit1[0]);
+			} else if (joueurSplit1[1].equals("naïf")) {
+				joueur_1 = new StrategieNaïf(joueurSplit1[0]);
+			} else if (joueurSplit1[1].equals("tricheur")) {
+				joueur_1 = new StrategieTricheur(joueurSplit1[0]);
+		}
+			
+			
+			Joueur joueur_2 = null;
+			if (joueurSplit2[1].equals("humain")) {
+				if (joueurSplit1[1].equals("humain")) {
+					joueur_2 = new JoueurHumain(joueurSplit2[0], ( (JoueurHumain) joueur_1));
+				} else {
+					joueur_2 = new JoueurHumain(joueurSplit2[0]);
+				}
+			} else if (joueurSplit2[1].equals("expert")) {
+				joueur_2 = new JoueurExpert(joueurSplit2[0]);
+			} else if (joueurSplit2[1].equals("rapide")) {
+				joueur_2 = new StrategieRapide(joueurSplit2[0]);
+			} else if (joueurSplit2[1].equals("naïf")) {
+				joueur_2 = new StrategieNaïf(joueurSplit2[0]);
+			} else if (joueurSplit2[1].equals("tricheur")) {
+				joueur_2 = new StrategieTricheur(joueurSplit2[0]);
+		}
+			
+			
+			Arbitre arbitre = new Arbitre(joueur_1, joueur_2);
+			arbitre.Arbitrer(jeu);
+			
+			
+
+		} catch (ConfigurationException e) {
+			System.out.println();
+			System.out.println("Erreur : " + e.getMessage());
+			afficherUsage();
+			System.exit(1);
+		} catch (OperationInterditeException e) {
+			System.out.println("Abandon de la partie car " + e.getNomTricheur() +" triche !");
+		}
+		
+		
+	}
+
+	private static void verifierArguments(String[] args) throws ConfigurationException {
+		final int nbJoueurs = 2;
+		if (args.length < nbJoueurs) {
+			throw new ConfigurationException("Trop peu d'arguments : "
+					+ args.length);
+		}
+		if (args.length > nbJoueurs + 1) {
+			throw new ConfigurationException("Trop d'arguments : "
+					+ args.length);
+		}
+		if (args.length==3) {
+			if (!args[0].contentEquals("-confiant")) {
+				throw new ConfigurationException("Vous n'avez droit qu'à l'option '-confiant' ");
+			}
+		}
+	}
+
+	/** Afficher des indications sur la manière d'exécuter cette classe. */
+	public static void afficherUsage() {
+		System.out.println("\n" + "Usage :"
+				+ "\n\t" + "java allumettes.Jouer joueur1 joueur2"
+				+ "\n\t\t" + "joueur est de la forme nom@stratégie"
+				+ "\n\t\t" + "strategie = naif | rapide | expert | humain | tricheur"
+				+ "\n"
+				+ "\n\t" + "Exemple :"
+				+ "\n\t" + "	java allumettes.Jouer Xavier@humain "
+					   + "Ordinateur@naif"
+				+ "\n"
+				);
+	}
+
+}

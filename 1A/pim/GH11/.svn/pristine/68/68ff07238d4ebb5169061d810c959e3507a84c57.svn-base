@@ -1,0 +1,92 @@
+with Ada.Text_IO;           use Ada.Text_IO;
+with Ada.Integer_Text_IO;   use Ada.Integer_Text_IO;
+with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+
+with Tableau;
+with arbre_binaire;
+
+procedure tableau_test is
+
+   Taille_table : Constant Integer := 256;
+
+   function somme(a: in integer; b: in integer) return integer is
+   begin
+      return a+b;
+   end somme;
+
+
+   package M_AB is
+     new arbre_binaire (T_Indice => Integer, T_Valeur => Unbounded_String, sum => somme);
+   use M_AB;
+
+   package Tab_integer_string is
+     new Tableau (Integer,Unbounded_String,somme,Taille_table);
+   use Tab_integer_string;
+
+   -- Retourner une chaîne avec des guillemets autour de S
+   function Avec_Guillemets (S: Unbounded_String) return String is
+   begin
+      return '"' & To_String (S) & '"';
+   end;
+
+
+   --afficher les arbres présent dans le tableau d'arbre
+   Procedure affichage_arbre(arbre : in T_AB; nombre: in integer) is --nombre sera toujours remis Ã  0
+      gauche : T_AB;
+      droite : T_AB;
+   begin
+      fils_G(arbre,gauche);
+      fils_D(arbre,droite);
+      If M_AB.Est_Vide(gauche) and Est_Vide(droite) then
+         Put("(");
+         Put(Indice(arbre), 0);
+         Put(")");
+         Put(" ");
+         Put(Avec_Guillemets(Valeur(arbre)));
+      Else
+         Put ("(");
+         Put(Indice(arbre), 0);
+         Put(")");
+         New_Line;
+         for i in 1..nombre loop
+            Put("       ");
+         end loop;
+         Put("\--0--");
+         affichage_arbre(droite, nombre+1);
+         for i in 2..Taille(arbre)/2 loop
+            Put("|");
+            New_Line;
+         end loop;
+         for i in 1..nombre loop
+            Put("       ");
+         end loop;
+         Put("\--1--" );
+         affichage_arbre(gauche, nombre+1);
+      end if;
+      New_Line;
+   end affichage_arbre;
+
+   --procedure Afficher_Tab is new Pour_Chaque_tab(affichage_arbre);
+   
+   Tableau_AB : T_Tableau;
+
+begin
+   Initialiser(Tableau_AB);
+
+   pragma Assert(Est_Vide(Tableau_AB));
+
+   Enregistrer(Tableau_AB,1,To_Unbounded_String("un"));
+   Enregistrer(Tableau_AB,2,To_Unbounded_String("deux"));
+   Enregistrer(Tableau_AB,3,To_Unbounded_String("trois"));
+   Enregistrer(Tableau_AB,4,To_Unbounded_String("quatre"));
+
+   --Afficher_Tab(Tableau_AB,0);
+
+   Echanger(Tableau_AB,2,3);
+
+   --Afficher_Tab(Tableau_AB,0);
+
+   Vider(Tableau_AB);
+
+   Put("Les tests sont finis");
+end tableau_test;
