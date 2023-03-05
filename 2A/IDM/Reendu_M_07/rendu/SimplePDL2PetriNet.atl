@@ -1,0 +1,116 @@
+module SimplePDL2petri;
+create OUT: petri from  IN: simplepdl;
+
+-- Obtenir le processus qui contient ce process element.
+-- Remarque: Ce helper ne serait pas utile si une référence opposite
+-- avait été placée entre Process et ProcessElement
+helper context simplepdl!ProcessElement
+def: getProcess(): simplepdl!Process =
+	simplepdl!Process.allInstances()
+		->select(p | p.processElements->includes(self))
+		->asSequence()->first();
+
+-- Traduire un Process en un petri de même nom
+rule Process2petri {
+	from p: simplepdl!Process
+	to pn: petri!Reseau (name <- p.name)
+}
+
+-- Traduire une WorkDefinition en un motif sur le réseau de Petri
+rule WorkDefinition2petri {
+	from wd: simplepdl!WorkDefinition
+	to
+		-- PLACES d'une WorkDefinition
+		p_ready: petri!Place(
+				name <- wd.name + '_ready',
+				jetons <- 1
+				),
+		
+		p_running: petri!Place(
+				name <- wd.name + '_running'
+				),
+				
+		p_started: petri!Place(
+				name <- wd.name + '_started'
+				),
+				
+		p_finished: petri!Place(
+				name <- wd.name + '_finished'
+				),
+				
+		-- TRANSITIONS d'une WorkDefinition
+		p_start: petri!Transition(
+				name <- wd.name + '_start'
+				),
+		
+		p_finish: petri!Transition(
+				name <- wd.name + '_finish'
+				),
+				
+		-- ARCS d'une workdefinition
+		p_arc1: petri!Arc(
+				name <- wd.name + '_arc1',
+				Predecessor <- p_ready,
+				Successor <- p_start
+				),
+				
+		p_arc2: petri!Arc(
+				name <- wd.name + '_arc2',
+				Predecessor <- p_start,
+				Successor <- p_started
+				),
+		
+		p_arc3: petri!Arc(
+				name <- wd.name + '_arc3',
+				Predecessor <- p_start,
+				Successor <- p_running
+				),
+				
+		p_arc4: petri!Arc(
+				name <- wd.name + '_arc4',
+				Predecessor <- p_running,
+				Successor <- p_finish
+				),
+				
+		p_arc5: petri!Arc(
+				name <- wd.name + '_arc5',
+				Predecessor <- p_finish,
+				Successor <- p_finished
+				)
+}
+
+-- Traduire une WorkSequence en un arc sur le réseau de Petri
+rule WorkSequence2petri {
+	from ws: simplepdl!WorkSequence
+	to
+	
+	p_arcSeq: petri!Arc(
+				name <- ws.predecessor.name + '_' + ws.successor.name + '_ArcSeq',
+				Predecessor <- if (ws.linkType = #startToStart) or (ws.linkType = #startToFinish) then thisModule.resolveTemp(ws.predecessor, 'p_started')
+				else thisModule.resolveTemp(ws.predecessor, 'p_finished') endif,
+				Successor <- if (ws.linkType = #finishToStart) or (ws.linkType = #finishToFinish) then thisModule.resolveTemp(ws.successor, 'p_finish')
+				else thisModule.resolveTemp(ws.successor, 'p_start') endif
+				)
+}
+
+-- Traduire une Ressource en une place sur le réseau de Petri
+rule Ressource2petri {
+	from r: simplepdl!Ressources
+	to p_r: petri!Place(
+		name <- r.name,
+		jetons <- r.quantity
+		)
+}
+
+-- Traduire une besoinRessource en un arc  sur le réseau de Petri
+rule BesoinRessources2petri {
+	from bs: simplepdl!BesoinRessources
+	to
+	
+	p_arcBes: petri!Arc(
+				name <- bs.user.name + '_needs_' + bs.ressource.name,
+				echange <- bs.need,
+				Predecessor <- thisModule.resolveTemp(bs.ressource, 'p_r'),
+				Successor <- thisModule.resolveTemp(bs.user, 'p_start')
+				)
+}

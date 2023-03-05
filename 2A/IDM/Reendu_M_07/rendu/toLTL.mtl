@@ -1,0 +1,33 @@
+[comment encoding = UTF-8 /]
+[module toLTL('http://simplepdl')]
+
+
+[template public processtoLTL(aProcess : Process)]
+[comment @main/]
+[file (aProcess.name + '.ltl', false, 'UTF-8')]
+
+op finished = [for (wd : WorkDefinition | aProcess.getWDs()) separator ('/\\') after (';')][wd.name/]['_finished'/][/for]
+op running = [for (wd : WorkDefinition | aProcess.getWDs()) separator ('/\\') after (';')][wd.name/]['_running'/][/for]
+op started = [for (wd : WorkDefinition | aProcess.getWDs()) separator ('/\\') after (';')][wd.name/]['_started'/][/for]
+op ready = [for (wd : WorkDefinition | aProcess.getWDs()) separator ('/\\') after (';')][wd.name/]['_ready'/][/for]
+
+['['/][']'/] (finished => dead);
+['['/][']'/] <> dead;
+- <> finished 
+commentaire à enlever: je ne sais pas est-ce que les 3 précédents marchent ou pas, ils expriment le fait
+ qu'un processus terminé ne s'évolue plus
+
+[ '[' /][ ']' /] (finished => - <> ready /\ - <> running /\ started);
+[ '[' /][ ']' /] (running => ready /\ - <> finished /\ started);
+[ '[' /][ ']' /] (started => ready /\ - <> finished);
+[ '[' /][ ']' /] (ready => - <> running /\ - <> finished /\ - <> started);
+[ '[' /][ ']' /] (- <> started => - <> ready /\ - <> running /\ - <> finished);
+
+[/file]
+[/template]
+
+[query public getWDs(p: Process) : OrderedSet(WorkDefinition) = 
+	p.processElements->select( e | e.oclIsTypeOf(WorkDefinition) )
+		->collect( e | e.oclAsType(WorkDefinition) )
+		->asOrderedSet()
+/]

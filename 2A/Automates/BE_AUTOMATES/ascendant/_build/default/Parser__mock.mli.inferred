@@ -1,0 +1,23 @@
+type token =
+    UL_VIRG
+  | UL_VARIABLE of string
+  | UL_SYMBOLE of string
+  | UL_STP
+  | UL_PT
+  | UL_PAROUV
+  | UL_PARFER
+  | UL_NEG
+  | UL_FIN
+  | UL_FAIL
+  | UL_DED
+val menhir_begin_marker : int
+val xv_terme : unit
+val xv_suite_deduction : unit
+val xv_programme_aux : unit
+val xv_programme : unit
+val xv_predicat : unit
+val xv_deduction_aux : unit
+val xv_deduction : unit
+val xv_axiome : unit
+val xv_aux : unit
+val menhir_end_marker : int

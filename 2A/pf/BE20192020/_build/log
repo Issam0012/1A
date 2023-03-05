@@ -1,0 +1,137 @@
+# dune utop
+# OCAMLPARAM: unset
+# Workspace root: /home/issam/Annee_2/pf/BE20192020
+$ /usr/bin/nproc > /tmp/dune044506.output 2> /dev/null
+# Auto-detected concurrency: 8
+# disable binary cache
+$ /home/issam/.opam/4.12.0/bin/ocamlc.opt -config > /tmp/duned0e2d5.output
+# Dune context:
+#  { name = "default"
+#  ; kind = "default"
+#  ; profile = Release
+#  ; merlin = true
+#  ; for_host = None
+#  ; fdo_target_exe = None
+#  ; build_dir = "default"
+#  ; toplevel_path = Some External "/home/issam/.opam/4.12.0/lib/toplevel"
+#  ; ocaml_bin = External "/home/issam/.opam/4.12.0/bin"
+#  ; ocaml = Ok External "/home/issam/.opam/4.12.0/bin/ocaml"
+#  ; ocamlc = External "/home/issam/.opam/4.12.0/bin/ocamlc.opt"
+#  ; ocamlopt = Ok External "/home/issam/.opam/4.12.0/bin/ocamlopt.opt"
+#  ; ocamldep = Ok External "/home/issam/.opam/4.12.0/bin/ocamldep.opt"
+#  ; ocamlmklib = Ok External "/home/issam/.opam/4.12.0/bin/ocamlmklib.opt"
+#  ; env =
+#      map
+#        { "DUNE_OCAML_HARDCODED" : "/home/issam/.opam/4.12.0/lib"
+#        ; "DUNE_OCAML_STDLIB" : "/home/issam/.opam/4.12.0/lib/ocaml"
+#        ; "DUNE_SOURCEROOT" : "/home/issam/Annee_2/pf/BE20192020"
+#        ; "INSIDE_DUNE" : "/home/issam/Annee_2/pf/BE20192020/_build/default"
+#        ; "OCAMLFIND_IGNORE_DUPS_IN" :
+#            "/home/issam/Annee_2/pf/BE20192020/_build/install/default/lib"
+#        ; "OCAMLPATH" :
+#            "/home/issam/Annee_2/pf/BE20192020/_build/install/default/lib"
+#        ; "OCAMLTOP_INCLUDE_PATH" :
+#            "/home/issam/Annee_2/pf/BE20192020/_build/install/default/lib/toplevel"
+#        ; "OCAML_COLOR" : "always"
+#        ; "OPAMCOLOR" : "always"
+#        }
+#  ; findlib_path = [ External "/home/issam/.opam/4.12.0/lib" ]
+#  ; arch_sixtyfour = true
+#  ; natdynlink_supported = true
+#  ; supports_shared_libraries = true
+#  ; ocaml_config =
+#      { version = "4.12.0"
+#      ; standard_library_default = "/home/issam/.opam/4.12.0/lib/ocaml"
+#      ; standard_library = "/home/issam/.opam/4.12.0/lib/ocaml"
+#      ; standard_runtime = "the_standard_runtime_variable_was_deleted"
+#      ; ccomp_type = "cc"
+#      ; c_compiler = "gcc"
+#      ; ocamlc_cflags = [ "-O2"; "-fno-strict-aliasing"; "-fwrapv"; "-fPIC" ]
+#      ; ocamlc_cppflags = [ "-D_FILE_OFFSET_BITS=64"; "-D_REENTRANT" ]
+#      ; ocamlopt_cflags =
+#          [ "-O2"; "-fno-strict-aliasing"; "-fwrapv"; "-fPIC" ]
+#      ; ocamlopt_cppflags = [ "-D_FILE_OFFSET_BITS=64"; "-D_REENTRANT" ]
+#      ; bytecomp_c_compiler =
+#          [ "gcc"
+#          ; "-O2"
+#          ; "-fno-strict-aliasing"
+#          ; "-fwrapv"
+#          ; "-fPIC"
+#          ; "-D_FILE_OFFSET_BITS=64"
+#          ; "-D_REENTRANT"
+#          ]
+#      ; bytecomp_c_libraries = [ "-lm"; "-lpthread" ]
+#      ; native_c_compiler =
+#          [ "gcc"
+#          ; "-O2"
+#          ; "-fno-strict-aliasing"
+#          ; "-fwrapv"
+#          ; "-fPIC"
+#          ; "-D_FILE_OFFSET_BITS=64"
+#          ; "-D_REENTRANT"
+#          ]
+#      ; native_c_libraries = [ "-lm" ]
+#      ; cc_profile = []
+#      ; architecture = "amd64"
+#      ; model = "default"
+#      ; int_size = 63
+#      ; word_size = 64
+#      ; system = "linux"
+#      ; asm = [ "as" ]
+#      ; asm_cfi_supported = true
+#      ; with_frame_pointers = false
+#      ; ext_exe = ""
+#      ; ext_obj = ".o"
+#      ; ext_asm = ".s"
+#      ; ext_lib = ".a"
+#      ; ext_dll = ".so"
+#      ; os_type = "Unix"
+#      ; default_executable_name = "a.out"
+#      ; systhread_supported = true
+#      ; host = "x86_64-pc-linux-gnu"
+#      ; target = "x86_64-pc-linux-gnu"
+#      ; profiling = false
+#      ; flambda = false
+#      ; spacetime = false
+#      ; safe_string = true
+#      ; exec_magic_number = "Caml1999X029"
+#      ; cmi_magic_number = "Caml1999I029"
+#      ; cmo_magic_number = "Caml1999O029"
+#      ; cma_magic_number = "Caml1999A029"
+#      ; cmx_magic_number = "Caml1999Y029"
+#      ; cmxa_magic_number = "Caml1999Z029"
+#      ; ast_impl_magic_number = "Caml1999M029"
+#      ; ast_intf_magic_number = "Caml1999N029"
+#      ; cmxs_magic_number = "Caml1999D029"
+#      ; cmt_magic_number = "Caml1999T029"
+#      ; natdynlink_supported = true
+#      ; supports_shared_libraries = true
+#      ; windows_unicode = false
+#      }
+#  }
+$ (cd _build/default && .ppx/bfcab61e6a21ecf6d2f80029fc1ef484/ppx.exe --cookie 'inline_tests="disabled"' --cookie 'library-name="be"' -o be.pp.ml --impl be.ml -corrected-suffix .ppx-corrected -diff-cmd - -dump-ast)
+$ (cd _build/default && /home/issam/.opam/4.12.0/bin/ocamldep.opt -modules -impl be.pp.ml) > _build/default/.be.objs/be.pp.ml.d
+$ (cd _build/default && /home/issam/.opam/4.12.0/bin/ocamlc.opt -w -40 -g -bin-annot -I .be.objs/byte -I /home/issam/.opam/4.12.0/lib/base -I /home/issam/.opam/4.12.0/lib/base/base_internalhash_types -I /home/issam/.opam/4.12.0/lib/base/caml -I /home/issam/.opam/4.12.0/lib/base/shadow_stdlib -I /home/issam/.opam/4.12.0/lib/jane-street-headers -I /home/issam/.opam/4.12.0/lib/ppx_compare/runtime-lib -I /home/issam/.opam/4.12.0/lib/ppx_enumerate/runtime-lib -I /home/issam/.opam/4.12.0/lib/ppx_hash/runtime-lib -I /home/issam/.opam/4.12.0/lib/ppx_inline_test/config -I /home/issam/.opam/4.12.0/lib/ppx_inline_test/runtime-lib -I /home/issam/.opam/4.12.0/lib/ppx_sexp_conv/runtime-lib -I /home/issam/.opam/4.12.0/lib/sexplib0 -I /home/issam/.opam/4.12.0/lib/time_now -no-alias-deps -open Be__ -o .be.objs/byte/be.cmo -c -impl be.pp.ml)
+> File "be.ml", line 140, characters 8-103:
+> 140 | let get (Noeud(a,b,c)) n = match n with | 1 -> a | 2-> b | 3 ->c | _->failwith"entre 1 et 3 forcément"
+>               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> Warning 8 [partial-match]: this pattern-matching is not exhaustive.
+> Here is an example of a case that is not matched:
+> (Vide|Lettre _)
+> File "be.ml", lines 141-151, characters 17-83:
+> 141 | .................(Noeud(arb1,arb2,arb3)) = let l = decompose_int code in
+> 142 | let rec decoder_aux liste trio trioOrig=
+> 143 |   match liste with
+> 144 |   | [] -> []
+> 145 |   | t::q -> 
+> ...
+> 148 |               | Lettre a -> [a] @ (decoder_aux q trioOrig trioOrig)
+> 149 |               | Noeud(arbre1,arbre2,arbre3) -> (decoder_aux q (arbre1) trioOrig) @ (decoder_aux q (arbre2) trioOrig) @ (decoder_aux q (arbre3) trioOrig)
+> 150 |               
+> 151 | in recompose_chaine (decoder_aux l (Noeud(arb1,arb2,arb3)) (Noeud(arb1,arb2,arb3)))
+> Warning 8 [partial-match]: this pattern-matching is not exhaustive.
+> Here is an example of a case that is not matched:
+> (Vide|Lettre _)
+$ (cd _build/default && /home/issam/.opam/4.12.0/bin/ocamlc.opt -w -40 -g -a -o be.cma .be.objs/byte/be__.cmo .be.objs/byte/be__Util.cmo .be.objs/byte/be.cmo)
+$ (cd _build/default && /home/issam/.opam/4.12.0/bin/ocamlc.opt -w -40 -w -24 -g -bin-annot -I .utop/.utop.eobjs/byte -I /home/issam/.opam/4.12.0/lib/base -I /home/issam/.opam/4.12.0/lib/base/base_internalhash_types -I /home/issam/.opam/4.12.0/lib/base/caml -I /home/issam/.opam/4.12.0/lib/base/shadow_stdlib -I /home/issam/.opam/4.12.0/lib/bytes -I /home/issam/.opam/4.12.0/lib/camomile -I /home/issam/.opam/4.12.0/lib/camomile/default_config -I /home/issam/.opam/4.12.0/lib/camomile/dyn -I /home/issam/.opam/4.12.0/lib/camomile/lib_default -I /home/issam/.opam/4.12.0/lib/camomile/library -I /home/issam/.opam/4.12.0/lib/charInfo_width -I /home/issam/.opam/4.12.0/lib/findlib -I /home/issam/.opam/4.12.0/lib/jane-street-headers -I /home/issam/.opam/4.12.0/lib/lambda-term -I /home/issam/.opam/4.12.0/lib/lwt -I /home/issam/.opam/4.12.0/lib/lwt/unix -I /home/issam/.opam/4.12.0/lib/lwt_log -I /home/issam/.opam/4.12.0/lib/lwt_log/core -I /home/issam/.opam/4.12.0/lib/lwt_react -I /home/issam/.opam/4.12.0/lib/mew -I /home/issam/.opam/4.12.0/lib/mew_vi -I /home/issam/.opam/4.12.0/lib/ocaml/compiler-libs -I /home/issam/.opam/4.12.0/lib/ocaml/threads -I /home/issam/.opam/4.12.0/lib/ocplib-endian -I /home/issam/.opam/4.12.0/lib/ocplib-endian/bigstring -I /home/issam/.opam/4.12.0/lib/ppx_compare/runtime-lib -I /home/issam/.opam/4.12.0/lib/ppx_enumerate/runtime-lib -I /home/issam/.opam/4.12.0/lib/ppx_hash/runtime-lib -I /home/issam/.opam/4.12.0/lib/ppx_inline_test/config -I /home/issam/.opam/4.12.0/lib/ppx_inline_test/runtime-lib -I /home/issam/.opam/4.12.0/lib/ppx_sexp_conv/runtime-lib -I /home/issam/.opam/4.12.0/lib/react -I /home/issam/.opam/4.12.0/lib/result -I /home/issam/.opam/4.12.0/lib/sexplib0 -I /home/issam/.opam/4.12.0/lib/time_now -I /home/issam/.opam/4.12.0/lib/trie -I /home/issam/.opam/4.12.0/lib/utop -I /home/issam/.opam/4.12.0/lib/zed -I .be.objs/byte -no-alias-deps -o .utop/.utop.eobjs/byte/dune__exe__Utop.cmo -c -impl .utop/utop.ml-gen)
+$ (cd _build/default && /home/issam/.opam/4.12.0/bin/ocamlc.opt -w -40 -w -24 -g -o .utop/utop.exe -output-complete-exe /home/issam/.opam/4.12.0/lib/ocaml/compiler-libs/ocamlcommon.cma /home/issam/.opam/4.12.0/lib/ocaml/compiler-libs/ocamlbytecomp.cma /home/issam/.opam/4.12.0/lib/ocaml/compiler-libs/ocamltoplevel.cma /home/issam/.opam/4.12.0/lib/findlib/findlib.cma /home/issam/.opam/4.12.0/lib/findlib/findlib_top.cma /home/issam/.opam/4.12.0/lib/lwt/lwt.cma /home/issam/.opam/4.12.0/lib/ocaml/unix.cma -I /home/issam/.opam/4.12.0/lib/ocaml /home/issam/.opam/4.12.0/lib/ocaml/bigarray.cma -I /home/issam/.opam/4.12.0/lib/ocaml /home/issam/.opam/4.12.0/lib/ocplib-endian/ocplib_endian.cma /home/issam/.opam/4.12.0/lib/ocplib-endian/bigstring/ocplib_endian_bigstring.cma /home/issam/.opam/4.12.0/lib/ocaml/threads/threads.cma -I /home/issam/.opam/4.12.0/lib/ocaml /home/issam/.opam/4.12.0/lib/lwt/unix/lwt_unix.cma -I /home/issam/.opam/4.12.0/lib/lwt/unix /home/issam/.opam/4.12.0/lib/react/react.cma /home/issam/.opam/4.12.0/lib/lwt_react/lwt_react.cma /home/issam/.opam/4.12.0/lib/camomile/default_config/camomileDefaultConfig.cma /home/issam/.opam/4.12.0/lib/camomile/library/camomileLibrary.cma /home/issam/.opam/4.12.0/lib/camomile/lib_default/camomileLibraryDefault.cma /home/issam/.opam/4.12.0/lib/camomile/dyn/camomileLibraryDyn.cma /home/issam/.opam/4.12.0/lib/camomile/camomile_yuge.cma /home/issam/.opam/4.12.0/lib/result/result.cma /home/issam/.opam/4.12.0/lib/charInfo_width/charInfo_width.cma /home/issam/.opam/4.12.0/lib/zed/zed.cma /home/issam/.opam/4.12.0/lib/lwt_log/core/lwt_log_core.cma /home/issam/.opam/4.12.0/lib/lwt_log/lwt_log.cma /home/issam/.opam/4.12.0/lib/trie/trie.cma /home/issam/.opam/4.12.0/lib/mew/mew.cma /home/issam/.opam/4.12.0/lib/mew_vi/mew_vi.cma /home/issam/.opam/4.12.0/lib/lambda-term/lambda_term.cma -I /home/issam/.opam/4.12.0/lib/lambda-term /home/issam/.opam/4.12.0/lib/utop/uTop.cma /home/issam/.opam/4.12.0/lib/base/base_internalhash_types/base_internalhash_types.cma -I /home/issam/.opam/4.12.0/lib/base/base_internalhash_types /home/issam/.opam/4.12.0/lib/base/caml/caml.cma /home/issam/.opam/4.12.0/lib/sexplib0/sexplib0.cma /home/issam/.opam/4.12.0/lib/base/shadow_stdlib/shadow_stdlib.cma /home/issam/.opam/4.12.0/lib/base/base.cma -I /home/issam/.opam/4.12.0/lib/base /home/issam/.opam/4.12.0/lib/ppx_inline_test/config/inline_test_config.cma /home/issam/.opam/4.12.0/lib/jane-street-headers/jane_street_headers.cma /home/issam/.opam/4.12.0/lib/ppx_sexp_conv/runtime-lib/ppx_sexp_conv_lib.cma /home/issam/.opam/4.12.0/lib/ppx_compare/runtime-lib/ppx_compare_lib.cma /home/issam/.opam/4.12.0/lib/ppx_enumerate/runtime-lib/ppx_enumerate_lib.cma /home/issam/.opam/4.12.0/lib/ppx_hash/runtime-lib/ppx_hash_lib.cma /home/issam/.opam/4.12.0/lib/time_now/time_now.cma -I /home/issam/.opam/4.12.0/lib/time_now /home/issam/.opam/4.12.0/lib/ppx_inline_test/runtime-lib/ppx_inline_test_lib.cma be.cma .utop/.utop.eobjs/byte/dune__exe__Utop.cmo -linkall -warn-error -31)

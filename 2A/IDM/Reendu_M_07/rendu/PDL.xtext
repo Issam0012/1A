@@ -1,0 +1,44 @@
+grammar fr.n7.PDL with org.eclipse.xtext.common.Terminals
+
+generate pDL "http://www.n7.fr/PDL"
+
+Process :
+	'process' name=ID '{'
+	    processElements+=ProcessElement*
+	'}' ;
+
+ProcessElement :
+	WorkDefinition | WorkSequence | Guidance | Ressources | BesoinRessources;
+
+WorkDefinition :
+	'wd' name=ID
+;
+
+WorkSequence :
+	'ws' linkType=WorkSequenceType
+		'from' predecessor=[WorkDefinition]
+		'to' successor=[WorkDefinition] ;
+
+Guidance :
+	'note' texte=ID
+	'for' elements+=[WorkDefinition]*;
+
+Ressources :
+	'ressource' name=ID
+	'quantity' quantity=INT
+	'need'
+	 allocate+=[BesoinRessources]*
+;
+
+BesoinRessources :
+	'user' user=[WorkDefinition]
+	'needs' need=INT
+	'of' ressource=[Ressources]
+;
+
+enum WorkSequenceType :
+	start2start = 's2s'
+	| finish2start = 'f2s'
+	| start2finish = 's2f'
+	| finish2finish = 'f2f'
+	;

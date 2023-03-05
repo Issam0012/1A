@@ -1,0 +1,126 @@
+# dune runtest
+# OCAMLPARAM: unset
+# Workspace root: /home/issam/Annee_2/pf/TP2
+$ /usr/bin/nproc > /tmp/duneb18fd3.output 2> /dev/null
+# Auto-detected concurrency: 8
+# disable binary cache
+$ /home/issam/.opam/4.12.0/bin/ocamlc.opt -config > /tmp/dune5f6ac3.output
+# Dune context:
+#  { name = "default"
+#  ; kind = "default"
+#  ; profile = Dyn
+#  ; merlin = true
+#  ; for_host = None
+#  ; fdo_target_exe = None
+#  ; build_dir = "default"
+#  ; toplevel_path = Some External "/home/issam/.opam/4.12.0/lib/toplevel"
+#  ; ocaml_bin = External "/home/issam/.opam/4.12.0/bin"
+#  ; ocaml = Ok External "/home/issam/.opam/4.12.0/bin/ocaml"
+#  ; ocamlc = External "/home/issam/.opam/4.12.0/bin/ocamlc.opt"
+#  ; ocamlopt = Ok External "/home/issam/.opam/4.12.0/bin/ocamlopt.opt"
+#  ; ocamldep = Ok External "/home/issam/.opam/4.12.0/bin/ocamldep.opt"
+#  ; ocamlmklib = Ok External "/home/issam/.opam/4.12.0/bin/ocamlmklib.opt"
+#  ; env =
+#      map
+#        { "DUNE_OCAML_HARDCODED" : "/home/issam/.opam/4.12.0/lib"
+#        ; "DUNE_OCAML_STDLIB" : "/home/issam/.opam/4.12.0/lib/ocaml"
+#        ; "DUNE_SOURCEROOT" : "/home/issam/Annee_2/pf/TP2"
+#        ; "INSIDE_DUNE" : "/home/issam/Annee_2/pf/TP2/_build/default"
+#        ; "OCAMLFIND_IGNORE_DUPS_IN" :
+#            "/home/issam/Annee_2/pf/TP2/_build/install/default/lib"
+#        ; "OCAMLPATH" :
+#            "/home/issam/Annee_2/pf/TP2/_build/install/default/lib"
+#        ; "OCAMLTOP_INCLUDE_PATH" :
+#            "/home/issam/Annee_2/pf/TP2/_build/install/default/lib/toplevel"
+#        ; "OCAML_COLOR" : "always"
+#        ; "OPAMCOLOR" : "always"
+#        }
+#  ; findlib_path = [ External "/home/issam/.opam/4.12.0/lib" ]
+#  ; arch_sixtyfour = true
+#  ; natdynlink_supported = true
+#  ; supports_shared_libraries = true
+#  ; ocaml_config =
+#      { version = "4.12.0"
+#      ; standard_library_default = "/home/issam/.opam/4.12.0/lib/ocaml"
+#      ; standard_library = "/home/issam/.opam/4.12.0/lib/ocaml"
+#      ; standard_runtime = "the_standard_runtime_variable_was_deleted"
+#      ; ccomp_type = "cc"
+#      ; c_compiler = "gcc"
+#      ; ocamlc_cflags = [ "-O2"; "-fno-strict-aliasing"; "-fwrapv"; "-fPIC" ]
+#      ; ocamlc_cppflags = [ "-D_FILE_OFFSET_BITS=64"; "-D_REENTRANT" ]
+#      ; ocamlopt_cflags =
+#          [ "-O2"; "-fno-strict-aliasing"; "-fwrapv"; "-fPIC" ]
+#      ; ocamlopt_cppflags = [ "-D_FILE_OFFSET_BITS=64"; "-D_REENTRANT" ]
+#      ; bytecomp_c_compiler =
+#          [ "gcc"
+#          ; "-O2"
+#          ; "-fno-strict-aliasing"
+#          ; "-fwrapv"
+#          ; "-fPIC"
+#          ; "-D_FILE_OFFSET_BITS=64"
+#          ; "-D_REENTRANT"
+#          ]
+#      ; bytecomp_c_libraries = [ "-lm"; "-lpthread" ]
+#      ; native_c_compiler =
+#          [ "gcc"
+#          ; "-O2"
+#          ; "-fno-strict-aliasing"
+#          ; "-fwrapv"
+#          ; "-fPIC"
+#          ; "-D_FILE_OFFSET_BITS=64"
+#          ; "-D_REENTRANT"
+#          ]
+#      ; native_c_libraries = [ "-lm" ]
+#      ; cc_profile = []
+#      ; architecture = "amd64"
+#      ; model = "default"
+#      ; int_size = 63
+#      ; word_size = 64
+#      ; system = "linux"
+#      ; asm = [ "as" ]
+#      ; asm_cfi_supported = true
+#      ; with_frame_pointers = false
+#      ; ext_exe = ""
+#      ; ext_obj = ".o"
+#      ; ext_asm = ".s"
+#      ; ext_lib = ".a"
+#      ; ext_dll = ".so"
+#      ; os_type = "Unix"
+#      ; default_executable_name = "a.out"
+#      ; systhread_supported = true
+#      ; host = "x86_64-pc-linux-gnu"
+#      ; target = "x86_64-pc-linux-gnu"
+#      ; profiling = false
+#      ; flambda = false
+#      ; spacetime = false
+#      ; safe_string = true
+#      ; exec_magic_number = "Caml1999X029"
+#      ; cmi_magic_number = "Caml1999I029"
+#      ; cmo_magic_number = "Caml1999O029"
+#      ; cma_magic_number = "Caml1999A029"
+#      ; cmx_magic_number = "Caml1999Y029"
+#      ; cmxa_magic_number = "Caml1999Z029"
+#      ; ast_impl_magic_number = "Caml1999M029"
+#      ; ast_intf_magic_number = "Caml1999N029"
+#      ; cmxs_magic_number = "Caml1999D029"
+#      ; cmt_magic_number = "Caml1999T029"
+#      ; natdynlink_supported = true
+#      ; supports_shared_libraries = true
+#      ; windows_unicode = false
+#      }
+#  }
+$ (cd _build/default && /home/issam/.opam/4.12.0/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -g -I .tp2.objs/byte -I .tp2.objs/native -I /home/issam/.opam/4.12.0/lib/base -I /home/issam/.opam/4.12.0/lib/base/base_internalhash_types -I /home/issam/.opam/4.12.0/lib/base/caml -I /home/issam/.opam/4.12.0/lib/base/shadow_stdlib -I /home/issam/.opam/4.12.0/lib/jane-street-headers -I /home/issam/.opam/4.12.0/lib/ppx_compare/runtime-lib -I /home/issam/.opam/4.12.0/lib/ppx_enumerate/runtime-lib -I /home/issam/.opam/4.12.0/lib/ppx_hash/runtime-lib -I /home/issam/.opam/4.12.0/lib/ppx_inline_test/config -I /home/issam/.opam/4.12.0/lib/ppx_inline_test/runtime-lib -I /home/issam/.opam/4.12.0/lib/ppx_sexp_conv/runtime-lib -I /home/issam/.opam/4.12.0/lib/sexplib0 -I /home/issam/.opam/4.12.0/lib/time_now -intf-suffix .ml -no-alias-deps -opaque -open Tp2__ -o .tp2.objs/native/tp2.cmx -c -impl tp2.pp.ml)
+> File "tp2.ml", line 114, characters 0-11:
+> 114 | open Lexing
+>       ^^^^^^^^^^^
+> Warning 33 [unused-open]: unused open Stdlib.Lexing.
+$ (cd _build/default && /home/issam/.opam/4.12.0/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -g -a -o tp2.cmxa .tp2.objs/native/tp2__.cmx .tp2.objs/native/tp2__Parser.cmx .tp2.objs/native/tp2__Lexer.cmx .tp2.objs/native/tp2.cmx .tp2.objs/native/tp2__Rendu.cmx)
+$ (cd _build/default && /home/issam/.opam/4.12.0/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -w -24 -g -g -bin-annot -I .tp2.inline-tests/.tp2.inline-tests.eobjs/byte -I /home/issam/.opam/4.12.0/lib/base -I /home/issam/.opam/4.12.0/lib/base/base_internalhash_types -I /home/issam/.opam/4.12.0/lib/base/caml -I /home/issam/.opam/4.12.0/lib/base/shadow_stdlib -I /home/issam/.opam/4.12.0/lib/jane-street-headers -I /home/issam/.opam/4.12.0/lib/ppx_compare/runtime-lib -I /home/issam/.opam/4.12.0/lib/ppx_enumerate/runtime-lib -I /home/issam/.opam/4.12.0/lib/ppx_hash/runtime-lib -I /home/issam/.opam/4.12.0/lib/ppx_inline_test/config -I /home/issam/.opam/4.12.0/lib/ppx_inline_test/runner/lib -I /home/issam/.opam/4.12.0/lib/ppx_inline_test/runtime-lib -I /home/issam/.opam/4.12.0/lib/ppx_sexp_conv/runtime-lib -I /home/issam/.opam/4.12.0/lib/sexplib0 -I /home/issam/.opam/4.12.0/lib/time_now -I .tp2.objs/byte -no-alias-deps -o .tp2.inline-tests/.tp2.inline-tests.eobjs/byte/dune__exe__Inline_test_runner_tp2.cmo -c -impl .tp2.inline-tests/inline_test_runner_tp2.ml-gen)
+$ (cd _build/default && /home/issam/.opam/4.12.0/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -w -24 -g -g -I .tp2.inline-tests/.tp2.inline-tests.eobjs/byte -I .tp2.inline-tests/.tp2.inline-tests.eobjs/native -I /home/issam/.opam/4.12.0/lib/base -I /home/issam/.opam/4.12.0/lib/base/base_internalhash_types -I /home/issam/.opam/4.12.0/lib/base/caml -I /home/issam/.opam/4.12.0/lib/base/shadow_stdlib -I /home/issam/.opam/4.12.0/lib/jane-street-headers -I /home/issam/.opam/4.12.0/lib/ppx_compare/runtime-lib -I /home/issam/.opam/4.12.0/lib/ppx_enumerate/runtime-lib -I /home/issam/.opam/4.12.0/lib/ppx_hash/runtime-lib -I /home/issam/.opam/4.12.0/lib/ppx_inline_test/config -I /home/issam/.opam/4.12.0/lib/ppx_inline_test/runner/lib -I /home/issam/.opam/4.12.0/lib/ppx_inline_test/runtime-lib -I /home/issam/.opam/4.12.0/lib/ppx_sexp_conv/runtime-lib -I /home/issam/.opam/4.12.0/lib/sexplib0 -I /home/issam/.opam/4.12.0/lib/time_now -I .tp2.objs/byte -I .tp2.objs/native -intf-suffix .ml-gen -no-alias-deps -o .tp2.inline-tests/.tp2.inline-tests.eobjs/native/dune__exe__Inline_test_runner_tp2.cmx -c -impl .tp2.inline-tests/inline_test_runner_tp2.ml-gen)
+$ (cd _build/default && /home/issam/.opam/4.12.0/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -w -24 -g -g -o .tp2.inline-tests/inline_test_runner_tp2.exe /home/issam/.opam/4.12.0/lib/base/base_internalhash_types/base_internalhash_types.cmxa -I /home/issam/.opam/4.12.0/lib/base/base_internalhash_types /home/issam/.opam/4.12.0/lib/base/caml/caml.cmxa /home/issam/.opam/4.12.0/lib/sexplib0/sexplib0.cmxa /home/issam/.opam/4.12.0/lib/base/shadow_stdlib/shadow_stdlib.cmxa /home/issam/.opam/4.12.0/lib/base/base.cmxa -I /home/issam/.opam/4.12.0/lib/base /home/issam/.opam/4.12.0/lib/ppx_inline_test/config/inline_test_config.cmxa /home/issam/.opam/4.12.0/lib/jane-street-headers/jane_street_headers.cmxa /home/issam/.opam/4.12.0/lib/ppx_sexp_conv/runtime-lib/ppx_sexp_conv_lib.cmxa /home/issam/.opam/4.12.0/lib/ppx_compare/runtime-lib/ppx_compare_lib.cmxa /home/issam/.opam/4.12.0/lib/ppx_enumerate/runtime-lib/ppx_enumerate_lib.cmxa /home/issam/.opam/4.12.0/lib/ppx_hash/runtime-lib/ppx_hash_lib.cmxa /home/issam/.opam/4.12.0/lib/time_now/time_now.cmxa -I /home/issam/.opam/4.12.0/lib/time_now /home/issam/.opam/4.12.0/lib/ppx_inline_test/runtime-lib/ppx_inline_test_lib.cmxa tp2.cmxa /home/issam/.opam/4.12.0/lib/ppx_inline_test/runner/lib/ppx_inline_test_runner_lib.cmxa -I /home/issam/.opam/4.12.0/lib/ppx_inline_test/runner/lib .tp2.inline-tests/.tp2.inline-tests.eobjs/native/dune__exe__Inline_test_runner_tp2.cmx -linkall)
+$ (cd _build/default && .tp2.inline-tests/inline_test_runner_tp2.exe inline-test-runner tp2 -source-tree-root . -diff-cmd -)
+> Fatal error: exception (Sys_error "nat2016.txt: No such file or directory")
+> Raised by primitive operation at Stdlib.open_in_gen in file "stdlib.ml", line 399, characters 28-54
+> Called from Stdlib.open_in in file "stdlib.ml" (inlined), line 404, characters 2-45
+> Called from Tp2.listStat in file "tp2.ml", line 129, characters 14-35
+[2]

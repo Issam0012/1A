@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="Petri" nsURI="http://Petri" nsPrefix="Petri">
+  <eClassifiers xsi:type="ecore:EClass" name="Place" eSuperTypes="#//PetriElements">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="jetons" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="0"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ArcType">
+    <eLiterals name="normal" literal="normal"/>
+    <eLiterals name="readArc" value="1" literal="readArc"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Arc" eSuperTypes="#//ReseauElements">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="echange" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="1"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Predecessor" lowerBound="1"
+        eType="#//PetriElements"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Successor" lowerBound="1"
+        eType="#//PetriElements"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="#//ArcType"
+        defaultValueLiteral="normal"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Transition" eSuperTypes="#//PetriElements"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Reseau">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reseauElements" upperBound="-1"
+        eType="#//ReseauElements" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PetriElements" eSuperTypes="#//ReseauElements">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ReseauElements"/>
+</ecore:EPackage>

@@ -1,0 +1,86 @@
+import 'Petri.ecore'
+
+package Petri
+
+context Place
+-- 1
+-- le nom d’une place doit être composé d’au moins deux caractères
+-- ET
+-- le nom d’une place ne doit être composé que de lettres, chiffres ou soulignés, un chiffre
+-- ne peut pas être première position.
+--
+inv Nom_valide_place('Nom invalide: ' + self.name):
+self.name.matches('[A-Za-z_][A-Za-z0-9_]+')
+
+context Reseau
+-- 2
+-- deux places différentes d’un même réseau de petri ne peuvent pas avoir le même nom
+--
+inv Different_nom_place('Même nom pour deux activités du processus: ' + self.name):
+self.reseauElements
+->select(pe | pe.oclIsKindOf(Place))
+->collect(pe | pe.oclAsType(Place))
+->forAll(w | self = w or self.name <> w.name)
+
+context Transition
+-- 3
+-- le nom d’une transition doit être composé d’au moins deux caractères
+-- ET
+-- le nom d’une transition ne doit être composé que de lettres, chiffres ou soulignés, un chiffre
+-- ne peut pas être première position.
+--
+inv Nom_valide_transition('Nom invalide: ' + self.name):
+self.name.matches('[A-Za-z_][A-Za-z0-9_]+')
+
+context Reseau
+-- 4
+-- deux transistions différentes d’un même réseau de petri ne peuvent pas avoir le même nom
+--
+inv Different_nom_transition('Même nom pour deux activités du processus: ' + self.name):
+self.reseauElements
+->select(pe | pe.oclIsKindOf(Transition))
+->collect(pe | pe.oclAsType(Transition))
+->forAll(w | self = w or self.name <> w.name)
+
+context Arc
+-- 5
+-- le nom d’un arc doit être composé d’au moins deux caractères
+-- ET
+-- le nom d’un arc ne doit être composé que de lettres, chiffres ou soulignés, un chiffre
+-- ne peut pas être première position.
+--
+inv Nom_valide_arc('Nom invalide: ' + self.name):
+self.name.matches('[A-Za-z_][A-Za-z0-9_]+')
+
+context Reseau
+-- 6
+-- deux arcs différentes d’un même réseau de petri ne peuvent pas avoir le même nom
+--
+inv Different_nom_arc('Même nom pour deux activités du processus: ' + self.name):
+self.reseauElements
+->select(pe | pe.oclIsKindOf(Arc))
+->collect(pe | pe.oclAsType(Arc))
+->forAll(w | self = w or self.name <> w.name)
+
+context Place
+-- 7
+-- une place ne peut pas avoir un nombre de jeton négatif
+--
+inv Plusde0_jetons('Cette activité à un nombre de jetons négatifs : ' + self.name):
+self.jetons >=0
+
+context Arc
+-- 8
+-- le nombre de jetons échangés sur un arc ne peut pas être négatif ou nul
+--
+inv Echange_strict_positif('Cet arc permet d echanger un nombre négatif ou nul de jetons '):
+self.echange >= 0
+
+context Arc
+-- 9
+-- un arc ne peut pas lier deux places ou deux transitions
+--
+inv Arc_valide('arc ' + self.name + ' lie deux places ou deux transitions'):
+self.Predecessor.oclIsTypeOf(Place) <> self.Successor.oclIsTypeOf(Place)
+
+endpackage
