@@ -1,0 +1,42 @@
+
+###############################  Sets  ###############################
+
+set FLUIDES;	
+
+set MAGASINS;
+
+set DEMANDEURS;
+
+################### Variables ###################
+
+var Q{i in MAGASINS, j in FLUIDES}, integer; 
+
+var R{i in MAGASINS, j in DEMANDEURS}, binary;
+
+###################  Constants: Data to load   #########################
+
+param DEMANDES{i in DEMANDEURS, j in FLUIDES};
+
+param STOCKS{i in MAGASINS, j in FLUIDES};
+
+param COUTFIXE{i in MAGASINS, j in DEMANDEURS};
+
+param COUTVARIABLE{i in MAGASINS, j in DEMANDEURS};
+
+################### Constraints ###################
+
+s.t. UnderStock {i in MAGASINS, j in FLUIDES}:
+     Q[i,j] <= STOCKS[i,j];
+
+s.t. DemandeVerifie {j in FLUIDES}:
+     sum{i in MAGASINS} Q[i,j] = sum{k in DEMANDEURS} DEMANDES[k,j];
+
+s.t. DemandeFluideVerifie {j in DEMANDEURS}:
+     (sum{i in MAGASINS} R[i,j]) >= 1;
+
+###### Objective ######
+
+minimize CoutTotal: 
+sum{i in MAGASINS, j in FLUIDES, k in DEMANDEURS} Q[i,j]*COUTFIXE[i,k]+ sum{i in MAGASINS, k in DEMANDEURS} R[i,k]*COUTVARIABLE[i,k]; 
+
+end;

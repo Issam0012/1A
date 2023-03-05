@@ -1,0 +1,11 @@
+\* Problem: Assemblage *\
+
+Maximize
+ Benefice: + 10000 nbl + 9000 nbs 
+
+Subject To
+ Surface: + 10 nbl + 20 nbs <= 15000
+ LimiteL: + nbl <= 800
+ HeuresTravail: + 6 nbl + 5 nbs = 6000
+
+End

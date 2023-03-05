@@ -1,0 +1,31 @@
+
+###############################  Sets  ###############################
+
+set PERSONNAGES;	
+
+set TRAVAIL;
+
+################### Variables ###################
+
+var Q{i in PERSONNAGES, j in TRAVAIL}, binary; 
+
+###################  Constants: Data to load   #########################
+
+param COUT{i in PERSONNAGES, j in TRAVAIL}; 
+
+################### Constraints ###################
+
+
+s.t. UniqueTravail {i in PERSONNAGES}:
+  sum{j in TRAVAIL} Q[i,j] = 1;
+  
+s.t. UniquePersonne {j in TRAVAIL}:
+  sum{i in PERSONNAGES} Q[i,j] = 1;
+
+
+###### Objective ######
+
+minimize CoutTotal: 
+		sum{i in PERSONNAGES, j in TRAVAIL} Q[i,j]* COUT[i,j]; 
+
+end;

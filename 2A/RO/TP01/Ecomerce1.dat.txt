@@ -1,0 +1,30 @@
+data;
+
+set FLUIDES:=
+F1
+F2;
+
+set MAGASINS:=
+M1
+M2
+M3;
+
+set DEMANDEURS:=
+D1
+D2;
+
+param DEMANDES: F1 F2 :=
+D1 2 0
+D2 1 3;
+
+param STOCKS: F1 F2 :=
+M1 2.5 1
+M2 1 2
+M3 2 1;
+
+param COUT: F1 F2 :=
+M1 1 1
+M2 2 3
+M3 3 2;
+
+end;

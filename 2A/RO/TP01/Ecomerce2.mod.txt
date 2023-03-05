@@ -1,0 +1,36 @@
+
+###############################  Sets  ###############################
+
+set FLUIDES;	
+
+set MAGASINS;
+
+set DEMANDEURS;
+
+################### Variables ###################
+
+var Q{i in MAGASINS, j in FLUIDES}, integer; 
+
+###################  Constants: Data to load   #########################
+
+param DEMANDES{i in DEMANDEURS, j in FLUIDES};
+
+param STOCKS{i in MAGASINS, j in FLUIDES};
+
+param COUT{i in MAGASINS, j in FLUIDES};
+
+################### Constraints ###################
+
+
+s.t. UnderStock {i in MAGASINS, j in FLUIDES}:
+     Q[i,j] <= STOCKS[i,j];
+  
+s.t. DemandeVerfie {j in FLUIDES}:
+  sum{i in MAGASINS} Q[i,j] =sum{k in DEMANDEURS} DEMANDES[k,j];
+
+###### Objective ######
+
+minimize CoutTotal: 
+		sum{i in MAGASINS, j in FLUIDES} Q[i,j]* COUT[i,j]; 
+
+end;

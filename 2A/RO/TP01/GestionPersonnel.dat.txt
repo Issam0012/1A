@@ -1,0 +1,18 @@
+data;
+
+set PERSONNAGES:=
+Darmian
+Georges
+Soolking;
+
+set TRAVAIL:=
+travail1
+travail2
+travail3;
+
+param COUT: travail1 travail2 travail3 :=
+Darmian 40 12 3
+Georges 20 30 14
+Soolking 15 45 24;
+
+end;

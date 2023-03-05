@@ -1,0 +1,55 @@
+Problem:    GestionPersonnel
+Rows:       7
+Columns:    9 (9 integer, 9 binary)
+Non-zeros:  27
+Status:     INTEGER OPTIMAL
+Objective:  CoutTotal = 41 (MINimum)
+
+   No.   Row name        Activity     Lower bound   Upper bound
+------ ------------    ------------- ------------- -------------
+     1 UniqueTravail[Darmian]
+                                   1             1             = 
+     2 UniqueTravail[Georges]
+                                   1             1             = 
+     3 UniqueTravail[Soolking]
+                                   1             1             = 
+     4 UniquePersonne[travail1]
+                                   1             1             = 
+     5 UniquePersonne[travail2]
+                                   1             1             = 
+     6 UniquePersonne[travail3]
+                                   1             1             = 
+     7 CoutTotal                  41                             
+
+   No. Column name       Activity     Lower bound   Upper bound
+------ ------------    ------------- ------------- -------------
+     1 Q[Darmian,travail1]
+                    *              0             0             1 
+     2 Q[Darmian,travail2]
+                    *              1             0             1 
+     3 Q[Darmian,travail3]
+                    *              0             0             1 
+     4 Q[Georges,travail1]
+                    *              0             0             1 
+     5 Q[Georges,travail2]
+                    *              0             0             1 
+     6 Q[Georges,travail3]
+                    *              1             0             1 
+     7 Q[Soolking,travail1]
+                    *              1             0             1 
+     8 Q[Soolking,travail2]
+                    *              0             0             1 
+     9 Q[Soolking,travail3]
+                    *              0             0             1 
+
+Integer feasibility conditions:
+
+KKT.PE: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+KKT.PB: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+End of output
