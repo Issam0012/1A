@@ -1,0 +1,23 @@
+	 body{
+	 background-image:url("../images/bg-home.jpg");
+	 }
+	 .bar{
+	 position:absolute;
+	 top:0px;
+	 left:0px;
+	 width:100%;
+	 height:7%;
+	 color:white;
+	 background-color:#111;
+	}
+	.movie{
+	position:absolute;
+	top:20%;
+	left:10%;
+	width:80%;
+	height:auto;
+	background-color:rgb(0,0,0,0.7);
+	color:white;
+	padding:10px 30px;
+	
+	}

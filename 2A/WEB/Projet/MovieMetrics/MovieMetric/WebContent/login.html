@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<head>
+<meta charset="UTF-8">
+<title>Connexion</title>
+<link href="./CSS/login.css" rel="stylesheet">
+</head>
+<body>
+
+<a href="Page_accueil.html" style="position:absolute;left:40%;top:23.5%;">Accueil</a>
+<div data-ng-app="myApp" data-ng-controller="myCtrl" class="formulaire">
+
+<h2>Connexion</h2>
+<form novalidate>
+<label for="">Nom de Utilisateur:</label>
+<input type="text" data-ng-model="utilisateur.pseudo" placeholder="Votre nom de utilisateur..">
+
+<label for="">Mot de Passe:</label>
+<input type="password"  data-ng-model="utilisateur.mdp" placeholder="Votre mot de passe.. ">
+
+<button  data-ng-click="doclick()">se connecter </button>
+</form>
+<a href="createaccount.html">Inscription</a>
+<div data-ng-show="showMessage">
+    {{message}}
+</div>
+</div>
+
+<script>
+function supprimerCookie(nomCookie) {
+	  document.cookie = nomCookie + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/;';
+}
+	
+//Stocker les informations de l'utilisateur dans un cookie
+function stockerUtilisateur(utilisateur) {
+  supprimerCookie("utilisateur");
+  var dateExpiration = new Date();
+  // Le cookie expire dans une semaine
+  dateExpiration.setTime(dateExpiration.getTime() + (7 * 24 * 60 * 60 * 1000));
+  var cookie = "utilisateur=" + JSON.stringify(utilisateur) + "; expires=" + dateExpiration.toUTCString() + "; path=/; SameSite=None; Secure";
+  document.cookie = cookie;
+}
+
+function click(scope, http) {
+	scope.showMessage = true;
+	http.get('rest/chercherUtilisateur',{params: {pseudo: scope.utilisateur.pseudo, mdp: scope.utilisateur.mdp}}).then(function(response) {
+		if (response.status == 200) {
+			if (response.data != null){
+				scope.utilisateur = response.data;
+				scope.message ="bienvenue " + scope.utilisateur.nom;
+				stockerUtilisateur(scope.utilisateur);
+				window.location.href = 'Page_accueil.html';
+			}
+		}
+		else scope.message = "pseudo ou mdp incorrect";
+	 }).catch(function(error) {
+			if (error.status == 400){
+				scope.message = "pseudo ou mdp incorrect";
+			}
+			else {
+				scope.message = "erreur lors de la recherche";
+			}
+	 });
+}
+
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope,$http){
+	 $scope.showMessage = false; 
+	 $scope.utilisateur = new Object();
+	 $scope.message ="";
+	 $scope.doclick = function() {click($scope,$http);} 
+});
+</script>
+</html>

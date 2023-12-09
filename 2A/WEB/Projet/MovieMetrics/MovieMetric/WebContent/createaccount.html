@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<head>
+<meta charset="UTF-8">
+<title>Inscription</title>
+<link href="./CSS/login.css" rel="stylesheet">
+
+</head>
+<body>
+<a href="Page_accueil.html" style="position:absolute;left:40%;top:20%;">Accueil</a>
+<div data-ng-app="myApp" data-ng-controller="myCtrl" class="formulaire">
+ 
+<h2>Inscription</h2>
+<form novalidate>
+<label for="name">Nom</label>
+<input type="text" data-ng-model="utilisateur.nom"  placeholder="Votre nom..">
+
+<label for="fname">Prénom</label>
+<input type="text" data-ng-model="utilisateur.prenom"  placeholder="Votre prénom..">
+
+<label for="date_naissance">date de naissance:</label>
+<input type="text" data-ng-model="utilisateur.naissance" placeholder="Votre date de naissance..">
+
+<label for="uname">Pseudo:</label>
+<input type="text" data-ng-model="utilisateur.pseudo" placeholder="Votre pseudo..">
+
+<label for="pass_w">Mot de passe:</label>
+<input type="password" data-ng-model="utilisateur.mdp" placeholder="Votre mot de passe..">
+
+<button data-ng-click="doClick()" >s'inscrire</button>
+</form>
+
+<a href="login.html" style="margin-top:20px;" >Avez-vous déjà un compte ?</a>
+
+<div data-ng-show="showMessage">
+    {{message}}
+</div>
+</div>
+ 
+<script>
+function initVars(scope) {
+	scope.utilisateur = new Object();
+	scope.message = "";
+}
+
+function initView(scope) {
+	scope.showMessage = false;
+}
+
+function click(scope,http){
+	initView(scope);
+	scope.message="entre";
+	http.post("rest/ajouterUtilisateur",scope.utilisateur).then(function(response){		
+		if (response.status == 200) {
+			scope.message = "user was added";
+			window.location.href = 'Page_accueil.html';
+		}
+		else scope.message = "echec lors de l'ajout d'un utilisateur";
+		scope.showMessage = true;	
+	}).catch(function(error) {
+		if (error.status == 400){
+			scope.message = error.data.message;
+		}
+		else {
+		    scope.message = "une erreur s'est produite lors de l'ajout de l'utilisateur";
+		}
+		scope.showMessage = true;
+	});
+}
+
+
+
+var app = angular.module('myApp',[]);
+app.controller('myCtrl', function($scope,$http){
+	initVars($scope);
+	initView($scope);
+	$scope.doClick=function() {click($scope,$http);}
+});
+
+
+</script>
+</body>
+</html>

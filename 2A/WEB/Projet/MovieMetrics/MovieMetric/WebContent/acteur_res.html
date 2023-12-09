@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html data-ng-app="myApp">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Movie Page</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+	<link href="./CSS/acteur_res.css" rel="stylesheet">
+
+</head>
+
+<body >
+<div data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init = "init()">
+  <!-- Logo -->
+  <div class="bar">
+  	<a href = "Page_accueil.html">
+	  <img src="./images/MovieMetrics.png" alt="Logo du site" id="logo" style="height:100%;width:5%;float:left;">
+	  </a>
+	  <h3 style="float:left;"> &nbsp &nbsp MovieMetrics</h3>
+  </div>
+  
+  <div class="acteur">
+  <h1><center>{{acteur.nom}}</center></h1>
+  <img src="{{acteur.photo}}" alt="image" style="width:20%;height:auto;float:left;">
+  <p> description : {{acteur.description}} </p>
+  <p> date de naissance : {{acteur.naissance}}</p>
+  <p> films joués : 
+  	<div data-ng-repeat="film in acteur.films">
+  			{{film.nom}}
+  	</div>
+  	<div data-ng-repeat="film in filmsAbsents">
+  			{{film}}
+  	</div>
+  </p>
+  
+  <div data-ng-show = "showWatch && showNote">
+ votre note: {{valeur}}
+  </div>
+  
+  </div>
+  </div>
+</body>
+<script>
+	
+//Stocker un cookie	  
+function stockerCookie (nom,film) {
+	  document.cookie = nom + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/;';
+	  var dateExpiration = new Date();
+	   // Le cookie expire dans une semaine
+	   dateExpiration.setTime(dateExpiration.getTime() + (7 * 24 * 60 * 60 * 1000));
+	   var cookie = nom + "=" + JSON.stringify(film) + "; expires=" + dateExpiration.toUTCString() + "; path=/;";
+	   document.cookie = cookie;
+}
+
+function recupererCookie(nom) {
+	  var cookie = decodeURIComponent(document.cookie);
+	  var cookies = cookie.split(';');
+	  for (var i = 0; i < cookies.length; i++) {
+	    var c = cookies[i];
+	    while (c.charAt(0) === ' ') {
+	      c = c.substring(1);
+	    }
+	    if (c.indexOf(nom) === 0) {
+	      return JSON.parse(c.substring(nom.length, c.length));
+	    }
+	  }
+	  return null;
+}
+
+
+var app = angular.module('myApp',[]);
+app.controller('myCtrl', function($scope,$http){
+	$scope.addToWatchlist = function(){
+		$http.put('rest/addWatchlist?pseudo=' + $scope.utilisateur.pseudo,$scope.film.id).then(function(response) {
+		      if (response.status == 200) {
+		    	      document.cookie = "utilisateur" + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/;';
+		    	      alert($scope.utilisateur.pseudo);
+		    	      $scope.utilisateur.films = null;
+			    	  $scope.utilisateur.films = response.data;
+			    	  alert(response.data);
+			    	  alert("film ajouté");
+			    	  var cookieValue = JSON.stringify($scope.utilisateur);
+				      var dateExpiration = new Date();
+				      dateExpiration.setTime(dateExpiration.getTime() + (7 * 24 * 60 * 60 * 1000));
+				      document.cookie = "utilisateur=" + cookieValue + "; expires=" + dateExpiration.toUTCString() + "; path=/;";
+				      $scope.showWatch = true;
+		      } else {
+		        $scope.message = "non";
+		      }
+		    }).catch(function(error) {
+				if (error.status == 400){
+					alert(error.data.message);
+				}
+				else {
+				    alert("une erreur s'est produite lors de l'ajout dfu film à votre watchlist");
+				}
+			});	
+	;}
+	
+	$scope.init = function(){
+		// On récupère l'acteur et l'utilisateur courant
+		$scope.acteur = recupererCookie("acteur=")
+		$scope.utilisateur = recupererCookie("utilisateur=");
+		$scope.showFilm = false;
+		$scope.filmsAbsents = $scope.acteur.films_absents.split(',');
+		if ($scope.acteur.films.length > 0){
+			$scope.showFilm = true;
+		}
+	;}
+});
+</script>
+</html>

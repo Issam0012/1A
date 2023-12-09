@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html data-ng-app="myApp">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Page d'accueil</title>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<link href="./CSS/home.css" rel="stylesheet">
+
+</head>
+
+<body data-ng-controller="myCtrl" data-ng-init = initUtilisateur()>
+
+  <!-- Logo -->
+  <div class="bar">
+	  <img src="./images/MovieMetrics.png" alt="Logo du site" id="logo" style="height:100%;width:5%;float:left;">
+	  <h3 style="float:left;">Bienvenue sur MovieMetrics</h3>
+	  
+	  <!-- Login / Create account -->
+	 	<div id="login" data-ng-show =!connected >
+	 	<ul>
+	  		<li><a href="login.html">Connexion</a></li>
+	  		<li><a href="createaccount.html">Inscription</a></li>
+		</ul> 
+	  	</div>
+	  	<div data-ng-show =connected>
+	  		<div id ="bienvenue">
+	  		Bienvenue {{utilisateur.nom}}
+	  		</div>
+	  		<div id = "connecte">
+		  		<button data-ng-click = "deconnexion()">se deconnecter</button>
+		  		<button data-ng-click = "showInfos()">Modifier profil</button>
+	  		</div>
+	  	</div>
+	  	<div id = "modif" data-ng-show = "connected && modif">
+	  			<form noValidate>
+	  		      <label for="name">Nom</label>
+			      <input type="text" data-ng-model="oneutilisateur.nom" placeholder="Votre nom.." value ="{{utilisateur.nom}}" >
+			
+			      <label for="fname">Prénom</label>
+			      <input type="text" data-ng-model="oneutilisateur.prenom" placeholder="Votre prénom.." value ="{{utilisateur.prenom}}" >
+			
+			      <label for="uname">Pseudo:</label>
+			      <input type="text" data-ng-model="oneutilisateur.pseudo" readonly placeholder="Votre pseudo.." value ="{{utilisateur.pseudo}}">
+			
+			      <label for="pass_w">Mot de passe:</label>
+			      <input type="password" data-ng-model="oneutilisateur.mdp" placeholder="Votre mot de passe.." value ="{{utilisateur.mdp}}">
+			
+			      <label for="naissance">Date de naissance:</label>
+			      <input type="text" data-ng-model="oneutilisateur.naissance" placeholder="Votre date de naissance.." value ="{{utilisateur.naissance}}">
+			
+			      <button data-ng-click="modifierProfil()">Mettre à jour</button>
+			     </form>
+	  	</div>
+  </div>
+<div class="content">
+  <!-- Dropdown menu / Search bar -->
+ 	<p>Chercher les {{typeRecherche}} par:</p>
+    <select data-ng-model="selectedOption" data-ng-options="option.name for option in options" style="float:left;padding:10px;margin-bottom:10px;"></select>
+ 
+    <input type="text" data-ng-model="searchTerm" placeholder="Search..." style="width:70%;padding:10px;float:left; margin-left:10px;margin-right:10px;">
+    <button data-ng-click="recherche()"> chercher </button>
+</div>
+
+<div class = "search" data-ng-show="showSearchFilm"  >
+		<ul>
+			<li data-ng-repeat="film in films">
+		    	<a href="movie_res.html" data-ng-click = "stockerCookie('film', film)">{{film.nom}}</a>
+		  	</li>
+	  </ul>
+</div>
+
+<div class = "search" data-ng-show="showSearchActeur"  >
+		<ul>
+			<li data-ng-repeat="acteur in acteurs">
+		    	<a href="acteur_res.html" data-ng-click = "stockerCookie('acteur', acteur)">{{acteur.nom}}</a>
+		  	</li>
+	  </ul>
+</div>
+
+  <!-- Prompt -->
+  <div id="prompt" data-ng-show="showPrompt">
+    <h2>Prompt</h2>
+    <p>{{ promptMessage }}</p>
+    <button data-ng-click="closePrompt()">OK</button>
+  </div>
+  
+  <!-- Watchlist -->
+  <div id="watchlist" data-ng-show="connected">
+    <h2>Watchlist</h2>
+    <div id = "films">
+    <ul>
+      <li data-ng-repeat="film in utilisateur.films">
+      {{ film.nom }} 
+      <div data-ng-controller="filmController" data-ng-init="init(film)">
+       <div data-ng-show = "showNote">
+      votre note {{note}}
+      </div>
+      <label for="note">Note:</label> 
+			    <select  data-ng-model="selectedNote" data-ng-options="note.name for note in notes"> </select>
+				<button data-ng-click = "addNote($index)"> Valider</button>
+	  </div>
+      </li>
+    </ul>
+    </div>
+  </div>
+  <script>
+  
+  function supprimerCookie(nomCookie) {
+	  document.cookie = nomCookie + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/;';
+	}
+  
+  function modifierCookie(donnee,string_donne){
+	// Modification du cookie utilisateur
+      var cookieValue = JSON.stringify(donnee);
+      var dateExpiration = new Date();
+      dateExpiration.setTime(dateExpiration.getTime() + (7 * 24 * 60 * 60 * 1000));
+      document.cookie = string_donnee + cookieValue + "; expires=" + dateExpiration.toUTCString() + "; path=/;";
+  }
+  
+  // Récupérer un utilisateur à partir d'un cookie
+  function recupererUtilisateur() {
+	  var cookie = decodeURIComponent(document.cookie);
+	  var cookies = cookie.split(';');
+	  for (var i = 0; i < cookies.length; i++) {
+	    var c = cookies[i];
+	    while (c.charAt(0) === ' ') {
+	      c = c.substring(1);
+	    }
+	    if (c.indexOf("utilisateur=") === 0) {
+	      return JSON.parse(c.substring("utilisateur=".length, c.length));
+	    }
+	  }
+	  return null;
+  }
+
+  
+    var app = angular.module('myApp', []);
+
+    app.controller('myCtrl', function($scope,$http) {
+      $scope.showPrompt = false;
+      $scope.connected = false;
+      $scope.modif = false;
+      $scope.showSearchFilm = false;
+      $scope.showSearchActeur = false;
+      $scope.showNotes = false;
+      $scope.note = "";
+      $scope.promptMessage = '';
+      $scope.searchTerm = "";
+      $scope.message = "init";
+      $scope.utilisateur = new Object();
+      $scope.oneutilisateur = new Object();
+      $scope.oneutilisateur = angular.copy($scope.utilisateur);
+      $scope.isAuthenticated = false;
+      $scope.film = new Object();
+      $scope.typeRecherche = "film";
+      $scope.watchlist = [];
+      $scope.acteurs = [];
+
+      // Dropdown menu options
+      $scope.options = [
+        { name: 'Nom du Film', value: '1' },
+        { name: 'Nom d\'Acteur', value: '2' },
+       
+      ];
+      $scope.selectedOption = $scope.options[0];
+
+      $scope.showInfos = function() {
+	      $scope.modif = true;
+	 };
+	 
+	 // Modifier les informations d'un utilisateur
+	 $scope.modifierProfil = function() {
+		 var url = 'rest/modifierUtilisateur';
+		 $http.put(url + '?pseudo=' + $scope.utilisateur.pseudo, $scope.oneutilisateur).then(function(response) {
+			    if (response.status === 200) {
+			      $scope.modif = false;
+			      $scope.utilisateur = response.data;
+			      $scope.oneUtilisateur = angular.copy($scope.utilisateur);
+			   	  // Modification du cookie utilisateur
+			      var cookieValue = JSON.stringify($scope.utilisateur);
+			      var dateExpiration = new Date();
+			      dateExpiration.setTime(dateExpiration.getTime() + (7 * 24 * 60 * 60 * 1000));
+			      document.cookie = "utilisateur=" + cookieValue + "; expires=" + dateExpiration.toUTCString() + "; path=/;";
+			    } else {
+			    	alert("modification non réussi !");
+			    }
+		 }).catch(function(error) {
+				if (error.status == 400){
+					alert("erreur");
+					$scope.oneutilisateur.pseudo = angular.copy($scope.utilisateur.pseudo);
+				}
+				else {
+				    alert("une erreur s'est produite lors de l'ajout de l'utilisateur");
+				}
+			});
+	 };
+      
+      // Récupérer l'utilisateur
+      $scope.initUtilisateur = function() {
+        $scope.utilisateur = recupererUtilisateur();
+        $scope.watchlist = $scope.utilisateur.films;
+        $scope.oneutilisateur = recupererUtilisateur();
+        if ($scope.utilisateur != null){
+        	$scope.connected = true;
+        	if ($scope.utilisateur.notes.length >0 ){
+        		$scope.showNotes = true;
+        	}
+        }
+        else {
+        	$scope.connected = false;
+        }
+      };
+	
+    // Rechercher un film ou un acteur
+	$scope.recherche = function() {
+		if ($scope.selectedOption.name == 'Nom du Film'){
+			// Recherche d'un film
+		    $scope.showSearchFilm = true;
+		    $scope.showSearchActeur = true;
+		    $scope.typeRecherche = "film";
+		    $http.get('rest/chercherFilm', { params: { nom: $scope.searchTerm } }).then(function(response) {
+		      if (response.status == 200) {
+		        $scope.films = response.data;
+		      } else {
+		      }
+		    });
+		}
+		else {
+			// Recherche d'un acteur
+			$scope.typeRecherche = "acteur"; 
+			$scope.showSearchFilm = false;
+			$scope.showSearchActeur = true;
+			$http.get('rest/chercherActeur', { params: { nom: $scope.searchTerm } }).then(function(response) {
+			      if (response.status == 200) {
+			        $scope.acteurs = response.data;
+			      } else {
+			      }
+			});
+		}
+	};
+	
+	// Stocker un cookie	  
+	  $scope.stockerCookie = function(nom,film) {
+		  supprimerCookie(nom);
+		    var dateExpiration = new Date();
+		    // Le cookie expire dans une semaine
+		    dateExpiration.setTime(dateExpiration.getTime() + (7 * 24 * 60 * 60 * 1000));
+		    var cookie = nom + "=" + JSON.stringify(film) + "; expires=" + dateExpiration.toUTCString() + "; path=/;";
+		    document.cookie = cookie;
+		  };
+	
+	 $scope.deconnexion = function() {
+		 supprimerCookie("utilisateur");
+	      $scope.connected = false;
+	      $scope.showNotes = false;
+	 };
+ });
+    
+    app.controller('filmController', function($scope,$http) {
+    	$scope.notes = [
+         	  {name : '0', value : 0},
+         	  { name : '1', value : 1},
+         	  {name : '2', value : 2},
+         	  { name : '3', value : 3},
+         	  {name : '4', value : 4},
+         	  { name : '5', value : 5},
+           ];
+        
+    	$scope.selectedNote = $scope.notes[0];
+    	
+    	$scope.tampon = 0;
+    	
+    	$scope.note = "";
+           
+    	// Ajouter une note au film concerné
+    	$scope.addNote = function(index) {
+    		var films =[];
+     	    films = $scope.$parent.utilisateur.films;
+     	    var film = films[index];
+     		$http.put('rest/ajouterNote?pseudo=' + $scope.$parent.utilisateur.pseudo + "&note=" + $scope.selectedNote.value,film.id).then(function(response) {
+    		      if (response.status == 200 || response.status == 204) {
+    		    	  document.cookie = "utilisateur" + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/;';
+    		    	  $scope.$parent.utilisateur = null;
+    		    	  $scope.$parent.utilisateur = response.data;
+    		    	  var cookieValue = JSON.stringify($scope.$parent.utilisateur);
+    			      var dateExpiration = new Date();
+    			      dateExpiration.setTime(dateExpiration.getTime() + (7 * 24 * 60 * 60 * 1000));
+    			      document.cookie = "utilisateur=" + cookieValue + "; expires=" + dateExpiration.toUTCString() + "; path=/;";
+    		      	  $scope.$parent.showNotes = true;
+    		      	  $scope.showNote = true;
+    		      	  $scope.note = $scope.selectedNote.value;
+    		      } else {
+    		        alert("film non noté");
+    		      }
+    		    });
+     	  };
+     	  // afficher la note courante
+     	 $scope.init = function(film){  
+    		 var note = $scope.$parent.utilisateur.notes.find(function(note) {
+    			    return note.idFilm == film.id;
+    			  });
+    		if (note){
+    			$scope.showNote =true;
+    			$scope.note = note.note;
+    		}
+    		else{
+    			$scope.showNote = false;
+    		}
+    	};
+    });
+  </script>
+</body>
+
+</html>
+

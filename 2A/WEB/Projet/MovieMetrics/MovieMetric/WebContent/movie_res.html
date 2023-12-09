@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html data-ng-app="myApp">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Movie Page</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+	<link href="./CSS/movie_res.css" rel="stylesheet">
+
+</head>
+
+<body >
+<div data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init = "init()">
+  <!-- Logo -->
+  <div class="bar">
+  	<a href = "Page_accueil.html">
+	  <img src="./images/MovieMetrics.png" alt="Logo du site" id="logo" style="height:100%;width:5%;float:left;">
+	  </a>
+	  <h3 style="float:left;"> &nbsp &nbsp MovieMetrics</h3>
+  </div>
+  
+  <div class="movie">
+  <h1><center>{{film.nom}}</center></h1>
+  <img src="{{film.affiche}}" alt="image" style="width:20%;height:auto;float:left;">
+  <p> date de sortie : {{film.release_date}}</p>
+  <p> genres : {{film.genres}}</p>
+  <p>synopsis {{film.synopsis}} </p>
+  <div data-ng-show="showActeur">
+  <p> acteurs : 
+  	<div data-ng-repeat="acteur in film.acteurs" >
+  			{{acteur.nom}}
+  	</div>
+  </p>
+  </div>
+  
+  <div data-ng-show = "showUser && !showWatch">
+  <button data-ng-click="addToWatchlist()"> ajouter à sa watchlist</button>
+  </div>
+  
+  <div data-ng-show = "showWatch && !showNote">
+  film dans votre watchlist mais non noté 
+  </div>
+  
+  
+  <div data-ng-show = "showWatch && showNote">
+ votre note: {{valeur}}
+  </div>
+  
+  </div>
+  </div>
+</body>
+<script>
+function recupererCookie(nom) {
+	  var cookie = decodeURIComponent(document.cookie);
+	  var cookies = cookie.split(';');
+	  for (var i = 0; i < cookies.length; i++) {
+	    var c = cookies[i];
+	    while (c.charAt(0) === ' ') {
+	      c = c.substring(1);
+	    }
+	    if (c.indexOf(nom) === 0) {
+	      return JSON.parse(c.substring(nom.length, c.length));
+	    }
+	  }
+	  return null;
+}
+
+var app = angular.module('myApp',[]);
+app.controller('myCtrl', function($scope,$http){
+	$scope.addToWatchlist = function(){
+		$http.put('rest/addWatchlist?pseudo=' + $scope.utilisateur.pseudo,$scope.film.id).then(function(response) {
+		      if (response.status == 200) {
+		    	      document.cookie = "utilisateur" + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/;';
+		    	      $scope.utilisateur = null;
+			    	  $scope.utilisateur = response.data;
+			    	  var cookieValue = JSON.stringify($scope.utilisateur);
+				      var dateExpiration = new Date();
+				      dateExpiration.setTime(dateExpiration.getTime() + (7 * 24 * 60 * 60 * 1000));
+				      document.cookie = "utilisateur=" + cookieValue + "; expires=" + dateExpiration.toUTCString() + "; path=/;";
+				      $scope.showWatch = true;
+		      } else {
+		        $scope.message = "non";
+		      }
+		    }).catch(function(error) {
+				if (error.status == 400){
+					alert(error.data.message);
+				}
+				else {
+				    alert("une erreur s'est produite lors de l'ajout dfu film à votre watchlist");
+				}
+			});	
+	;}
+	
+	$scope.init = function(){
+		// On récupère le film et l'utilisateur courant
+		$scope.showUser = false;
+		$scope.showActeur = false;
+		$scope.film = recupererCookie("film=")
+		$scope.utilisateur = recupererCookie("utilisateur=");
+		// Initialisation des variables restantes
+		$scope.valeur = "";
+		if ($scope.utilisateur != null){
+			$scope.showUser = true;
+		}
+		$scope.showNote = false;
+		// On vérifie si le film est dans watchlist
+		if ($scope.utilisateur.films.some(film => film.id == $scope.film.id)){
+			$scope.showWatch = true;
+			// On recherche la note d'un utilisateur
+			var note = $scope.utilisateur.notes.find(function(note) {
+				  return note.idFilm === $scope.film.id;
+				});
+			if (note){
+				$scope.valeur = note.note
+				$scope.showNote = true;
+			}
+		}
+		else {
+			$scope.showWatch = false;
+		}
+		if ($scope.film.acteurs.length >0){
+			$scope.showActeur = true;
+		}
+	;}
+});
+</script>
+</html>
