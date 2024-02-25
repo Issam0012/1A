@@ -1,0 +1,13 @@
+/home/issam/Annee_2/Images/tpTI-v2022.0.0-rc3/build_tp/CMakeFiles/edit_cache.dir
+/home/issam/Annee_2/Images/tpTI-v2022.0.0-rc3/build_tp/CMakeFiles/rebuild_cache.dir
+/home/issam/Annee_2/Images/tpTI-v2022.0.0-rc3/build_tp/src/CMakeFiles/edit_cache.dir
+/home/issam/Annee_2/Images/tpTI-v2022.0.0-rc3/build_tp/src/CMakeFiles/rebuild_cache.dir
+/home/issam/Annee_2/Images/tpTI-v2022.0.0-rc3/build_tp/src/tp/CMakeFiles/kmeans.dir
+/home/issam/Annee_2/Images/tpTI-v2022.0.0-rc3/build_tp/src/tp/CMakeFiles/edit_cache.dir
+/home/issam/Annee_2/Images/tpTI-v2022.0.0-rc3/build_tp/src/tp/CMakeFiles/rebuild_cache.dir
+/home/issam/Annee_2/Images/tpTI-v2022.0.0-rc3/build_tp/src/tutorials/CMakeFiles/display_image.dir
+/home/issam/Annee_2/Images/tpTI-v2022.0.0-rc3/build_tp/src/tutorials/CMakeFiles/load_modify_image.dir
+/home/issam/Annee_2/Images/tpTI-v2022.0.0-rc3/build_tp/src/tutorials/CMakeFiles/mat_the_basic_image_container.dir
+/home/issam/Annee_2/Images/tpTI-v2022.0.0-rc3/build_tp/src/tutorials/CMakeFiles/tutorials.dir
+/home/issam/Annee_2/Images/tpTI-v2022.0.0-rc3/build_tp/src/tutorials/CMakeFiles/edit_cache.dir
+/home/issam/Annee_2/Images/tpTI-v2022.0.0-rc3/build_tp/src/tutorials/CMakeFiles/rebuild_cache.dir
